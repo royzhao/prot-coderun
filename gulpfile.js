@@ -11,10 +11,18 @@ var gulp = require('gulp'),
     minifyHTML = require('gulp-minify-html');
 
 var paths = {
-    scripts: 'src/js/**/*.*',
-    styles: 'src/less/**/*.*',
-    images: 'src/img/**/*.*',
-    templates: 'src/templates/**/*.html',
+    dash_scripts: 'src/dashboard/js/**/*.*',
+    dash_styles: 'src/dashboard/less/**/*.*',
+    dash_images: 'src/dashboard/img/**/*.*',
+    dash_templates: 'src/dashboard/templates/**/*.html',
+    dash_index:'src/dashboard.html',
+
+    editor_scripts: 'src/editor/js/**/*.*',
+    editor_styles: 'src/editor/less/**/*.*',
+    editor_images: 'src/editor/img/**/*.*',
+    editor_templates: 'src/editor/templates/**/*.html',
+    editor_index:'src/editor.html',
+
     index: 'src/index.html',
     bower_fonts: 'src/components/**/*.{ttf,woff,eof,svg}',
 };
@@ -31,6 +39,7 @@ gulp.task('usemin', function() {
         .pipe(gulp.dest('dist/'));
 });
 
+
 /**
  * Copy assets
  */
@@ -45,30 +54,75 @@ gulp.task('copy-bower_fonts', function() {
 });
 
 /**
- * Handle custom files
+ * Handle custom files dashboard
  */
-gulp.task('build-custom', ['custom-images', 'custom-js', 'custom-less', 'custom-templates']);
+gulp.task('build-custom', ['dash-usemin','custom-dash-images', 'custom-dash-js', 'custom-dash-less', 'custom-dash-templates']);
+gulp.task('dash-usemin', function() {
+    return gulp.src(paths.dash_index)
+        .pipe(usemin({
+            js: [minifyJs(), 'concat'],
+            css: [minifyCss({keepSpecialComments: 0}), 'concat'],
+        }))
+        .pipe(gulp.dest('dist/'));
+});
 
-gulp.task('custom-images', function() {
-    return gulp.src(paths.images)
+gulp.task('custom-dash-images', function() {
+    return gulp.src(paths.dash_images)
         .pipe(gulp.dest('dist/img'));
 });
 
-gulp.task('custom-js', function() {
-    return gulp.src(paths.scripts)
+gulp.task('custom-dash-js', function() {
+    return gulp.src(paths.dash_scripts)
         .pipe(minifyJs())
         .pipe(concat('dashboard.min.js'))
         .pipe(gulp.dest('dist/js'));
 });
 
-gulp.task('custom-less', function() {
-    return gulp.src(paths.styles)
+gulp.task('custom-dash-less', function() {
+    return gulp.src(paths.dash_styles)
         .pipe(less())
         .pipe(gulp.dest('dist/css'));
 });
 
-gulp.task('custom-templates', function() {
-    return gulp.src(paths.templates)
+gulp.task('custom-dash-templates', function() {
+    return gulp.src(paths.dash_templates)
+        .pipe(minifyHTML())
+        .pipe(gulp.dest('dist/templates'));
+});
+
+/**
+ * Handle custom files editor
+ */
+gulp.task('build-custom-editor', ['editor-usemin','custom-editor-images', 'custom-editor-js', 'custom-editor-less', 'custom-editor-templates']);
+gulp.task('editor-usemin', function() {
+    return gulp.src(paths.editor_index)
+        .pipe(usemin({
+            js: [minifyJs(), 'concat'],
+            css: [minifyCss({keepSpecialComments: 0}), 'concat'],
+        }))
+        .pipe(gulp.dest('dist/'));
+});
+
+gulp.task('custom-editor-images', function() {
+    return gulp.src(paths.editor_images)
+        .pipe(gulp.dest('dist/img'));
+});
+
+gulp.task('custom-editor-js', function() {
+    return gulp.src(paths.editor_scripts)
+        .pipe(minifyJs())
+        .pipe(concat('editor.min.js'))
+        .pipe(gulp.dest('dist/js'));
+});
+
+gulp.task('custom-editor-less', function() {
+    return gulp.src(paths.editor_styles)
+        .pipe(less())
+        .pipe(gulp.dest('dist/css'));
+});
+
+gulp.task('custom-editor-templates', function() {
+    return gulp.src(paths.editor_templates)
         .pipe(minifyHTML())
         .pipe(gulp.dest('dist/templates'));
 });
@@ -77,10 +131,18 @@ gulp.task('custom-templates', function() {
  * Watch custom files
  */
 gulp.task('watch', function() {
-    gulp.watch([paths.images], ['custom-images']);
-    gulp.watch([paths.styles], ['custom-less']);
-    gulp.watch([paths.scripts], ['custom-js']);
-    gulp.watch([paths.templates], ['custom-templates']);
+    gulp.watch([paths.dash_images], ['custom-dash-images']);
+    gulp.watch([paths.dash_styles], ['custom-dash-less']);
+    gulp.watch([paths.dash_scripts], ['custom-dash-js']);
+    gulp.watch([paths.dash_templates], ['custom-dash-templates']);
+    gulp.watch([paths.dash_index], ['dash-usemin']);
+
+    gulp.watch([paths.editor_images], ['custom-editor-images']);
+    gulp.watch([paths.editor_styles], ['custom-editor-less']);
+    gulp.watch([paths.editor_scripts], ['custom-editor-js']);
+    gulp.watch([paths.editor_templates], ['custom-editor-templates']);
+    gulp.watch([paths.editor_index], ['editor-usemin']);
+
     gulp.watch([paths.index], ['usemin']);
 });
 
@@ -104,5 +166,5 @@ gulp.task('livereload', function() {
 /**
  * Gulp tasks
  */
-gulp.task('build', ['usemin', 'build-assets', 'build-custom']);
+gulp.task('build', ['usemin', 'build-assets', 'build-custom','build-custom-editor']);
 gulp.task('default', ['build', 'webserver', 'livereload', 'watch']);

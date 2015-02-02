@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-	<title>RDash AngularJS</title>
+	<title>码上跑</title>
   <!-- STYLES -->
   <!-- build:css lib/css/main.min.css -->
   <link rel="stylesheet" type="text/css" href="components/bootstrap/dist/css/bootstrap.min.css">
@@ -29,32 +29,42 @@
       <ul class="sidebar">
         <li class="sidebar-main">
           <a ng-click="toggleSidebar()">
-            Dashboard
+            我的
             <span class="menu-icon glyphicon glyphicon-transfer"></span>
           </a>
         </li>
-        <li class="sidebar-title"><span>NAVIGATION</span></li>
         <li class="sidebar-list">
-          <a href="#">Dashboard <span class="menu-icon fa fa-tachometer"></span></a>
+          <a href="#">控制台 <span class="menu-icon fa fa-tachometer"></span></a>
+        </li>
+          <li class="sidebar-title"><span>个人中心</span></li>
+        <li class="sidebar-list">
+          <a href="#/mycode">我的代码 <span class="menu-icon fa fa-code"></span></a>
         </li>
         <li class="sidebar-list">
-          <a href="#/tables">Tables <span class="menu-icon fa fa-table"></span></a>
+          <a href="#/myimage">我的镜像 <span class="menu-icon fa fa-tasks"></span></a>
+        </li>
+        <li class="sidebar-title"><span>代码仓</span></li>
+        <li class="sidebar-list">
+          <a href="#/codehub" class="fa fa-fire">代码热 <span class="menu-icon fa fa-flag"></span></a>
+        </li>
+        <li class="sidebar-list">
+          <a href="#/imagehub" class="fa fa-fire">镜像热 <span class="menu-icon fa fa-truck"></span></a>
         </li>
       </ul>
       <div class="sidebar-footer">
         <div class="col-xs-4">
           <a href="https://github.com/rdash/rdash-angular" target="_blank">
-            Github
+            首页
           </a>
         </div>
         <div class="col-xs-4">
           <a href="https://github.com/rdash/rdash-angular/README.md" target="_blank">
-            About
+            关于我们
           </a>
         </div>
         <div class="col-xs-4">
           <a href="#">
-            Support
+            帮助文档
           </a>
         </div>
       </div>
@@ -74,28 +84,18 @@
                 </a>
                 <ul class="dropdown-menu dropdown-menu-right">
                   <li class="dropdown-header">
-                    Joe Bloggs
+                    培龙
                   </li>
                   <li class="divider"></li>
                   <li class="link">
                     <a href="#">
-                      Profile
-                    </a>
-                  </li>
-                  <li class="link">
-                    <a href="#">
-                      Menu Item
-                    </a>
-                  </li>
-                  <li class="link">
-                    <a href="#">
-                      Menu Item
+                      我的资料
                     </a>
                   </li>
                   <li class="divider"></li>
                   <li class="link">
                     <a href="#">
-                      Logout
+                      退出登陆
                     </a>
                   </li>
                 </ul>
@@ -106,18 +106,18 @@
                 </a>
                 <ul class="dropdown-menu dropdown-menu-right">
                   <li class="dropdown-header">
-                    Notifications
+                    通知
                   </li>
                   <li class="divider"></li>
                   <li>
-                    <a href="#">Server Down!</a>
+                    <a href="#">你的镜像被xx fork啦!</a>
                   </li>
                 </ul>
               </div>
             </div>
             <div class="meta">
               <div class="page">
-                Dashboard
+                控制台
               </div>
               <div class="breadcrumb-links">
                 Home / Dashboard

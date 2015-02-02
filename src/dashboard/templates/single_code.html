@@ -1,0 +1,76 @@
+<div class="singlecode-container" data-ng-controller="MySingleCodeCtrl">
+    <div class="row">
+        <div class="col-lg-12">
+            <rd-widget>
+                <rd-widget-header icon="fa-code" title="{{code.codename}}">
+                    <div class="pull-right">
+                        <i class="fa fa-thumbs-o-up">{{code.stars}}</i>
+                        <i class="fa fa-code-fork">{{code.forknum}}</i>
+                        <i class="fa fa-calendar">{{code.date}}</i>
+                    </div>
+                </rd-widget-header>
+                <rd-widget-body>
+                    <div class="comment">{{code.description}}</div>
+                </rd-widget-body>
+            <rd-widget>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-xs-12" >
+            <rd-widget>
+                <rd-widget-header icon="fa-files-o" title="{{code.codename}}代码">
+                    <a href="editor.html#/editor/{{code.codeid}}" class="btn btn-sm btn-info">进入编辑器</a>
+                </rd-widget-header>
+                <rd-widget-body classes="medium no-padding">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <tbody>
+                            <tr><td><a href="" class="fa fa-file-code-o">代码文件1</a> </td></tr>
+                            <tr><td><a href="" class="fa fa-file-code-o">代码文件2</a> </td></tr>
+                            <tr><td><a href="" class="fa fa-file-code-o">代码文件3</a> </td></tr>
+                            <tr><td><a href="" class="fa fa-file-code-o">代码文件4</a> </td></tr>
+                            <tr><td><a href="" class="fa fa-files-o">代码文件夹1</a> </td></tr>
+                            <tr><td><a href="" class="fa fa-files-o">代码文件夹2</a> </td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </rd-widget-body>
+            </rd-widget>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-xs-12" >
+            <rd-widget>
+                <rd-widget-header icon="fa-stack-overflow" title="{{code.codename}}条轮">
+                    <button class="btn btn-sm btn-info" ng-click="newDiscuss()">新建一个讨论</button>
+                </rd-widget-header>
+                <rd-widget-body classes="medium no-padding">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <tbody>
+                            <tr><td><a href="" class="fa fa-bug">楼主你傻逼了</a> </td></tr>
+                            <tr><td><a href="" class="fa fa-bug">楼主拟傻逼了2次</a> </td></tr>
+                            <tr><td><a href="" class="fa fa-bug">一百块都不给我</a> </td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </rd-widget-body>
+                <rd-widget-footer>
+                    <ul class="pagination pagination-sm pull-right">
+                        <li><a href="#">&laquo;</a></li>
+                        <li><a href="#">1</a></li>
+                        <li><a href="#">2</a></li>
+                        <li><a href="#">3</a></li>
+                        <li><a href="#">4</a></li>
+                        <li><a href="#">5</a></li>
+                        <li><a href="#">&raquo;</a></li>
+                    </ul>
+                    <div class="clearfix"></div>
+                </rd-widget-footer>
+            </rd-widget>
+        </div>
+    </div>
+
+</div>

@@ -1,9 +1,12 @@
+/**
+ * Created by zpl on 15-2-2.
+ */
 'use strict';
 
 /**
  * Route configuration for the RDash module.
  */
-angular.module('RDash').config(['$stateProvider', '$urlRouterProvider',
+angular.module('Editor').config(['$stateProvider', '$urlRouterProvider',
     function($stateProvider, $urlRouterProvider) {
 
         // For unmatched routes
@@ -13,11 +16,7 @@ angular.module('RDash').config(['$stateProvider', '$urlRouterProvider',
         $stateProvider
             .state('index', {
                 url: '/',
-                templateUrl: 'templates/dashboard.html'
-            })
-            .state('tables', {
-                url: '/tables',
-                templateUrl: 'templates/tables.html'
+                templateUrl: 'templates/editor.html'
             });
     }
 ]);

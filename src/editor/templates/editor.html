@@ -1,0 +1,112 @@
+
+<!--&lt;!&ndash; Header Bar &ndash;&gt;-->
+<!--<div class="row" style="background: #30426a;">-->
+    <!--&lt;!&ndash;<div class="col-xs-12">&ndash;&gt;-->
+        <!--&lt;!&ndash;<div class="meta">&ndash;&gt;-->
+            <!--&lt;!&ndash;<div class="pull-left">&ndash;&gt;-->
+                <!--&lt;!&ndash;<a href="/">首页</a>&ndash;&gt;-->
+            <!--&lt;!&ndash;</div>&ndash;&gt;-->
+        <!--&lt;!&ndash;</div>&ndash;&gt;-->
+
+    <!--&lt;!&ndash;</div>&ndash;&gt;-->
+    <!--<div id="navbar" class="navbar-collapse collapse">-->
+        <!--<ul class="nav navbar-nav">-->
+            <!--<li class="active"><a href="#">Home</a></li>-->
+            <!--<li><a href="#">About</a></li>-->
+            <!--<li><a href="#">Contact</a></li>-->
+            <!--<li class="dropdown">-->
+                <!--<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Dropdown <span class="caret"></span></a>-->
+                <!--<ul class="dropdown-menu" role="menu">-->
+                    <!--<li><a href="#">Action</a></li>-->
+                    <!--<li><a href="#">Another action</a></li>-->
+                    <!--<li><a href="#">Something else here</a></li>-->
+                    <!--<li class="divider"></li>-->
+                    <!--<li class="dropdown-header">Nav header</li>-->
+                    <!--<li><a href="#">Separated link</a></li>-->
+                    <!--<li><a href="#">One more separated link</a></li>-->
+                <!--</ul>-->
+            <!--</li>-->
+        <!--</ul>-->
+        <!--<ul class="nav navbar-nav navbar-right">-->
+            <!--<li class="active"><a href="./">Default <span class="sr-only">(current)</span></a></li>-->
+            <!--<li><a href="../navbar-static-top/">Static top</a></li>-->
+            <!--<li><a href="../navbar-fixed-top/">Fixed top</a></li>-->
+        <!--</ul>-->
+    <!--</div>-->
+<!--</div>-->
+
+<div id="page-wrapper"  class="open">
+
+<!-- Sidebar -->
+    <div id="sidebar-wrapper" style="background: #C5CDDF !important;">
+    <div class="sidebar">
+        <ul class="sidebar">
+            <li class="sidebar-main">
+                <a href="dashboard.html#/code/{{code.codeid}}">
+                    {{code.codename}}
+                </a>
+            </li>
+            <li class="sidebar-title"><span ng-bind="code.codename"></span></li>
+            <div
+                    data-angular-treeview="true"
+                    data-tree-id="abc"
+                    data-tree-model="treedata"
+                    data-node-id="id"
+                    data-node-label="label"
+                    data-node-children="children" >
+            </div>
+        </ul>
+
+    </div>
+    <div class="sidebar-footer">
+        <div class="col-xs-4">
+            <a href="https://github.com/rdash/rdash-angular" target="_blank">
+                首页
+            </a>
+        </div>
+        <div class="col-xs-4">
+            <a href="https://github.com/rdash/rdash-angular/README.md" target="_blank">
+                关于我们
+            </a>
+        </div>
+        <div class="col-xs-4">
+            <a href="#">
+                帮助文档
+            </a>
+        </div>
+    </div>
+</div>
+<!-- End Sidebar -->
+
+    <div id="content-wrapper">
+    <div class="page-content">
+        <!-- Main Content -->
+        <!--code editor-->
+        <div class="row">
+            <div class="col-lg-12">
+                <rd-widget>
+                    <rd-widget-header icon="fa-tasks" title="代码">
+                        <button class="btn btn-sm btn-info" ng-click="runCode()">运行</button>
+                    </rd-widget-header>
+                    <rd-widget-body classes="medium no-padding">
+                        <div class="comments">这里面时用来显示代码的</div>
+                    </rd-widget-body>
+                </rd-widget>
+            </div>
+        </div>
+        <!--code console-->
+        <div class="row">
+            <div class="col-lg-12">
+                <rd-widget>
+                    <rd-widget-header icon="fa-tasks" title="输出">
+                    </rd-widget-header>
+                    <rd-widget-body classes="medium no-padding">
+                        <div class="comments">这里来显示结果</div>
+                    </rd-widget-body>
+                </rd-widget>
+            </div>
+        </div>
+
+    </div><!-- End Page Content -->
+</div><!-- End Content Wrapper -->
+</div><!-- End Page Wrapper -->

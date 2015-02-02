@@ -1,0 +1,112 @@
+<div class="myimage-container" data-ng-controller="MyImageCtrl">
+    <div class="row">
+        <div class="col-lg-6 col-md-6 col-xs-12">
+            <rd-widget>
+                <rd-widget-body>
+                    <div class="widget-icon green pull-left">
+                        <i class="fa fa-users"></i>
+                    </div>
+                    <div class="title">80</div>
+                    <div class="comment">有80个用户fork你的镜像</div>
+                </rd-widget-body>
+            </rd-widget>
+        </div>
+        <div class="col-lg-6 col-md-6 col-xs-12">
+            <rd-widget>
+                <rd-widget-body>
+                    <div class="widget-icon orange pull-left">
+                        <i class="fa fa-sitemap"></i>
+                    </div>
+                    <div class="title">225</div>
+                    <div class="comment">总共有225个镜像</div>
+                </rd-widget-body>
+            </rd-widget>
+        </div>
+        <!--<div class="col-lg-3 col-md-6 col-xs-12">-->
+        <!--<rd-widget>-->
+        <!--<rd-widget-body>-->
+        <!--<div class="widget-icon blue pull-left">-->
+        <!--<i class="fa fa-support"></i>-->
+        <!--</div>-->
+        <!--<div class="title">62</div>-->
+        <!--<div class="comment">Tickets</div>-->
+        <!--</rd-widget-body>-->
+        <!--</rd-widget>-->
+        <!--</div>-->
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <rd-widget>
+                <rd-widget-header icon="fa-tasks" title="我的镜像">
+                    <input type="text" placeholder="Search" class="form-control input-sm" />
+                </rd-widget-header>
+                <rd-widget-body classes="medium no-padding">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                            <tr><th>镜像名称</th><th>解释</th><th>状态</th></tr>
+                            </thead>
+                            <tbody>
+                            <!--<tr><td><a href="#">C运行环境</a> </td><td>解释说明</td><td><span class="text-success"><i class="fa fa-check"></i></span></td></tr>-->
+                            <!--<tr><td><a href="#">Go运行环境</a> </td><td>解释说明</td><td><span class="text-success"><i class="fa fa-check"></i></span></td></tr>-->
+                            <!--<tr><td><a href="#">LAMP运行环境</a> </td><td>解释说明</td><td><span tooltip="没有实例运行!" class="text-danger"><i class="fa fa-warning"></i></span></td></tr>-->
+                            <!--<tr><td><a href="#">ruby运行环境</a> </td><td>解释说明</td><td><span class="text-success"><i class="fa fa-check"></i></span></td></tr>-->
+                            <!--<tr><td><a href="#">spring运行环境</a> </td><td>解释说明</td><td><span class="text-success"><i class="fa fa-check"></i></span></td></tr>-->
+                            <!--<tr><td><a href="#">rust运行环境</a> </td><td>解释说明</td><td><span class="text-success"><i class="fa fa-check"></i></span></td></tr>-->
+                                <tr ng-repeat="image in imagedata">
+                                    <td><a href="#/{{image.imageid}}">{{image.imagename}}</a></td>
+                                    <td>{{image.description}}</td>
+                                    <td>
+                                        <span class="text-success" ng-if="image.status == 1"><i class="fa fa-check"></i></span>
+                                        <span tooltip="没有实例运行!" class="text-danger" ng-if="image.status == 2"><i class="fa fa-warning"></i></span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </rd-widget-body>
+                <rd-widget-footer>
+                    <ul class="pagination pagination-sm pull-right">
+                        <li><a href="#">&laquo;</a></li>
+                        <li><a href="#">1</a></li>
+                        <li><a href="#">2</a></li>
+                        <li><a href="#">3</a></li>
+                        <li><a href="#">4</a></li>
+                        <li><a href="#">5</a></li>
+                        <li><a href="#">&raquo;</a></li>
+                    </ul>
+                    <div class="clearfix"></div>
+                </rd-widget-footer>
+                <rd-widget>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-6">
+            <rd-widget>
+                <rd-widget-header icon="fa-plus" title="消息">
+                    <button class="btn btn-sm btn-info">Button</button>
+                </rd-widget-header>
+                <rd-widget-body>
+                    <div class="message">
+                        xx对你的镜像yy提出了一个 <span class="error">问题!</span>
+                    </div>
+                    <hr />
+                    <div class="message">
+                        你的yy镜像被xxfork了
+                    </div>
+                </rd-widget-body>
+            </rd-widget>
+        </div>
+        <!--<div class="col-lg-6">-->
+            <!--<rd-widget>-->
+                <!--<rd-widget-header icon="fa-cog fa-spin" title="代码统计">-->
+                    <!--<a href="http://tobiasahlin.com/spinkit/" target="_blank">SpinKit</a>-->
+                <!--</rd-widget-header>-->
+                <!--<rd-widget-body>-->
+                    <!--<rd-loading></rd-loading>-->
+                <!--</rd-widget-body>-->
+            <!--</rd-widget>-->
+        <!--</div>-->
+    </div>
+
+</div>
