@@ -1,0 +1,115 @@
+<div id="page-wrapper" class="open">
+    <div id="sidebar-wrapper" style="background: #C5CDDF !important;">
+        <div class="sidebar">
+            <ul class="sidebar">
+                <li class="sidebar-main">
+                    <a href="dashboard.html#/myimage">我的镜像</a>
+                </li>
+                <li class="sidebar-title">我的镜像</li>
+                <div
+                        data-angular-treeview="true"
+                        data-tree-id="abc"
+                        data-tree-model="treedata"
+                        data-node-id="id"
+                        data-node-label="label"
+                        data-node-children="children" >
+                </div>
+            </ul>
+        </div>
+        <div class="sidebar-footer">
+            <div class="col-xs-4">
+                <a href="dashboard.html" target="_blank">首页</a>
+            </div>
+            <div class="col-xs-4">
+                <a href="https://github.com/rdash/rdash-angular/README.md" target="_blank">关于我们</a>
+            </div>
+            <div class="col-xs-4">
+                <a href="#">帮助文档</a>
+            </div>
+        </div>
+    </div>
+    <div id="content-wrapper">
+        <div class="page-content">
+            <div class="row header">
+                <div class="col-xs-12">
+                    <div class="user pull-right">
+                        <div class="item dropdown">
+                            <a href="#" class="dropdown-toggle">
+                                <img src="img/avatar.jpg">
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-right">
+                                <li class="dropdown-header">培龙</li>
+                                <li class="divider"></li>
+                                <li class="link">
+                                    <a href="#">我的资料</a>
+                                </li>
+                                <li class="divider"></li>
+                                <li class="link">
+                                    <a href="#">退出登陆</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="item dropdown">
+                            <a href="#" class="dropdown-toggle"><i class="fa fa-bell-o"></i></a>
+                            <ul class="dropdown-menu dropdown-menu-right">
+                                <li class="dropdown-header">通知</li>
+                                <li class="divider"></li>
+                                <li><a href="#">你的镜像被xx fork啦!</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="meta">
+                        <div class="page">
+                            控制台
+                        </div>
+                        <div class="breadcrumb-links">
+                            Home / Dashboard
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <rd-widget>
+                        <rd-widget-header icon="fa-tasks" title="新建镜像">
+                        </rd-widget-header>
+                        <rd-widget-body>
+                            <form class="form-horizontal" name="myForm" novalidate>
+                                <div class="form-group">
+                                    <label for="imageName" class="col-sm-2 control-label">镜像名称</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" class="form-control" id="imageName" name="imageName" data-ng-model="imageName" required>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="imageType" class="col-sm-2 control-label">镜像种类</label>
+                                    <div class="col-sm-4">
+                                        <select type="text" class="form-control" id="imageType" name="imageType" data-ng-model="sType"  ng-options="type for type in types" required></select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="imageBasic" class="col-sm-2 control-label">基镜像</label>
+                                    <div class="col-sm-4">
+                                        <select type="text" class="form-control" id="imageBasic" name="imageBasic" data-ng-model="sBasic" ng-options="basic for basic in basics" required></select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="description" class="col-sm-2 control-label">描述</label>
+                                    <div class="col-sm-8">
+                                        <textarea class="form-control" rows="12" id="description"></textarea>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-sm-offset-2 col-sm-10">
+                                        <button type="submit" class="btn btn-primary" ng-disabled="myForm.imageName.$invalid" ng-click="newTerminal()">创建</button>
+                                        <a href="dashboard.html#/myimage" class="btn btn-default">取消</a>
+                                    </div>
+                                </div>
+                            </form>
+                        </rd-widget-body>
+                    </rd-widget>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

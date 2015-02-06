@@ -5,7 +5,7 @@
                 <rd-widget-header icon="fa-search" title="搜索">
                     <input type="text" placeholder="Search" class="form-control input-sm" />
                 </rd-widget-header>
-                <rd-widget>
+            </rd-widget>
         </div>
     </div>
 
@@ -13,7 +13,7 @@
         <div class="col-lg-3 col-md-4 col-xs-12" ng-repeat="image in imagedata">
             <rd-widget>
                 <rd-widget-header icon="fa-tasks" title="{{image.imagename}}">
-                    <button class="btn btn-sm btn-info">详情</button>
+                    <a href="#/image/{{image.imageid}}" class="btn btn-sm btn-info">详情</a>
                 </rd-widget-header>
                 <rd-widget-body>
                     <div class="comment">{{image.description}}</div>

@@ -17,7 +17,7 @@ function MyCodeCtrl($scope) {
             'imagename':'go语言测试'
         },
         {
-            'codeid':1,
+            'codeid':2,
             'codename':'测试专用',
             'type':1,
             'imageid':2,
@@ -25,7 +25,7 @@ function MyCodeCtrl($scope) {
             'imagename':'go语言测试'
         },
         {
-            'codeid':1,
+            'codeid':3,
             'codename':'测试专用2',
             'type':1,
             'imageid':2,
@@ -33,7 +33,7 @@ function MyCodeCtrl($scope) {
             'imagename':'go语言测试'
         },
         {
-            'codeid':1,
+            'codeid':4,
             'codename':'测试专用3',
             'type':2,
             'imageid':2,
@@ -41,7 +41,7 @@ function MyCodeCtrl($scope) {
             'imagename':'go语言测试'
         },
         {
-            'codeid':1,
+            'codeid':5,
             'codename':'测试专用4',
             'type':1,
             'imageid':2,

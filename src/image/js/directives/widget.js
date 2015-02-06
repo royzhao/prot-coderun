@@ -3,7 +3,7 @@
  */
 
 angular
-    .module('Editor')
+    .module('Image')
     .directive('rdWidget', rdWidget);
 
 function rdWidget() {

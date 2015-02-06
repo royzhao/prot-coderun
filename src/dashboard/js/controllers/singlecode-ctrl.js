@@ -11,7 +11,7 @@ function MySingleCodeCtrl($scope,$stateParams) {
     var mycodelist = [
         {
             'codeid':1,
-            'codename':'测试专用',
+            'codename':'测试专用1',
             'description':'代码描述',
             'stars':50,
             'forknum':50,
@@ -23,21 +23,21 @@ function MySingleCodeCtrl($scope,$stateParams) {
             'date':'6月18'
         },
         {
-            'codeid':1,
-            'codename':'测试专用',
-            'description':'代码描述',
-            'stars':50,
-            'forknum':50,
-            'runnum':100,
-            'type':1,
-            'imageid':2,
-            'typename':'本地程序',
-            'imagename':'go语言测试',
-            'date':'6月18'
-        },
-        {
-            'codeid':1,
+            'codeid':2,
             'codename':'测试专用2',
+            'description':'代码描述',
+            'stars':50,
+            'forknum':50,
+            'runnum':100,
+            'type':1,
+            'imageid':2,
+            'typename':'本地程序',
+            'imagename':'go语言测试',
+            'date':'6月18'
+        },
+        {
+            'codeid':3,
+            'codename':'测试专用3',
             'type':1,
             'description':'代码描述',
             'stars':50,
@@ -49,8 +49,8 @@ function MySingleCodeCtrl($scope,$stateParams) {
             'date':'6月18'
         },
         {
-            'codeid':1,
-            'codename':'测试专用3',
+            'codeid':4,
+            'codename':'测试专用4',
             'type':2,
             'description':'代码描述',
             'stars':50,
@@ -62,8 +62,8 @@ function MySingleCodeCtrl($scope,$stateParams) {
             'date':'6月18'
         },
         {
-            'codeid':1,
-            'codename':'测试专用4',
+            'codeid':5,
+            'codename':'测试专用5',
             'type':1,
             'description':'代码描述',
             'stars':50,
@@ -75,7 +75,7 @@ function MySingleCodeCtrl($scope,$stateParams) {
             'date':'6月18'
         },
     ];
-    $scope.code = mycodelist[$stateParams.codeid];
+    $scope.code = mycodelist[$stateParams.codeid-1];
     $scope.newDiscuss = function(){
         alert('建立一个讨论,多人可以对这个进行交流');
     }

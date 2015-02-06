@@ -136,7 +136,7 @@ angular.module('Editor').config(['$stateProvider', '$urlRouterProvider',
 ]);
 ```
 我们使用ui-router这个angularjs的插件,具体内容可以去github上去找相关资料,这里时我们把所有的访问都默认到editor.html的模板文见上.
-## controllers/editor-ctrl.js
+## controllers/image-ctrl.js
 ```
 angular.module('Editor')
     .controller('EditorCtrl', ['$scope', '$cookieStore', EditorCtrl]);
