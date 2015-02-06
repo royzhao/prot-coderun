@@ -6,7 +6,7 @@
 /**
  * Route configuration for the RDash module.
  */
-angular.module('Editor').config(['$stateProvider', '$urlRouterProvider',
+angular.module('Image').config(['$stateProvider', '$urlRouterProvider',
     function($stateProvider, $urlRouterProvider) {
 
         // For unmatched routes
@@ -16,7 +16,7 @@ angular.module('Editor').config(['$stateProvider', '$urlRouterProvider',
         $stateProvider
             .state('index', {
                 url: '/',
-                templateUrl: 'templates/editor.html'
+                templateUrl: 'templates/image.html'
             });
     }
 ]);

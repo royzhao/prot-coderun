@@ -1,0 +1,58 @@
+<div class="singlecode-container" data-ng-controller="MySingleImageCtrl">
+    <div class="row pull-right">
+        <div class="col-lg-12 col-md-12 col-xs-12" >
+            <button class="btn btn-sm btn-info" ng-click="editTerminal()">编辑镜像</button>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-12">
+            <rd-widget>
+                <rd-widget-header icon="fa-code" title="{{image.imagename}}">
+                    <div class="pull-right">
+                        <i class="fa fa-thumbs-o-up">{{image.stars}}</i>
+                        <i class="fa fa-code-fork">{{image.forknum}}</i>
+                        <i class="fa fa-calendar">{{image.date}}</i>
+                    </div>
+                </rd-widget-header>
+                <rd-widget-body>
+                    <div class="comment">{{image.description}}</div>
+                </rd-widget-body>
+            </rd-widget>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-xs-12" >
+            <rd-widget>
+                <rd-widget-header icon="fa-stack-overflow" title="{{image.imagename}}讨论">
+                    <button class="btn btn-sm btn-info" ng-click="newDiscuss()">新建一个讨论</button>
+                </rd-widget-header>
+                <rd-widget-body classes="medium no-padding">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <tbody>
+                            <tr><td><a href="" class="fa fa-bug">你们不要老想搞个什么大新闻啊，然后把我批判一番</a> </td></tr>
+                            <tr><td><a href="" class="fa fa-bug">图样图森破</a> </td></tr>
+                            <tr><td><a href="" class="fa fa-bug">拿衣服</a> </td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </rd-widget-body>
+                <rd-widget-footer>
+                    <ul class="pagination pagination-sm pull-right">
+                        <li><a href="#">&laquo;</a></li>
+                        <li><a href="#">1</a></li>
+                        <li><a href="#">2</a></li>
+                        <li><a href="#">3</a></li>
+                        <li><a href="#">4</a></li>
+                        <li><a href="#">5</a></li>
+                        <li><a href="#">&raquo;</a></li>
+                    </ul>
+                    <div class="clearfix"></div>
+                </rd-widget-footer>
+            </rd-widget>
+        </div>
+    </div>
+
+</div>

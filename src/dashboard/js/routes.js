@@ -30,6 +30,9 @@ angular.module('RDash').config(['$stateProvider', '$urlRouterProvider',
             }).state('code', {
                 url: '/code/:codeid',
                 templateUrl: 'templates/single_code.html'
+            }).state('image', {
+                url: '/image/:imageid',
+                templateUrl: 'templates/single_image.html'
             });
     }
 ]);

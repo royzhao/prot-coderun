@@ -4,7 +4,7 @@
  */
 
 angular
-    .module('Editor')
+    .module('Image')
     .directive('rdLoading', rdLoading);
 
 function rdLoading() {
