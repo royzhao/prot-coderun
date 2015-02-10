@@ -17,6 +17,10 @@ angular.module('Editor').config(['$stateProvider', '$urlRouterProvider',
             .state('index', {
                 url: '/',
                 templateUrl: 'templates/editor.html'
+            })
+            .state('show', {
+                url: '/show/:codeid/:stepid',
+                templateUrl: 'templates/show.html'
             });
     }
 ]);

@@ -208,8 +208,8 @@ gulp.task('webserver', function() {
 
 gulp.task('livereload', function() {
     gulp.src(['dist/**/*.*'])
-        .pipe(watch())
-        .pipe(connect.reload());
+        .pipe(watch());
+        //.pipe(connect.reload());
 });
 
 /**
