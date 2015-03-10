@@ -1,7 +1,7 @@
 /**
  * Created by ZJY on 15-2-4.
  */
-angular.module('Image',['ngResource'])
+angular.module('Image')
     .controller('ImageCtrl', ['$scope', '$cookieStore','$resource', ImageCtrl]);
 
 function ImageCtrl($scope,$cookieStore,$resource) {

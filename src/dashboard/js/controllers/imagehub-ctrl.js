@@ -6,10 +6,11 @@
 
 angular
     .module('RDash')
-    .controller('MyImageHubCtrl', ['$scope', MyImageHubCtrl]);
+    .controller('MyImageHubCtrl', ['$scope', '$resource', MyImageHubCtrl]);
 
-function MyImageHubCtrl($scope) {
-    var myimagelist = [
+function MyImageHubCtrl($scope,$resource) {
+    var myimagelist = $resource('/dockerapi/images/json?all=0', {}, {}).query();
+/*    myimagelist = [
         {
             'imageid':2,
             'imagename':'go语言测试',
@@ -55,7 +56,7 @@ function MyImageHubCtrl($scope) {
             'date':'9月20日',
             'forknum':50
         },
-    ];
+    ];*/
     $scope.imagedata = myimagelist;
 }
 
