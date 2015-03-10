@@ -1,14 +1,14 @@
 package main // import "github.com/crosbymichael/dockerui"
 
 import (
-	"database/sql"
+	//	"database/sql"
 	"flag"
-	"fmt"
+	//	"fmt"
 	"log"
 	"net/http"
 
 	"github.com/codegangsta/negroni"
-	_ "github.com/go-sql-driver/mysql"
+	//	_ "github.com/go-sql-driver/mysql"
 	"github.com/gorilla/mux"
 	"github.com/samalba/dockerclient"
 )
