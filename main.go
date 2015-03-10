@@ -1,15 +1,16 @@
 package main // import "github.com/crosbymichael/dockerui"
 
 import (
+	"database/sql"
 	"flag"
-	"io"
+	"fmt"
 	"log"
-	"net"
 	"net/http"
-	"net/http/httputil"
-	"net/url"
-	"os"
-	"strings"
+
+	"github.com/codegangsta/negroni"
+	_ "github.com/go-sql-driver/mysql"
+	"github.com/gorilla/mux"
+	"github.com/samalba/dockerclient"
 )
 
 var (
@@ -18,6 +19,7 @@ var (
 	assets   = flag.String("a", "dist", "Path to the assets")
 )
 
+/*
 type UnixHandler struct {
 	path string
 }
@@ -66,7 +68,6 @@ func createUnixHandler(e string) http.Handler {
 	return &UnixHandler{e}
 }
 
-/*
 func createHandler(dir string, e string) http.Handler {
 	var (
 		globalMux   = http.NewServeMux()
@@ -91,32 +92,82 @@ func createHandler(dir string, e string) http.Handler {
 	return globalMux
 }
 */
+func listImages(w http.ResponseWriter, r *http.Request) {
+
+}
+func listMyImages(w http.ResponseWriter, r *http.Request) {
+
+}
+func imageLogs(w http.ResponseWriter, r *http.Request) {
+
+}
 func main() {
 	flag.Parse()
 
-	var (
-		globalMux   = http.NewServeMux()
-		fileHandler = http.FileServer(http.Dir(*assets))
-		h           http.Handler
-	)
+	/*	var (
+			globalMux = http.NewServeMux()
+			h         http.Handler
+		)
 
-	if strings.Contains(*endpoint, "http") {
-		h = createTcpHandler(*endpoint)
-	} else {
-		if _, err := os.Stat(*endpoint); err != nil {
-			if os.IsNotExist(err) {
-				log.Fatalf("unix socket %s does not exist", *endpoint)
+		if strings.Contains(*endpoint, "http") {
+			h = createTcpHandler(*endpoint)
+		} else {
+			if _, err := os.Stat(*endpoint); err != nil {
+				if os.IsNotExist(err) {
+					log.Fatalf("unix socket %s does not exist", *endpoint)
+				}
+				log.Fatal(err)
 			}
-			log.Fatal(err)
+			h = createUnixHandler(*endpoint)
+		}*/
+
+	/*	db, err := sql.Open("mysql", "root:root@/coderun_image")
+		if err != nil {
+			panic(err.Error()) // Just for example purpose. You should use proper error handling instead of panic
 		}
-		h = createUnixHandler(*endpoint)
+		defer db.Close()
+
+		// Prepare statement for reading data
+		stmtOut, err := db.Prepare("SELECT image_name FROM cr_image WHERE image_id = ?")
+		if err != nil {
+			panic(err.Error()) // proper error handling instead of panic in your app
+		}
+		defer stmtOut.Close()
+
+		var imageName string // we "scan" the result in here
+
+		// Query the square-number of 13
+		err = stmtOut.QueryRow(1).Scan(&imageName) // WHERE number = 13
+		if err != nil {
+			panic(err.Error()) // proper error handling instead of panic in your app
+		}
+		fmt.Printf("The image name is: %s", imageName)
+	*/
+	docker, _ := dockerclient.NewDockerClient("unix:///var/run/docker.sock", nil)
+
+	// Get only running containers
+	containers, err := docker.ListContainers(false)
+	if err != nil {
+		log.Fatal(err)
+	}
+	for _, c := range containers {
+		log.Println(c.Id, c.Names)
 	}
 
-	globalMux.Handle("/dockerapi/", http.StripPrefix("/dockerapi", h))
-	globalMux.Handle("/", fileHandler)
-	/*	return globalMux
+	globalMux := http.NewServeMux()
+	apiRouter := mux.NewRouter()
+	apiRouter.HandleFunc("/dockerapi/images/list", listImages).Methods("GET")
+	apiRouter.HandleFunc("/dockerapi/images/list/{uid}", listMyImages).Methods("GET")
+	apiRouter.HandleFunc("/dockerapi/images/{id}/logs", imageLogs).Methods("GET")
 
-	   	handler := createHandler(*assets, *endpoint)*/
+	apiAuthRouter := negroni.Classic()
+	apiAuthRouter.UseHandler(apiRouter)
+	globalMux.Handle("/dockerapi", apiAuthRouter)
+
+	//	globalMux.Handle("/dockerapi/", http.StripPrefix("/dockerapi", h))
+	globalMux.Handle("/", http.FileServer(http.Dir("dist")))
+
+	//	handler := createHandler(*assets, *endpoint)
 	if err := http.ListenAndServe(*addr, globalMux); err != nil {
 		log.Fatal(err)
 	}
