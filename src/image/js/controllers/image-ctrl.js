@@ -1,10 +1,10 @@
 /**
  * Created by ZJY on 15-2-4.
  */
-angular.module('Image')
-    .controller('ImageCtrl', ['$scope', '$cookieStore', ImageCtrl]);
+angular.module('Image',['ngResource'])
+    .controller('ImageCtrl', ['$scope', '$cookieStore','$resource', ImageCtrl]);
 
-function ImageCtrl($scope,$cookieStore) {
+function ImageCtrl($scope,$cookieStore,$resource) {
     /**
      * Sidebar Toggle & Cookie Control
      */
@@ -21,8 +21,9 @@ function ImageCtrl($scope,$cookieStore) {
     $scope.basics = ['ubuntu','centos','coreos'];
     $scope.sType = 'golang';
     $scope.sBasic = 'ubuntu';
+    $scope.test;
     $scope.newTerminal = function() {
-        alert('这里使用tty.js');
+        alert($scope.test);
     }
-
+    $scope.test = $resource('http://121.41.89.212:9000/dockerapi/images/ubuntu/json', {}, {}).query();
 }
