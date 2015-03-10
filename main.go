@@ -146,7 +146,7 @@ func main() {
 	docker, _ := dockerclient.NewDockerClient("unix:///var/run/docker.sock", nil)
 
 	// Get only running containers
-	containers, err := docker.ListContainers(false)
+	containers, err := docker.ListContainers(false, false, "")
 	if err != nil {
 		log.Fatal(err)
 	}
