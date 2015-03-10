@@ -15,7 +15,7 @@ import (
 var (
 	endpoint = flag.String("e", "/var/run/docker.sock", "Dockerd endpoint")
 	addr     = flag.String("p", ":9000", "Address and port to serve dockerui")
-	assets   = flag.String("a", "dist/", "Path to the assets")
+	assets   = flag.String("a", "dist", "Path to the assets")
 )
 
 type UnixHandler struct {
@@ -66,9 +66,10 @@ func createUnixHandler(e string) http.Handler {
 	return &UnixHandler{e}
 }
 
+/*
 func createHandler(dir string, e string) http.Handler {
 	var (
-		mux         = http.NewServeMux()
+		globalMux   = http.NewServeMux()
 		fileHandler = http.FileServer(http.Dir(dir))
 		h           http.Handler
 	)
@@ -85,16 +86,38 @@ func createHandler(dir string, e string) http.Handler {
 		h = createUnixHandler(e)
 	}
 
-	mux.Handle("/dockerapi/", http.StripPrefix("/dockerapi", h))
-	mux.Handle("/", fileHandler)
-	return mux
+	globalMux.Handle("/dockerapi/", http.StripPrefix("/dockerapi", h))
+	globalMux.Handle("/", fileHandler)
+	return globalMux
 }
-
+*/
 func main() {
 	flag.Parse()
 
-	handler := createHandler(*assets, *endpoint)
-	if err := http.ListenAndServe(*addr, handler); err != nil {
+	var (
+		globalMux   = http.NewServeMux()
+		fileHandler = http.FileServer(http.Dir(*assets))
+		h           http.Handler
+	)
+
+	if strings.Contains(*endpoint, "http") {
+		h = createTcpHandler(*endpoint)
+	} else {
+		if _, err := os.Stat(*endpoint); err != nil {
+			if os.IsNotExist(err) {
+				log.Fatalf("unix socket %s does not exist", *endpoint)
+			}
+			log.Fatal(err)
+		}
+		h = createUnixHandler(*endpoint)
+	}
+
+	globalMux.Handle("/dockerapi/", http.StripPrefix("/dockerapi", h))
+	globalMux.Handle("/", fileHandler)
+	/*	return globalMux
+
+	   	handler := createHandler(*assets, *endpoint)*/
+	if err := http.ListenAndServe(*addr, globalMux); err != nil {
 		log.Fatal(err)
 	}
 }
