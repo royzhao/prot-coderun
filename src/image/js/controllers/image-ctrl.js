@@ -21,9 +21,8 @@ function ImageCtrl($scope,$cookieStore,$resource) {
     $scope.basics = ['ubuntu','centos','coreos'];
     $scope.sType = 'golang';
     $scope.sBasic = 'ubuntu';
-    $scope.test;
+    $scope.test = $resource('/dockerapi/images/list/:id', {id: 1 }, {}).query();
     $scope.newTerminal = function() {
-        alert($scope.test);
+        alert($scope.test[0].ImageName);
     }
-    $scope.test = $resource('http://121.41.89.212:9000/dockerapi/images/ubuntu/json', {}, {}).query();
 }

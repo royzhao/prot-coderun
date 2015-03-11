@@ -1,22 +1,25 @@
-package main // import "github.com/crosbymichael/dockerui"
+package main
 
 import (
-	//	"database/sql"
+	"encoding/json"
 	"flag"
-	//	"fmt"
 	"log"
 	"net/http"
+	"strconv"
 
+	"github.com/Sirupsen/logrus"
 	"github.com/codegangsta/negroni"
-	//	_ "github.com/go-sql-driver/mysql"
+	_ "github.com/go-sql-driver/mysql"
 	"github.com/gorilla/mux"
-	"github.com/samalba/dockerclient"
+	//	"github.com/samalba/dockerclient"
 )
 
 var (
 	endpoint = flag.String("e", "/var/run/docker.sock", "Dockerd endpoint")
 	addr     = flag.String("p", ":9000", "Address and port to serve dockerui")
 	assets   = flag.String("a", "dist", "Path to the assets")
+	dbmap    = initDb()
+	logger   = logrus.New()
 )
 
 /*
@@ -95,12 +98,27 @@ func createHandler(dir string, e string) http.Handler {
 func listImages(w http.ResponseWriter, r *http.Request) {
 
 }
+
 func listMyImages(w http.ResponseWriter, r *http.Request) {
-
+	vars := mux.Vars(r)
+	uid, _ := strconv.ParseInt(vars["uid"], 10, 64)
+	var i CRImage
+	image := i.QuerybyUser(uid)
+	if err := json.NewEncoder(w).Encode(image); err != nil {
+		logger.Error(err)
+	}
 }
+
 func imageLogs(w http.ResponseWriter, r *http.Request) {
-
+	vars := mux.Vars(r)
+	id, _ := strconv.ParseInt(vars["id"], 10, 64)
+	var img CRImage
+	image := img.Querylog(id)
+	if err := json.NewEncoder(w).Encode(*image); err != nil {
+		logger.Error(err)
+	}
 }
+
 func main() {
 	flag.Parse()
 
@@ -143,26 +161,41 @@ func main() {
 		}
 		fmt.Printf("The image name is: %s", imageName)
 	*/
-	docker, _ := dockerclient.NewDockerClient("unix:///var/run/docker.sock", nil)
 
-	// Get only running containers
-	containers, err := docker.ListContainers(false, false, "")
-	if err != nil {
-		log.Fatal(err)
-	}
-	for _, c := range containers {
-		log.Println(c.Id, c.Names)
-	}
+	defer dbmap.Db.Close()
+	//	image := CRImage{3, 0, "", "", 0, 0, ""}
+	//	image.DeleteImg()
 
+	//	c := newImage(2, "golang", "422", "test")
+	//	c.Add()
+
+	//	var image CRImage
+	//	im := image.Querylog(1)
+
+	//	log.Println(*im)
+
+	/*
+		docker, _ := dockerclient.NewDockerClient("unix:///var/run/docker.sock", nil)
+
+		// Get only running containers
+		containers, err := docker.ListContainers(false, false, "")
+		if err != nil {
+			log.Fatal(err)
+		}
+		for _, c := range containers {
+			log.Println(c.Id, c.Names)
+		}
+	*/
 	globalMux := http.NewServeMux()
 	apiRouter := mux.NewRouter()
 	apiRouter.HandleFunc("/dockerapi/images/list", listImages).Methods("GET")
 	apiRouter.HandleFunc("/dockerapi/images/list/{uid}", listMyImages).Methods("GET")
 	apiRouter.HandleFunc("/dockerapi/images/{id}/logs", imageLogs).Methods("GET")
+	apiRouter.HandleFunc("/dockerapi/images/{id}/delete", imageLogs).Methods("POST")
 
 	apiAuthRouter := negroni.Classic()
 	apiAuthRouter.UseHandler(apiRouter)
-	globalMux.Handle("/dockerapi", apiAuthRouter)
+	globalMux.Handle("/dockerapi/", apiAuthRouter)
 
 	//	globalMux.Handle("/dockerapi/", http.StripPrefix("/dockerapi", h))
 	globalMux.Handle("/", http.FileServer(http.Dir("dist")))
