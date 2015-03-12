@@ -22,13 +22,33 @@ type CRImage struct {
 	Descrip     string `db:"Description"`
 }
 
+type CRComments struct {
+	CommentId int64  `db:"comment_id"`
+	ImageID   int64  `db:"image_id"`
+	Author    string `db:"author"`
+	Reply     string `db:"replyto"`
+	Content   string `db:"content"`
+}
+
+type CRStar struct {
+	StarId  int64 `db:"star_id"`
+	ImageId int64 `db:"image_id"`
+	UserId  int64 `db:"user_id"`
+}
+
+type CRFork struct {
+	ForkId  int64 `db:"fork_id"`
+	ImageId int64 `db:"image_id"`
+	UserId  int64 `db:"user_id"`
+}
+
 type SqlOperation interface {
 	Add()
 	QuerybyUser(uid int64) []CRImage
 	Querylog(imageid int64)
 	DeleteImg()
-	UpdateStar(imageid int64) int32
-	UpdateFork(imageid int64) int32
+	UpdateStar(cs CRStar, star bool)
+	UpdateFork(cf CRFork)
 }
 
 func newImage(uid int64, imgname string, rid string, des string) CRImage {
@@ -50,7 +70,7 @@ func (c CRImage) Add() {
 
 func (c CRImage) QuerybyUser(uid int64) []CRImage {
 	var image []CRImage
-	_, err := dbmap.Select(&image, "select Image_id,Image_name,Star,Fork from cr_image where User_id = ?", uid)
+	_, err := dbmap.Select(&image, "select * from cr_image where User_id = ?", uid)
 	checkErr(err, "Select failed")
 	return image
 }
@@ -65,9 +85,43 @@ func (c *CRImage) Querylog(imageid int64) *CRImage {
 }
 
 func (c CRImage) DeleteImg() {
-	count, err := dbmap.Delete(&c)
-	checkErr(err, "Delete failed")
-	log.Println("Rows deleted:", count)
+	_, err := dbmap.Delete(&c)
+	if err != nil {
+		log.Println("Delete failed", err)
+		return
+	}
+	cf := new(CRFork)
+	err = dbmap.SelectOne(&cf, "select fork_id from cr_fork where user_id = ? and image_id = ?", c.UserId, c.ImageId)
+	if err != nil {
+		return
+	}
+	_, err = dbmap.Delete(&cf)
+	if err != nil {
+		log.Println("Delete failed", err)
+		return
+	}
+}
+
+func (c CRImage) UpdateStar(cs CRStar, star bool) {
+	_, err := dbmap.Update(&c)
+	checkErr(err, "Update failed")
+	if star {
+		err = dbmap.Insert(&cs)
+		checkErr(err, "Insert failed")
+	} else {
+		_, err = dbmap.Delete(&cs)
+		checkErr(err, "Delete failed")
+	}
+}
+
+func (c CRImage) UpdateFork(cf CRFork) {
+	_, err := dbmap.Update(&c)
+	if err != nil {
+		log.Println("Update failed", err)
+		return
+	}
+	err = dbmap.Insert(&cf)
+	checkErr(err, "Insert failed")
 }
 
 func initDb() *gorp.DbMap {
@@ -82,6 +136,9 @@ func initDb() *gorp.DbMap {
 	// add a table, setting the table name to 'posts' and
 	// specifying that the Id property is an auto incrementing PK
 	dbmap.AddTableWithName(CRImage{}, "cr_image").SetKeys(true, "ImageId")
+	dbmap.AddTableWithName(CRComments{}, "cr_comment").SetKeys(true, "CommentId")
+	dbmap.AddTableWithName(CRStar{}, "cr_star").SetKeys(true, "StarId")
+	dbmap.AddTableWithName(CRFork{}, "cr_fork").SetKeys(true, "ForkId")
 
 	// create the table. in a production system you'd generally
 	// use a migration tool, or create the tables via scripts
@@ -93,6 +150,6 @@ func initDb() *gorp.DbMap {
 
 func checkErr(err error, msg string) {
 	if err != nil {
-		log.Fatalln(msg, err)
+		log.Println(msg, err)
 	}
 }

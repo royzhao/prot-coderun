@@ -90,18 +90,18 @@
                                 <div class="form-group">
                                     <label for="imageBasic" class="col-sm-2 control-label">基镜像</label>
                                     <div class="col-sm-4">
-                                        <select type="text" class="form-control" id="imageBasic" name="imageBasic" data-ng-model="sBasic" ng-options="basic for basic in basics" required></select>
+                                        <select type="text" class="form-control" id="imageBasic" name="imageBasic" ng-init="bm = basics[0]" data-ng-model="bm" ng-options="basic.ImageName for basic in basics" required></select>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label for="description" class="col-sm-2 control-label">描述</label>
                                     <div class="col-sm-8">
-                                        <textarea class="form-control" rows="12" id="description"></textarea>
+                                        <textarea class="form-control" rows="12" id="description" name="description" data-ng-model="description" required></textarea>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <div class="col-sm-offset-2 col-sm-10">
-                                        <button type="submit" class="btn btn-primary" ng-disabled="myForm.imageName.$invalid" ng-click="newTerminal()">创建</button>
+                                        <button type="submit" class="btn btn-primary" ng-disabled="myForm.imageName.$invalid || myForm.description.$invalid" ng-click="newTerminal()">创建</button>
                                         <a href="dashboard.html#/myimage" class="btn btn-default">取消</a>
                                     </div>
                                 </div>

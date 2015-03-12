@@ -119,6 +119,46 @@ func imageLogs(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+func deleteImage(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	id, _ := strconv.ParseInt(vars["id"], 10, 64)
+}
+
+func createImage(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	id, _ := strconv.ParseInt(vars["id"], 10, 64)
+}
+
+func editImage(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	id, _ := strconv.ParseInt(vars["id"], 10, 64)
+}
+
+func starImage(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	id, _ := strconv.ParseInt(vars["id"], 10, 64)
+	uid, _ := strconv.ParseInt(vars["uid"], 10, 64)
+	//	r.ParseForm()
+	//	p := r.FormValue("id")
+	//	c := r.FormValue("uid")
+	//	cs := new(CRstar)
+	//	if err := json.NewDecoder(r.Body).Decode(&image); err != nil {
+	//		logger.Warnf("error decoding image: %s", err)
+	//		http.Error(w, err.Error(), http.StatusInternalServerError)
+	//		return
+	//	}
+	//	cs := CRStar{id, uid}
+	//	UpdateStar(cs, true)
+}
+
+func unstarImage(w http.ResponseWriter, r *http.Request) {
+
+}
+
+func forkImage(w http.ResponseWriter, r *http.Request) {
+
+}
+
 func main() {
 	flag.Parse()
 
@@ -163,6 +203,12 @@ func main() {
 	*/
 
 	defer dbmap.Db.Close()
+	//	cf := &CRFork{'1', '1', '1'}
+	//	c := CRImage{3, 0, "", "", 0, 0, ""}
+	//	err := dbmap.SelectOne(cf, "select fork_id from cr_fork where user_id = ? and image_id = ?", c.UserId, c.ImageId)
+	//	log.Println(*cf)
+	//	log.Println(err)
+
 	//	image := CRImage{3, 0, "", "", 0, 0, ""}
 	//	image.DeleteImg()
 
@@ -191,7 +237,12 @@ func main() {
 	apiRouter.HandleFunc("/dockerapi/images/list", listImages).Methods("GET")
 	apiRouter.HandleFunc("/dockerapi/images/list/{uid}", listMyImages).Methods("GET")
 	apiRouter.HandleFunc("/dockerapi/images/{id}/logs", imageLogs).Methods("GET")
-	apiRouter.HandleFunc("/dockerapi/images/{id}/delete", imageLogs).Methods("POST")
+	apiRouter.HandleFunc("/dockerapi/images/{id}/delete", deleteImage).Methods("DELETE")
+	apiRouter.HandleFunc("/dockerapi/images/{id}/create", createImage).Methods("POST")
+	apiRouter.HandleFunc("/dockerapi/images/{id}/edit", editImage).Methods("POST")
+	apiRouter.HandleFunc("/dockerapi/images/{id}/star/{uid}", starImage).Methods("POST")
+	apiRouter.HandleFunc("/dockerapi/images/{id}/unstar", unstarImage).Methods("POST")
+	apiRouter.HandleFunc("/dockerapi/images/{id}/fork", forkImage).Methods("POST")
 
 	apiAuthRouter := negroni.Classic()
 	apiAuthRouter.UseHandler(apiRouter)
