@@ -19,11 +19,18 @@ function ImageCtrl($scope,$cookieStore,$resource) {
         ];
     $scope.types = ['golang','web','java'];
     $scope.sType = 'golang';
-    var test = $resource('/dockerapi/images/list/:id', {id: '@id' }, {});
-    $scope.basics = test.query({id:1}, function() {});
+    var test = $resource('/dockerapi/images/:id/:action', {id: '@id',action:'list' }, {});
+    var params;
+    $scope.basics = test.query({id:1}, function() {
+        params = $scope.basics;
+    });
     $scope.sBasic = 'ubuntu';
     $scope.newTerminal = function() {
-        alert($scope.basics[0].ImageName);
+        //alert($scope.basics[0].ImageName);
+        var a = $resource('/dockerapi/images/star', {}, {'save': { isArray: false, method: 'POST' }});
+        a.save({id: 1, uid: 1}, params[0]).$promise.then(function(c){
+        }, function(err){
+        });
         //Container.save({count: $scope.count, pull: $scope.pull}, params).$promise.then(function(c){
         //    $location.path("/containers");
         //}, function(err){

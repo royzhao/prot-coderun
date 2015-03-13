@@ -101,7 +101,7 @@ func listImages(w http.ResponseWriter, r *http.Request) {
 
 func listMyImages(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
-	uid, _ := strconv.ParseInt(vars["uid"], 10, 64)
+	uid, _ := strconv.ParseInt(vars["id"], 10, 64)
 	var i CRImage
 	image := i.QuerybyUser(uid)
 	if err := json.NewEncoder(w).Encode(image); err != nil {
@@ -120,33 +120,35 @@ func imageLogs(w http.ResponseWriter, r *http.Request) {
 }
 
 func deleteImage(w http.ResponseWriter, r *http.Request) {
-	vars := mux.Vars(r)
-	id, _ := strconv.ParseInt(vars["id"], 10, 64)
+	//	vars := mux.Vars(r)
+	//	id, _ := strconv.ParseInt(vars["id"], 10, 64)
 }
 
 func createImage(w http.ResponseWriter, r *http.Request) {
-	vars := mux.Vars(r)
-	id, _ := strconv.ParseInt(vars["id"], 10, 64)
+	//	vars := mux.Vars(r)
+	//	id, _ := strconv.ParseInt(vars["id"], 10, 64)
 }
 
 func editImage(w http.ResponseWriter, r *http.Request) {
-	vars := mux.Vars(r)
-	id, _ := strconv.ParseInt(vars["id"], 10, 64)
+	//	vars := mux.Vars(r)
+	//	id, _ := strconv.ParseInt(vars["id"], 10, 64)
 }
 
 func starImage(w http.ResponseWriter, r *http.Request) {
-	vars := mux.Vars(r)
-	id, _ := strconv.ParseInt(vars["id"], 10, 64)
-	uid, _ := strconv.ParseInt(vars["uid"], 10, 64)
-	//	r.ParseForm()
-	//	p := r.FormValue("id")
-	//	c := r.FormValue("uid")
-	//	cs := new(CRstar)
-	//	if err := json.NewDecoder(r.Body).Decode(&image); err != nil {
-	//		logger.Warnf("error decoding image: %s", err)
-	//		http.Error(w, err.Error(), http.StatusInternalServerError)
-	//		return
-	//	}
+	r.ParseForm()
+	p := r.FormValue("id")
+	c := r.FormValue("uid")
+	log.Println(p)
+	log.Println(c)
+	//	var image CRImage
+	var cs CRStar
+	if err := json.NewDecoder(r.Body).Decode(&cs); err != nil {
+		logger.Warnf("error decoding image: %s", err)
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+	UpdateStar(cs, true)
+	log.Println(image)
 	//	cs := CRStar{id, uid}
 	//	UpdateStar(cs, true)
 }
@@ -235,14 +237,14 @@ func main() {
 	globalMux := http.NewServeMux()
 	apiRouter := mux.NewRouter()
 	apiRouter.HandleFunc("/dockerapi/images/list", listImages).Methods("GET")
-	apiRouter.HandleFunc("/dockerapi/images/list/{uid}", listMyImages).Methods("GET")
+	apiRouter.HandleFunc("/dockerapi/images/{id}/list", listMyImages).Methods("GET")
 	apiRouter.HandleFunc("/dockerapi/images/{id}/logs", imageLogs).Methods("GET")
 	apiRouter.HandleFunc("/dockerapi/images/{id}/delete", deleteImage).Methods("DELETE")
-	apiRouter.HandleFunc("/dockerapi/images/{id}/create", createImage).Methods("POST")
-	apiRouter.HandleFunc("/dockerapi/images/{id}/edit", editImage).Methods("POST")
-	apiRouter.HandleFunc("/dockerapi/images/{id}/star/{uid}", starImage).Methods("POST")
-	apiRouter.HandleFunc("/dockerapi/images/{id}/unstar", unstarImage).Methods("POST")
-	apiRouter.HandleFunc("/dockerapi/images/{id}/fork", forkImage).Methods("POST")
+	apiRouter.HandleFunc("/dockerapi/images/create", createImage).Methods("POST")
+	apiRouter.HandleFunc("/dockerapi/images/edit", editImage).Methods("POST")
+	apiRouter.HandleFunc("/dockerapi/images/star", starImage).Methods("POST")
+	apiRouter.HandleFunc("/dockerapi/images/unstar", unstarImage).Methods("POST")
+	apiRouter.HandleFunc("/dockerapi/images/fork", forkImage).Methods("POST")
 
 	apiAuthRouter := negroni.Classic()
 	apiAuthRouter.UseHandler(apiRouter)
