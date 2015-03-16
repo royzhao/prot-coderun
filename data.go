@@ -160,3 +160,10 @@ func checkErr(err error, msg string) {
 		log.Println(msg, err)
 	}
 }
+
+func QueryImage() []CRImage {
+	var image []CRImage
+	_, err := dbmap.Select(&image, "select * from cr_image")
+	checkErr(err, "Select failed")
+	return image
+}

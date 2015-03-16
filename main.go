@@ -96,7 +96,10 @@ func createHandler(dir string, e string) http.Handler {
 }
 */
 func listImages(w http.ResponseWriter, r *http.Request) {
-
+	images := QueryImage()
+	if err := json.NewEncoder(w).Encode(images); err != nil {
+		logger.Error(err)
+	}
 }
 
 func listMyImages(w http.ResponseWriter, r *http.Request) {

@@ -17,8 +17,6 @@ function ImageCtrl($scope,$cookieStore,$resource) {
             { "label" : "python", "id" : "role2", "children" : [] },
             { "label" : "golang", "id" : "role3", "children" : [] }
         ];
-    $scope.types = ['golang','web','java'];
-    $scope.sType = 'golang';
     var test = $resource('/dockerapi/images/:id/:action', {id: '@id',action:'list' }, {});
     var params;
     $scope.basics = test.query({id:1}, function() {
@@ -28,7 +26,7 @@ function ImageCtrl($scope,$cookieStore,$resource) {
     $scope.newTerminal = function() {
         //alert($scope.basics[0].ImageName);
         var a = $resource('/dockerapi/images/star', {}, {'save': { isArray: false, method: 'POST' }});
-        a.save({id: 1, uid: 1}, params[0]).$promise.then(function(c){
+        a.save({id: 1, uid: 1}, params).$promise.then(function(c){
         }, function(err){
         });
         //Container.save({count: $scope.count, pull: $scope.pull}, params).$promise.then(function(c){
