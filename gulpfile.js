@@ -29,6 +29,8 @@ var paths = {
     image_templates: 'src/image/templates/**/*.html',
     image_index:'src/image.html',
 
+    test_file:'src/testfile/**/*.json',
+
     index: 'src/index.html',
     bower_fonts: 'src/components/**/*.{ttf,woff,eof,svg}',
 };
@@ -169,7 +171,16 @@ gulp.task('custom-image-templates', function() {
         .pipe(minifyHTML())
         .pipe(gulp.dest('dist/templates'));
 });
+/*
+ handler test file
+ */
 
+gulp.task('build-test-file', ['test-file']);
+
+gulp.task('test-file', function() {
+    return gulp.src(paths.test_file)
+        .pipe(gulp.dest('dist/tests'));
+});
 /**
  * Watch custom files
  */
@@ -191,6 +202,8 @@ gulp.task('watch', function() {
     gulp.watch([paths.image_scripts], ['custom-image-js']);
     gulp.watch([paths.image_templates], ['custom-image-templates']);
     gulp.watch([paths.image_index], ['image-usemin']);
+
+    gulp.watch([paths.test_file],['build-test-file']);
 
     gulp.watch([paths.index], ['usemin']);
 });
@@ -215,5 +228,5 @@ gulp.task('livereload', function() {
 /**
  * Gulp tasks
  */
-gulp.task('build', ['usemin', 'build-assets', 'build-custom','build-custom-editor','build-custom-image']);
+gulp.task('build', ['usemin', 'build-assets', 'build-custom','build-custom-editor','build-custom-image','build-test-file']);
 gulp.task('default', ['build', 'webserver', 'livereload', 'watch']);
