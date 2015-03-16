@@ -224,9 +224,11 @@ gulp.task('livereload', function() {
         .pipe(watch());
         //.pipe(connect.reload());
 });
-
+var debug = false;
 /**
  * Gulp tasks
  */
 gulp.task('build', ['usemin', 'build-assets', 'build-custom','build-custom-editor','build-custom-image','build-test-file']);
-gulp.task('default', ['build', 'webserver', 'livereload', 'watch']);
+gulp.task('default', ['build', 'webserver', 'livereload', 'watch'],function(){
+    debug = debug || false;
+});

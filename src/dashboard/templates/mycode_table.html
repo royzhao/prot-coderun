@@ -33,16 +33,16 @@
                     <div class="table-responsive">
                         <table class="table">
                             <thead>
-                            <tr><th>代码名称</th><th>类型</th><th>依赖镜像</th></tr>
+                            <tr><th>代码名称</th><th>描述</th><th>创建时间</th></tr>
                             </thead>
                             <tbody>
                             <!--<tr><td><a href="#">hello world</a></td><td>本地程序</td><td>C运行环境</td></tr>-->
                             <!--<tr><td><a href="#">测试一下</a></td><td>本地程序</td><td>Go运行环境</td></tr>-->
                             <!--<tr><td><a href="#">wordpress</a></td><td>网络程序</td><td>LAMP</td></tr>-->
                             <tr ng-repeat="code in codedata">
-                                <td><a href="#/code/{{code.codeid}}">{{code.codename}}</a></td>
-                                <td>{{code.typename}}</td>
-                                <td>{{code.imagename}}</td>
+                                <td><a href="#/code/{{code.id}}">{{code.name}}</a></td>
+                                <td>{{code.description}}</td>
+                                <td>{{code.create_date}}</td>
                             </tr>
                             </tbody>
                         </table>

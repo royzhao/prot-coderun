@@ -6,6 +6,9 @@
 angular.module('RDash').config(['$stateProvider', '$urlRouterProvider',
     function($stateProvider, $urlRouterProvider) {
 
+        ////set rest
+        //RestangularProvider.setBaseUrl('http://localhost:8001/api')
+
         // For unmatched routes
         $urlRouterProvider.otherwise('/');
 
