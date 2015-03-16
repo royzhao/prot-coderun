@@ -147,8 +147,8 @@ func starImage(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
-	UpdateStar(cs, true)
-	log.Println(image)
+	//	UpdateStar(cs, true)
+	//	log.Println(cs)
 	//	cs := CRStar{id, uid}
 	//	UpdateStar(cs, true)
 }
@@ -245,6 +245,9 @@ func main() {
 	apiRouter.HandleFunc("/dockerapi/images/star", starImage).Methods("POST")
 	apiRouter.HandleFunc("/dockerapi/images/unstar", unstarImage).Methods("POST")
 	apiRouter.HandleFunc("/dockerapi/images/fork", forkImage).Methods("POST")
+	//	apiRouter.HandleFunc("/dockerapi/image/comment/{id}", getComment).Methods("GET")
+	//	apiRouter.HandleFunc("/dockerapi/image/star/{uid}/{id}", getStarLog).Methods("GET")
+	//	apiRouter.HandleFunc("/dockerapi/image/fork/{uid}/{id}", getForkLog).Methods("GET")
 
 	apiAuthRouter := negroni.Classic()
 	apiAuthRouter.UseHandler(apiRouter)

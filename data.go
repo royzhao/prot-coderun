@@ -51,6 +51,7 @@ type SqlOperation interface {
 	UpdateFork(cf CRFork)
 }
 
+//return a new CRImage struct by the input data
 func newImage(uid int64, imgname string, rid string, des string) CRImage {
 	return CRImage{
 		UserId:      uid,
@@ -62,12 +63,14 @@ func newImage(uid int64, imgname string, rid string, des string) CRImage {
 	}
 }
 
+//insert a new record into cr_image table
 func (c CRImage) Add() {
 	err := dbmap.Insert(&c)
 	checkErr(err, "Insert failed")
 	return
 }
 
+//Query the image list by userid, return an array of CRImage struct
 func (c CRImage) QuerybyUser(uid int64) []CRImage {
 	var image []CRImage
 	_, err := dbmap.Select(&image, "select * from cr_image where User_id = ?", uid)
@@ -75,6 +78,7 @@ func (c CRImage) QuerybyUser(uid int64) []CRImage {
 	return image
 }
 
+//Query the log of an image by its id
 func (c *CRImage) Querylog(imageid int64) *CRImage {
 	obj, err := dbmap.Get(CRImage{}, imageid)
 	if err != nil {
@@ -84,6 +88,7 @@ func (c *CRImage) Querylog(imageid int64) *CRImage {
 	return obj.(*CRImage)
 }
 
+//Delete an image by its id, if it is forked from another image, delete the fork record too
 func (c CRImage) DeleteImg() {
 	_, err := dbmap.Delete(&c)
 	if err != nil {
@@ -102,6 +107,7 @@ func (c CRImage) DeleteImg() {
 	}
 }
 
+//update the star list of an image, if star is true, insert a new star record, else delete the original record
 func (c CRImage) UpdateStar(cs CRStar, star bool) {
 	_, err := dbmap.Update(&c)
 	checkErr(err, "Update failed")
@@ -114,6 +120,7 @@ func (c CRImage) UpdateStar(cs CRStar, star bool) {
 	}
 }
 
+//insert a fork record of an image
 func (c CRImage) UpdateFork(cf CRFork) {
 	_, err := dbmap.Update(&c)
 	if err != nil {
