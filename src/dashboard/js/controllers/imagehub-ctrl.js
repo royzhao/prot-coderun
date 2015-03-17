@@ -9,8 +9,8 @@ angular
     .controller('MyImageHubCtrl', ['$scope', '$resource', MyImageHubCtrl]);
 
 function MyImageHubCtrl($scope,$resource) {
-    var myimagelist = $resource('/dockerapi/images/json?all=0', {}, {}).query();
-/*    myimagelist = [
+    //var myimagelist = $resource('/dockerapi/images/json?all=0', {}, {}).query();
+    var myimagelist = [
         {
             'imageid':2,
             'imagename':'go语言测试',
@@ -56,7 +56,7 @@ function MyImageHubCtrl($scope,$resource) {
             'date':'9月20日',
             'forknum':50
         },
-    ];*/
+    ];
     $scope.imagedata = myimagelist;
 }
 
