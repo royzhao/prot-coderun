@@ -9,9 +9,13 @@ angular
 function MyCodeCtrl($scope,CodeAPIService) {
 
     //$scope.codedata = CodeAPIService.one('code',1).getList();
-    $scope.codedata = {}
+    var userid = 1;
+    $scope.codedata = [];
+    CodeAPIService.getCodesByUser(userid,function(data){
+        $scope.codedata = data;
+    });
+    console.log($scope.codedata)
     $scope.newCode = function(){
-        CodeAPIService.getCodesByUser(1)
         alert('点击这个按钮就可以新建一个代码!代码页面没写,意思意思');
     }
 }

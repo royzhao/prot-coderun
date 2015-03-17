@@ -35,6 +35,7 @@ var paths = {
     bower_fonts: 'src/components/**/*.{ttf,woff,eof,svg}',
 };
 
+var dist = "/home/zpl/workspace/code_web/src/mashangpao_code_web/public/";
 /**
  * Handle bower components from index
  */
@@ -44,7 +45,7 @@ gulp.task('usemin', function() {
             js: [minifyJs(), 'concat'],
             css: [minifyCss({keepSpecialComments: 0}), 'concat'],
         }))
-        .pipe(gulp.dest('dist/'));
+        .pipe(gulp.dest(dist+'/'));
 });
 
 
@@ -58,7 +59,7 @@ gulp.task('copy-bower_fonts', function() {
         .pipe(rename({
             dirname: '/fonts'
         }))
-        .pipe(gulp.dest('dist/lib'));
+        .pipe(gulp.dest(dist+'/lib'));
 });
 
 /**
@@ -71,31 +72,31 @@ gulp.task('dash-usemin', function() {
             js: [minifyJs(), 'concat'],
             css: [minifyCss({keepSpecialComments: 0}), 'concat'],
         }))
-        .pipe(gulp.dest('dist/'));
+        .pipe(gulp.dest(dist+'/'));
 });
 
 gulp.task('custom-dash-images', function() {
     return gulp.src(paths.dash_images)
-        .pipe(gulp.dest('dist/img'));
+        .pipe(gulp.dest(dist+'/img'));
 });
 
 gulp.task('custom-dash-js', function() {
     return gulp.src(paths.dash_scripts)
         .pipe(minifyJs())
         .pipe(concat('dashboard.min.js'))
-        .pipe(gulp.dest('dist/js'));
+        .pipe(gulp.dest(dist+'/js'));
 });
 
 gulp.task('custom-dash-less', function() {
     return gulp.src(paths.dash_styles)
         .pipe(less())
-        .pipe(gulp.dest('dist/css'));
+        .pipe(gulp.dest(dist+'/css'));
 });
 
 gulp.task('custom-dash-templates', function() {
     return gulp.src(paths.dash_templates)
         .pipe(minifyHTML())
-        .pipe(gulp.dest('dist/templates'));
+        .pipe(gulp.dest(dist+'/templates'));
 });
 
 /**
@@ -108,31 +109,31 @@ gulp.task('editor-usemin', function() {
             js: [minifyJs(), 'concat'],
             css: [minifyCss({keepSpecialComments: 0}), 'concat'],
         }))
-        .pipe(gulp.dest('dist/'));
+        .pipe(gulp.dest(dist+'/'));
 });
 
 gulp.task('custom-editor-images', function() {
     return gulp.src(paths.editor_images)
-        .pipe(gulp.dest('dist/img'));
+        .pipe(gulp.dest(dist+'/img'));
 });
 
 gulp.task('custom-editor-js', function() {
     return gulp.src(paths.editor_scripts)
         .pipe(minifyJs())
         .pipe(concat('editor.min.js'))
-        .pipe(gulp.dest('dist/js'));
+        .pipe(gulp.dest(dist+'/js'));
 });
 
 gulp.task('custom-editor-less', function() {
     return gulp.src(paths.editor_styles)
         .pipe(less())
-        .pipe(gulp.dest('dist/css'));
+        .pipe(gulp.dest(dist+'/css'));
 });
 
 gulp.task('custom-editor-templates', function() {
     return gulp.src(paths.editor_templates)
         .pipe(minifyHTML())
-        .pipe(gulp.dest('dist/templates'));
+        .pipe(gulp.dest(dist+'/templates'));
 });
 
 /**
@@ -145,31 +146,31 @@ gulp.task('image-usemin', function() {
             js: [minifyJs(), 'concat'],
             css: [minifyCss({keepSpecialComments: 0}), 'concat'],
         }))
-        .pipe(gulp.dest('dist/'));
+        .pipe(gulp.dest(dist+'/'));
 });
 
 gulp.task('custom-image-images', function() {
     return gulp.src(paths.image_images)
-        .pipe(gulp.dest('dist/img'));
+        .pipe(gulp.dest(dist+'/img'));
 });
 
 gulp.task('custom-image-js', function() {
     return gulp.src(paths.image_scripts)
         .pipe(minifyJs())
         .pipe(concat('image.min.js'))
-        .pipe(gulp.dest('dist/js'));
+        .pipe(gulp.dest(dist+'/js'));
 });
 
 gulp.task('custom-image-less', function() {
     return gulp.src(paths.image_styles)
         .pipe(less())
-        .pipe(gulp.dest('dist/css'));
+        .pipe(gulp.dest(dist+'/css'));
 });
 
 gulp.task('custom-image-templates', function() {
     return gulp.src(paths.image_templates)
         .pipe(minifyHTML())
-        .pipe(gulp.dest('dist/templates'));
+        .pipe(gulp.dest(dist+'/templates'));
 });
 /*
  handler test file
@@ -179,7 +180,7 @@ gulp.task('build-test-file', ['test-file']);
 
 gulp.task('test-file', function() {
     return gulp.src(paths.test_file)
-        .pipe(gulp.dest('dist/tests'));
+        .pipe(gulp.dest(dist+'/tests'));
 });
 /**
  * Watch custom files
@@ -213,14 +214,14 @@ gulp.task('watch', function() {
  */
 gulp.task('webserver', function() {
     connect.server({
-        root: 'dist',
+        root: dist+'',
         livereload: true,
         port: 8888
     });
 });
 
 gulp.task('livereload', function() {
-    gulp.src(['dist/**/*.*'])
+    gulp.src([dist+'/**/*.*'])
         .pipe(watch());
         //.pipe(connect.reload());
 });
