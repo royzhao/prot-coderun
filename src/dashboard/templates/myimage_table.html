@@ -6,8 +6,8 @@
                     <div class="widget-icon green pull-left">
                         <i class="fa fa-users"></i>
                     </div>
-                    <div class="title">80</div>
-                    <div class="comment">有80个用户fork你的镜像</div>
+                    <div class="title">{{forknum}}</div>
+                    <div class="comment">有{{forknum}}个用户fork你的镜像</div>
                 </rd-widget-body>
             </rd-widget>
         </div>
@@ -17,8 +17,8 @@
                     <div class="widget-icon orange pull-left">
                         <i class="fa fa-sitemap"></i>
                     </div>
-                    <div class="title">225</div>
-                    <div class="comment">总共有225个镜像</div>
+                    <div class="title">{{imagenum}}</div>
+                    <div class="comment">总共有{{imagenum}}个镜像</div>
                 </rd-widget-body>
             </rd-widget>
         </div>
@@ -58,8 +58,8 @@
                                     <td><a href="#/image/{{image.ImageId}}">{{image.ImageName}}</a></td>
                                     <td>{{image.Descrip}}</td>
                                     <td>
-                                        <span class="text-success" ng-if="image.status == 1"><i class="fa fa-check"></i></span>
-                                        <span tooltip="没有实例运行!" class="text-danger" ng-if="image.status == 2"><i class="fa fa-warning"></i></span>
+                                        <span class="text-success" ng-if="image.Status == 1"><i class="fa fa-check"></i></span>
+                                        <span tooltip="没有实例运行!" class="text-danger" ng-if="image.Status == 2"><i class="fa fa-warning"></i></span>
                                     </td>
                                 </tr>
                             </tbody>

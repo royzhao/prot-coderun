@@ -3,7 +3,7 @@
  */
 angular
     .module('RDash')
-    .controller('MySingleImageCtrl', ['$scope', '$stateParams','Images',MySingleImageCtrl]);
+    .controller('MySingleImageCtrl', ['$scope', '$stateParams','Images',  MySingleImageCtrl]);
 
 function MySingleImageCtrl($scope,$stateParams,Images) {
     //var myimagelist = [
@@ -69,13 +69,15 @@ function MySingleImageCtrl($scope,$stateParams,Images) {
     //    },
     //];
     //$scope.image = [];
-    Images.query({id: $stateParams.imageid, action: 'log'}).$promise.then(function(data){
+    //alert($stateParams.imageid);
+    Images.get({id: $stateParams.imageid, action: 'log'}).$promise.then(function(data){
         $scope.image = {
             imagename : data.ImageName,
             star : data.Star,
             fork : data.Fork,
             description : data.Descrip,
-            date : '2015-2-2'
+            date : data.Date,
+            id : data.ImageId
         };
     });
     //$scope.image = myimagelist[$stateParams.imageid];
@@ -83,6 +85,5 @@ function MySingleImageCtrl($scope,$stateParams,Images) {
         alert('建立一个讨论,多人可以对这个进行交流');
     }
     $scope.editTerminal = function(){
-        alert('嵌入tty.js');
     }
 }

@@ -4,6 +4,7 @@ import (
 	"database/sql"
 	"gopkg.in/gorp.v1"
 	"log"
+	"time"
 
 	_ "github.com/go-sql-driver/mysql"
 )
@@ -19,7 +20,10 @@ type CRImage struct {
 	ImageRealid string `db:"Image_realid"`
 	Star        int32  `db:"Star"`
 	Fork        int32  `db:"Fork"`
+	Comm        int32  `db:"Comment"`
+	Status      int8   `db:"Status`
 	Descrip     string `db:"Description"`
+	Date        string `db:"Date"`
 }
 
 type CRComments struct {
@@ -59,7 +63,9 @@ func newImage(uid int64, imgname string, rid string, des string) CRImage {
 		ImageRealid: rid,
 		Star:        0,
 		Fork:        0,
+		Comm:        0,
 		Descrip:     des,
+		Date:        time.Now().Format("2006-01-02"),
 	}
 }
 

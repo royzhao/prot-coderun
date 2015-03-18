@@ -7,7 +7,8 @@ angular.module('RDash', ['ui.bootstrap', 'ui.router', 'ngCookies', 'ngResource']
     }])
     .factory('Images', ['$resource',function($resource) {
         return $resource('/dockerapi/images/:id/:action', {id: '@id',action:'@action' }, {
-            'query': { isArray: false, method: 'GET' },
+            'get': { isArray: false, method: 'GET' },
+            'query': { isArray: true, method: 'GET' },
             'delete':{ isArray: true, method: 'DELETE'}
         });
     }]);

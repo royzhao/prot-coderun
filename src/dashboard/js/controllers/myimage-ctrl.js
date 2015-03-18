@@ -5,11 +5,21 @@
 
 angular
     .module('RDash')
-    .controller('MyImageCtrl', ['$scope','$resource', MyImageCtrl]);
+    .controller('MyImageCtrl', ['$scope','$resource','Images', MyImageCtrl]);
 
-function MyImageCtrl($scope,$resource) {
-    var imagequery = $resource('/dockerapi/images/:id/:action', {id: '@id',action:'list' }, {});
-    $scope.imagedata = imagequery.query({id:1}, function() {
+function MyImageCtrl($scope,$resource,Images) {
+    //var imagequery = $resource('/dockerapi/images/:id/:action', {id: '@id',action:'list' }, {});
+    //$scope.imagedata = imagequery.query({id:1}, function() {
+    //});
+    var currentid = 1;
+    $scope.imagenum = 0;
+    $scope.forknum = 0;
+    Images.query({id: currentid, action: 'list'}).$promise.then(function(data){
+        $scope.imagedata = data;
+        $scope.imagenum = $scope.imagedata.length;
+        for (var i=0;i<$scope.imagedata.length;i++ ) {
+            $scope.forknum += $scope.imagedata[i].Fork;
+        }
     });
     //var myimagelist = [
     //    {
