@@ -4,14 +4,15 @@
  */
 angular
     .module('RDash')
-    .controller('MyCodeCtrl', ['$scope','CodeAPIService', MyCodeCtrl]);
+    .controller('MyCodeCtrl', ['$scope','MyCodeService', MyCodeCtrl]);
 
-function MyCodeCtrl($scope,CodeAPIService) {
+function MyCodeCtrl($scope,MyCodeService) {
 
     //$scope.codedata = CodeAPIService.one('code',1).getList();
     var userid = 1;
     $scope.codedata = [];
-    CodeAPIService.getCodesByUser(userid,function(data){
+    MyCodeService.setMyUserId(userid);
+    MyCodeService.getMyCode(function(data){
         $scope.codedata = data;
     });
     console.log($scope.codedata)

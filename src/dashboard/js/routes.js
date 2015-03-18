@@ -3,9 +3,9 @@
 /**
  * Route configuration for the RDash module.
  */
-angular.module('RDash').config(['$stateProvider', '$urlRouterProvider',
-    function($stateProvider, $urlRouterProvider) {
-
+angular.module('RDash').config(['$httpProvider','$stateProvider', '$urlRouterProvider',
+    function($httpProvider,$stateProvider, $urlRouterProvider) {
+        $httpProvider.defaults.timeout = 5000;
         ////set rest
         //RestangularProvider.setBaseUrl('http://localhost:8001/api')
 
