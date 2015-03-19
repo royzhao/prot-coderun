@@ -1,0 +1,49 @@
+<!--<div class="row alerts-container" data-ng-controller="AlertsCtrl" data-ng-show="alerts.length">-->
+    <!--<div class="col-xs-12">-->
+        <!--<alert data-ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>-->
+    <!--</div>-->
+<!--</div>-->
+<div class="newcode-container" data-ng-controller="NewCodeCtrl">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">创建新的代码</h3>
+                </div>
+                <form class="form-horizontal panel-body" name="code">
+                    <div class="form-group">
+                        <label for="name" class="col-md-2 control-label">名称</label>
+                        <div class="col-md-10">
+                            <input type="text"
+                                   ng-model="newcodes.name"
+                                   class="form-control"
+                                   id="name"
+                                   required
+                                   name="codename"
+                                   placeholder="请输入名称">
+                            <span><p class="validation-invalid" ng-show="code.codename.$invalid">此处必填</p></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="description" class="col-md-2 control-label">描述</label>
+                        <div class="col-md-10">
+                            <textarea  name="des" required style="height:200px" ng-model="newcodes.description" class="form-control" id="description" placeholder="请简要描述一下" ></textarea>
+                            <span><p class="validation-invalid" ng-show="code.des.$invalid">此处必填</p></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <input type="submit" ng-click="submit2()" class="btn btn-default" value="确定">
+                            <input type="button" ng-click="reset2()" class="btn btn-default" value="清空">
+                        </div>
+                    </div>
+                </form>
+
+                <div class="panel-footer"></div>
+            </div>
+        </div>
+
+
+    </div>
+
+</div>

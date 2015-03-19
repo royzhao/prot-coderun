@@ -25,8 +25,9 @@ function MySingleCodeCtrl($scope,$stateParams,MyCodeService) {
     //];
     //$scope.code = mycodelist[$stateParams.codeid-1];
     var codeid = $stateParams.codeid;
-    MyCodeService.getMyCode(function(data){
-        $scope.code = data[codeid];
+    MyCodeService.setMyUserId(1);
+    MyCodeService.getMyOneCodeFromBack(codeid,function(data){
+        $scope.code = data;
     });
     $scope.newDiscuss = function(){
         alert('建立一个讨论,多人可以对这个进行交流');

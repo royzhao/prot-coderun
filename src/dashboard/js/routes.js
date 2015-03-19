@@ -5,6 +5,7 @@
  */
 angular.module('RDash').config(['$httpProvider','$stateProvider', '$urlRouterProvider',
     function($httpProvider,$stateProvider, $urlRouterProvider) {
+
         $httpProvider.defaults.timeout = 5000;
         ////set rest
         //RestangularProvider.setBaseUrl('http://localhost:8001/api')
@@ -21,6 +22,9 @@ angular.module('RDash').config(['$httpProvider','$stateProvider', '$urlRouterPro
             .state('mycode', {
                 url: '/mycode',
                 templateUrl: 'templates/mycode_table.html'
+            }).state('newcode',{
+                url: '/newcode',
+                templateUrl: 'templates/newcode.html'
             }).state('myimage', {
                 url: '/myimage',
                 templateUrl: 'templates/myimage_table.html'

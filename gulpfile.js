@@ -82,7 +82,7 @@ gulp.task('custom-dash-images', function() {
 
 gulp.task('custom-dash-js', function() {
     return gulp.src(paths.dash_scripts)
-        .pipe(minifyJs())
+        //.pipe(minifyJs())
         .pipe(concat('dashboard.min.js'))
         .pipe(gulp.dest(dist+'/js'));
 });
@@ -119,7 +119,7 @@ gulp.task('custom-editor-images', function() {
 
 gulp.task('custom-editor-js', function() {
     return gulp.src(paths.editor_scripts)
-        .pipe(minifyJs())
+        //.pipe(minifyJs())
         .pipe(concat('editor.min.js'))
         .pipe(gulp.dest(dist+'/js'));
 });

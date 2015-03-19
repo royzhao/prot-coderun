@@ -13,10 +13,21 @@ angular.module('RDash').
                 this.mycode = code;
             },
             getMyCodeFromBack : function(callback){
+                if(this.userid == null){
+                    callback(null);
+                }
               CodeAPIService.getCodesByUser(this.userid,function(data){
                   this.mycode = data;
                   callback(this.mycode);
               })
+            },
+            getMyOneCodeFromBack : function(codeid,callback){
+                if(this.userid == null){
+                    callback(null);
+                };
+                CodeAPIService.getCodeById(this.userid,codeid,function(data){
+                    callback(data);
+                })
             },
             getMyCodeFromCache : function(){
                 return this.mycode;
