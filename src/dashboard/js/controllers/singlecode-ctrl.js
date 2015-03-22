@@ -28,7 +28,14 @@ function MySingleCodeCtrl($scope,$stateParams,MyCodeService) {
     MyCodeService.setMyUserId(1);
     MyCodeService.getMyOneCodeFromBack(codeid,function(data){
         $scope.code = data;
+        MyCodeService.getMyCodeStep($scope.code.id,function(steps){
+            console.log(steps);
+            if(steps == null){
+
+            }
+        });
     });
+
     $scope.newDiscuss = function(){
         alert('建立一个讨论,多人可以对这个进行交流');
     }

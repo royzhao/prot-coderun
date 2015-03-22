@@ -24,7 +24,7 @@ function NewCodeCtrl($location,$scope,CodeAPIService,AlertOnceService){
                 AlertOnceService.addNotify('danger',"添加失败,请稍后重试");
                 return;
             }
-            $location.path('#/mycode/');
+            $location.path('/code/'+data.id);
         })
     };
     $scope.reset2 = function(){

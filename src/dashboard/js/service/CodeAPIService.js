@@ -11,7 +11,7 @@ angular.module('RDash').
                 }).
                     success(function(data,status,headers,config){
                         console.log(data);
-                        if (data.hasOwnProperty("code")){
+                        if (data == null ||data.hasOwnProperty("code")){
                             // error
                             callback(array());
                         }else{
@@ -30,7 +30,7 @@ angular.module('RDash').
                 }).
                     success(function(data,status,headers,config){
                         console.log(data);
-                        if (data.hasOwnProperty("code")){
+                        if (data == null ||data.hasOwnProperty("code")){
                             // error
                             callback(array());
                         }else{
@@ -50,7 +50,7 @@ angular.module('RDash').
                 }).
                     success(function(data,status,headers,config){
                         console.log(data);
-                        if (data.hasOwnProperty("code")){
+                        if (data == null ||data.hasOwnProperty("code")){
                             // error
                             callback(null);
                         }else{
@@ -70,7 +70,7 @@ angular.module('RDash').
                 }).
                     success(function(data,status,headers,config){
                         console.log(data);
-                        if (data.hasOwnProperty("code")){
+                        if (data == null ||data.hasOwnProperty("code")){
                             // error
                             callback(null);
                         }
@@ -88,7 +88,7 @@ angular.module('RDash').
                 }).
                     success(function(data,status,headers,config){
                         console.log(data);
-                        if (data.hasOwnProperty("code")){
+                        if (data == null ||data.hasOwnProperty("code")){
                             // error
                             callback(false);
                         }
@@ -101,12 +101,13 @@ angular.module('RDash').
             },
             getCodeSteps:function(userid,codeid,callback){
                 $http({
-                    url:baseUrl+"/code/"+userid+"/"+codeid,
+                    url:baseUrl+"/code/"+userid+"/"+codeid+"/step",
                     method:"GET"
                 }).
                     success(function(data,status,headers,config){
                         console.log(data);
-                        if (data.hasOwnProperty("code")){
+
+                        if (data == null || data.hasOwnProperty("code")){
                             // error
                             callback(null);
                         }else{
@@ -125,7 +126,7 @@ angular.module('RDash').
                 }).
                     success(function(data,status,headers,config){
                         console.log(data);
-                        if (data.hasOwnProperty("code")){
+                        if (data == null ||data.hasOwnProperty("code")){
                             // error
                             callback(null);
                         }else{
@@ -145,7 +146,7 @@ angular.module('RDash').
                 }).
                     success(function(data,status,headers,config){
                         console.log(data);
-                        if (data.hasOwnProperty("code")){
+                        if (data == null ||data.hasOwnProperty("code")){
                             // error
                             callback(null);
                         }else{
@@ -165,7 +166,7 @@ angular.module('RDash').
                 }).
                     success(function(data,status,headers,config){
                         console.log(data);
-                        if (data.hasOwnProperty("code")){
+                        if (data == null ||data.hasOwnProperty("code")){
                             // error
                             callback(null);
                         }
@@ -183,7 +184,7 @@ angular.module('RDash').
                 }).
                     success(function(data,status,headers,config){
                         console.log(data);
-                        if (data.hasOwnProperty("code")){
+                        if (data == null ||data.hasOwnProperty("code")){
                             // error
                             callback(false);
                         }
@@ -201,7 +202,7 @@ angular.module('RDash').
                 }).
                     success(function(data,status,headers,config){
                         console.log(data);
-                        if (data.hasOwnProperty("code")){
+                        if (data == null ||data.hasOwnProperty("code")){
                             // error
                             callback(null);
                         }else{
@@ -221,7 +222,7 @@ angular.module('RDash').
                 }).
                     success(function(data,status,headers,config){
                         console.log(data);
-                        if (data.hasOwnProperty("code")){
+                        if (data == null ||data.hasOwnProperty("code")){
                             // error
                             callback(null);
                         }
@@ -240,7 +241,7 @@ angular.module('RDash').
                 }).
                     success(function(data,status,headers,config){
                         console.log(data);
-                        if (data.hasOwnProperty("code")){
+                        if (data == null ||data.hasOwnProperty("code")){
                             // error
                             callback(null);
                         }
@@ -258,7 +259,7 @@ angular.module('RDash').
                 }).
                     success(function(data,status,headers,config){
                         console.log(data);
-                        if (data.hasOwnProperty("code")){
+                        if (data == null ||data.hasOwnProperty("code")){
                             // error
                             callback(null);
                         }

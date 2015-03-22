@@ -38,6 +38,12 @@ angular.module('RDash').
                 }else{
                     callback(this.getMyCodeFromCache);
                 }
+            },
+            getMyCodeStep: function(codeid,callback){
+                CodeAPIService.getCodeSteps(this.userid,codeid,function(data){
+                    callback(data);
+                });
             }
+
         }
     }])

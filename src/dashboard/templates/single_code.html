@@ -27,10 +27,15 @@
                     <div class="table-responsive">
                         <table class="table">
                             <tbody>
-                            <tr><td><a href="editor.html#/show/{{code.id}}/1" class="fa fa-file-code-o">第一步</a> </td><td>说明1</td></tr>
-                            <tr><td><a href="editor.html#/show/{{code.id}}/2" class="fa fa-file-code-o">第二步</a> </td><td>说明22222221</td></tr>
-                            <tr><td><a href="editor.html#/show/{{code.id}}/3" class="fa fa-file-code-o">第三步</a> </td><td>说明12222222</td></tr>
-                            <tr><td><a href="editor.html#/show/{{code.id}}/4" class="fa fa-file-code-o">第四步</a> </td><td>说明144444444</td></tr>
+                            <tr ng-repeat="step in codesteps" ng-if="codesteps!=null">
+                                <td>
+                                    <a href="editor.html#/show/{{code.id}}/{{step.id}}" class="fa fa-file-code-o">{{step.name}}</a>
+                                </td>
+                                <td>{{step.description}}</td>
+                            </tr>
+                            <div ng-if="codesteps == null">
+                                暂时没有
+                            </div>
                             </tbody>
                         </table>
                     </div>
