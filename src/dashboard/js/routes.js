@@ -7,6 +7,9 @@ angular.module('RDash').config(['$httpProvider','$stateProvider', '$urlRouterPro
     function($httpProvider,$stateProvider, $urlRouterProvider) {
 
         $httpProvider.defaults.timeout = 5000;
+        //interceptors
+        $httpProvider.interceptors.push('httpInterceptor');
+
         ////set rest
         //RestangularProvider.setBaseUrl('http://localhost:8001/api')
 

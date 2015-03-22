@@ -19,12 +19,15 @@ function NewCodeCtrl($location,$scope,CodeAPIService,AlertOnceService){
             return;
         }
         //创建新对象
-        CodeAPIService.addCode2User(userid,$scope.newcodes,function(data){
+        CodeAPIService.addCode2User(userid,$scope.newcodes).then(function(data){
             if(data == null){
                 AlertOnceService.addNotify('danger',"添加失败,请稍后重试");
                 return;
             }
             $location.path('/code/'+data.id);
+        },function(error){
+            console.log(error);
+            AlertOnceService.addNotify('danger',"添加失败,请稍后重试");
         })
     };
     $scope.reset2 = function(){

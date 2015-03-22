@@ -4,10 +4,12 @@
  */
 angular
     .module('RDash')
-    .controller('MyCodeCtrl', ['$scope','MyCodeService', MyCodeCtrl]);
+    .controller('MyCodeCtrl', ['$scope','MyCodeService','$localStorage', MyCodeCtrl]);
 
-function MyCodeCtrl($scope,MyCodeService) {
-
+function MyCodeCtrl($scope,MyCodeService,$localStorage) {
+    $scope.$storage = $localStorage.$default({
+        x: 42
+    });
     //$scope.codedata = CodeAPIService.one('code',1).getList();
     var userid = 1;
     $scope.codedata = [];
