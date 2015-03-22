@@ -2,273 +2,107 @@
  * Created by zpl on 15-3-16.
  */
 angular.module('RDash').
-    factory('CodeAPIService',['$http',function($http){
+    factory('CodeAPIService',['$http','$q','RestfulService',function($http,$q,RestfulService){
         return {
-            getCodesByUser: function(userid,callback){
-                $http({
+            getCodesByUser: function(userid){
+                return RestfulService.restfulOp({
                     url:baseUrl+"/code/"+userid,
                     method:"GET"
-                }).
-                    success(function(data,status,headers,config){
-                        console.log(data);
-                        if (data == null ||data.hasOwnProperty("code")){
-                            // error
-                            callback(array());
-                        }else{
-                            callback(data);
-                        }
-                    }).
-                    error(function(data,status,headers,config){
-                        console.log(data);
-                        callback(array());
-                })
+                });
             },
-            getCodeById: function(userid,id,callback){
-                $http({
+            getCodeById: function(userid,id){
+                return RestfulService.restfulOp({
                     url:baseUrl+"/code/"+userid+"/"+id,
                     method:"GET"
-                }).
-                    success(function(data,status,headers,config){
-                        console.log(data);
-                        if (data == null ||data.hasOwnProperty("code")){
-                            // error
-                            callback(array());
-                        }else{
-                            callback(data);
-                        }
-                    }).
-                    error(function(data,status,headers,config){
-                        console.log(data);
-                        callback(array());
-                    })
+                });
             },
-            addCode2User: function(userid,codeinfo,callback){
-                $http({
+            addCode2User: function(userid,codeinfo){
+                return RestfulService.restfulOp({
                     url:baseUrl+"/code/"+userid,
                     method:"POST",
                     data:codeinfo
-                }).
-                    success(function(data,status,headers,config){
-                        console.log(data);
-                        if (data == null ||data.hasOwnProperty("code")){
-                            // error
-                            callback(null);
-                        }else{
-                            callback(data);
-                        }
-                    }).
-                    error(function(data,status,headers,config){
-                        console.log(data);
-                        callback(array());
-                    })
+                });
+
             },
-            updateCode:function(userid,codeinfo,callback){
-                $http({
+            updateCode:function(userid,codeinfo){
+                return RestfulService.restfulOp({
                     url:baseUrl+"/code/"+userid+"/"+codeinfo.Id,
                     method:"PUT",
                     data:codeinfo
-                }).
-                    success(function(data,status,headers,config){
-                        console.log(data);
-                        if (data == null ||data.hasOwnProperty("code")){
-                            // error
-                            callback(null);
-                        }
-                        callback(array());
-                    }).
-                    error(function(data,status,headers,config){
-                        console.log(data);
-                        callback(array());
-                    })
+                });
+
             },
-            deleteCode:function(userid,codeid,callback){
-                $http({
+            deleteCode:function(userid,codeid){
+                return RestfulService.restfulOp({
                     url:baseUrl+"/code/"+userid+"/"+codeid,
                     method:"DELETE"
-                }).
-                    success(function(data,status,headers,config){
-                        console.log(data);
-                        if (data == null ||data.hasOwnProperty("code")){
-                            // error
-                            callback(false);
-                        }
-                        callback(true);
-                    }).
-                    error(function(data,status,headers,config){
-                        console.log(data);
-                        callback(false);
-                    })
+                });
+
             },
-            getCodeSteps:function(userid,codeid,callback){
-                $http({
+            getCodeSteps:function(userid,codeid){
+                return RestfulService.restfulOp({
                     url:baseUrl+"/code/"+userid+"/"+codeid+"/step",
                     method:"GET"
-                }).
-                    success(function(data,status,headers,config){
-                        console.log(data);
-
-                        if (data == null || data.hasOwnProperty("code")){
-                            // error
-                            callback(null);
-                        }else{
-                            callback(data);
-                        }
-                    }).
-                    error(function(data,status,headers,config){
-                        console.log(data);
-                        callback(null);
-                    })
+                });
             },
-            getCodeStepById: function(userid,codeid,stepid,callback){
-                $http({
+            getCodeStepById: function(userid,codeid,stepid){
+                return RestfulService.restfulOp({
                     url:baseUrl+"/code/"+userid+"/"+codeid+"/step/"+stepid,
                     method:"GET"
-                }).
-                    success(function(data,status,headers,config){
-                        console.log(data);
-                        if (data == null ||data.hasOwnProperty("code")){
-                            // error
-                            callback(null);
-                        }else{
-                            callback(data);
-                        }
-                    }).
-                    error(function(data,status,headers,config){
-                        console.log(data);
-                        callback(null);
-                    })
+                });
+
             },
-            addCodeStep: function(codeid,codestep,callback){
-                $http({
+            addCodeStep: function(codeid,codestep){
+                return RestfulService.restfulOp({
                     url:baseUrl+"/code/"+userid+"/"+codeid,
                     method:"POST",
                     data:codestep
-                }).
-                    success(function(data,status,headers,config){
-                        console.log(data);
-                        if (data == null ||data.hasOwnProperty("code")){
-                            // error
-                            callback(null);
-                        }else{
-                            callback(data);
-                        }
-                    }).
-                    error(function(data,status,headers,config){
-                        console.log(data);
-                        callback(null);
-                    })
+                });
+
             },
-            updateCodeStep: function(userid,codeid,stepid,codestep,callback){
-                $http({
+            updateCodeStep: function(userid,codeid,stepid,codestep){
+                return RestfulService.restfulOp({
                     url:baseUrl+"/code/"+userid+"/"+codeid+"/step/"+stepid,
                     method:"PUT",
                     data:codestep
-                }).
-                    success(function(data,status,headers,config){
-                        console.log(data);
-                        if (data == null ||data.hasOwnProperty("code")){
-                            // error
-                            callback(null);
-                        }
-                        callback(data);
-                    }).
-                    error(function(data,status,headers,config){
-                        console.log(data);
-                        callback(null);
-                    })
+                });
+
             },
-            deleteCodeStep: function(userid,codeid,stepid,callback){
-                $http({
+            deleteCodeStep: function(userid,codeid,stepid){
+                return RestfulService.restfulOp({
                     url:baseUrl+"/code/"+userid+"/"+codeid+"/step/"+stepid,
                     method:"DELETE"
-                }).
-                    success(function(data,status,headers,config){
-                        console.log(data);
-                        if (data == null ||data.hasOwnProperty("code")){
-                            // error
-                            callback(false);
-                        }
-                        callback(true);
-                    }).
-                    error(function(data,status,headers,config){
-                        console.log(data);
-                        callback(false);
-                    })
+                });
+
             },
-            getCodeStepDetail: function(userid,codeid,stepid,callback){
-                $http({
+            getCodeStepDetail: function(userid,codeid,stepid){
+                return RestfulService.restfulOp({
                     url:baseUrl+"/code/"+userid+"/"+codeid+"/step/"+stepid,
                     method:"GET"
-                }).
-                    success(function(data,status,headers,config){
-                        console.log(data);
-                        if (data == null ||data.hasOwnProperty("code")){
-                            // error
-                            callback(null);
-                        }else{
-                            callback(data);
-                        }
-                    }).
-                    error(function(data,status,headers,config){
-                        console.log(data);
-                        callback(null);
-                    })
+                });
             },
-            updateCodeStepDetail: function(userid,codeid,stepid,codestepdetail,callback){
-                $http({
+            updateCodeStepDetail: function(userid,codeid,stepid,codestepdetail){
+                return RestfulService.restfulOp({
                     url:baseUrl+"/code/"+userid+"/"+codeid+"/step/"+stepid,
                     method:"PUT",
                     data:codestepdetail
-                }).
-                    success(function(data,status,headers,config){
-                        console.log(data);
-                        if (data == null ||data.hasOwnProperty("code")){
-                            // error
-                            callback(null);
-                        }
-                        callback(data);
-                    }).
-                    error(function(data,status,headers,config){
-                        console.log(data);
-                        callback(null);
-                    })
+                });
+
             },
-            coderun: function(imageid,runinfo,callback){
-                $http({
+            coderun: function(imageid,runinfo){
+                return RestfulService.restfulOp({
                     url:baseUrl+"/code/run/"+imageid,
                     method:"PUT",
                     data:runinfo
-                }).
-                    success(function(data,status,headers,config){
-                        console.log(data);
-                        if (data == null ||data.hasOwnProperty("code")){
-                            // error
-                            callback(null);
-                        }
-                        callback(data);
-                    }).
-                    error(function(data,status,headers,config){
-                        console.log(data);
-                        callback(null);
-                    })
+                });
+
             },
-            coderunRes: function(runid,callback){
-                $http({
+            coderunRes: function(runid){
+                return RestfulService.restfulOp({
                     url:baseUrl+"/code/run/"+runid,
                     method:"GET"
-                }).
-                    success(function(data,status,headers,config){
-                        console.log(data);
-                        if (data == null ||data.hasOwnProperty("code")){
-                            // error
-                            callback(null);
-                        }
-                        callback(data);
-                    }).
-                    error(function(data,status,headers,config){
-                        console.log(data);
-                        callback(null);
-                    })
+                });
+
             }
 
         }

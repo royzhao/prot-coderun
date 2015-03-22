@@ -16,18 +16,29 @@ angular.module('RDash').
                 if(this.userid == null){
                     callback(null);
                 }
-              CodeAPIService.getCodesByUser(this.userid,function(data){
-                  this.mycode = data;
-                  callback(this.mycode);
-              })
+              CodeAPIService.getCodesByUser(this.userid).
+                  then(function(data){
+                      this.mycode = data;
+                      callback(this.mycode);
+                  },function(error){
+                      this.mycode = null;
+                      callback(null);
+                  })
+
             },
             getMyOneCodeFromBack : function(codeid,callback){
                 if(this.userid == null){
                     callback(null);
                 };
-                CodeAPIService.getCodeById(this.userid,codeid,function(data){
-                    callback(data);
-                })
+                CodeAPIService.getCodeById(this.userid,codeid).
+                    then(function(data){
+                        this.mycode = data;
+                        callback(this.mycode);
+                    },function(error){
+                        console.log(error);
+                        this.mycode = null;
+                        callback(null);
+                    })
             },
             getMyCodeFromCache : function(){
                 return this.mycode;
@@ -40,10 +51,15 @@ angular.module('RDash').
                 }
             },
             getMyCodeStep: function(codeid,callback){
-                CodeAPIService.getCodeSteps(this.userid,codeid,function(data){
-                    callback(data);
-                });
+                CodeAPIService.getCodeSteps(this.userid,codeid).
+                    then(function(data){
+                        this.mycode = data;
+                        callback(this.mycode);
+                    },function(error){
+                        console.log(error);
+                        this.mycode = null;
+                        callback(null);
+                    });
             }
-
         }
     }])
