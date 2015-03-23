@@ -21,9 +21,9 @@ type CRImage struct {
 	Star        int32  `db:"Star"`
 	Fork        int32  `db:"Fork"`
 	Comm        int32  `db:"Comment"`
-	Status      int8   `db:"Status`
-	Descrip     string `db:"Description"`
-	Date        string `db:"Date"`
+	//	Status      int8   `db:"Status`
+	Descrip string `db:"Description"`
+	Date    string `db:"Date"`
 }
 
 type CRComments struct {

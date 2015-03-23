@@ -50,6 +50,18 @@ function ImageCtrl($scope,$cookieStore,$stateParams,Images) {
         //a.save({id: 1, uid: 1}, params).$promise.then(function(c){
         //}, function(err){
         //});
-        Image.save()
+        var newimage = {
+            UserId:currentid,
+            ImageName:$scope.imageName,
+            ImageRealid:0,
+            Descrip:$scope.description
+        };
+        Image.save({},newimage).$promise.then(function(c){
+            $location.path("/containers");
+        }, function(err){
+            $scope.hideLoader();
+            $scope.error = err.data;
+            return false;
+        });
     }
 }
