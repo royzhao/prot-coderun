@@ -5,6 +5,15 @@
 angular.module('RDash').
     factory('SessionService',['$localStorage', function($localStorage){
         return {
+            getUserinfo: function(){
+                var user = $localStorage.user;
+                if(user == null){
+                    //TODO need login,mock login
+                    this.login();
+                    user = $localStorage.user;
+                }
+                return user;
+            },
             isNeedAuth:function(uri,method){
                 //check url is contain api
                 if(uri.indexOf('api')){
@@ -17,11 +26,12 @@ angular.module('RDash').
             isLogin:function(){
                 if($localStorage.token)
                     return true;
-                return true;
+                return false;
             },
             getToken:function(){
                 var token = $localStorage.token;
                 if(token == null){
+                    //TODO need login,mock login
                     this.login();
                     token = $localStorage.token;
                 }
@@ -29,9 +39,15 @@ angular.module('RDash').
             },
             login:function(){
                 $localStorage.token= "xxjjskldifu";
+                $localStorage.user = {
+                    userid:1,
+                    name : "培龙",
+                    userimg : 'img/avatar.jpg'
+                };
             },
             logout:function(){
                 delete $localStorage.token;
+                delete $localStorage.user;
             }
         }
     }]);

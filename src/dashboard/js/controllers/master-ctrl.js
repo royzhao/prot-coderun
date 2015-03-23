@@ -3,13 +3,17 @@
  */
 
 angular.module('RDash')
-    .controller('MasterCtrl', ['$scope', '$cookieStore', MasterCtrl]);
+    .controller('MasterCtrl', ['$scope', '$cookieStore','SessionService', MasterCtrl]);
 
-function MasterCtrl($scope, $cookieStore) {
+function MasterCtrl($scope, $cookieStore,SessionService) {
+    //用户信息
+    $scope.user = SessionService.getUserinfo();
+    $scope.logout = SessionService.logout();
     /**
      * Sidebar Toggle & Cookie Control
      */
     var mobileView = 1024;
+
 
     $scope.getWidth = function() {
         return window.innerWidth;
