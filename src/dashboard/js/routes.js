@@ -22,12 +22,25 @@ angular.module('RDash').config(['$httpProvider','$stateProvider', '$urlRouterPro
                 url: '/',
                 templateUrl: 'templates/dashboard.html'
             })
+            .state('login',{
+                templateUrl: function (){
+                    //TODO mock login
+                    alert('mock 登陆页面,先重定向到百度去')
+                    window.location.href = 'http://www.baidu.com/';
+                }
+            })
             .state('mycode', {
                 url: '/mycode',
                 templateUrl: 'templates/mycode_table.html'
             }).state('newcode',{
                 url: '/newcode',
-                templateUrl: 'templates/newcode.html'
+                templateUrl: 'templates/newcode.html',
+                data: {
+                    permissions: {
+                        except: ['anonymous'],
+                        redirectTo: 'login'
+                    }
+                }
             }).state('myimage', {
                 url: '/myimage',
                 templateUrl: 'templates/myimage_table.html'
