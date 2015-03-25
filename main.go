@@ -127,9 +127,37 @@ func deleteImage(w http.ResponseWriter, r *http.Request) {
 	//	id, _ := strconv.ParseInt(vars["id"], 10, 64)
 }
 
+type newimage struct {
+	UserId      int64
+	ImageName   string
+	BaseImage   string
+	ImageRealid string
+	Descrip     string
+}
+
+type baseImage struct {
+	Bimage string
+}
+
 func createImage(w http.ResponseWriter, r *http.Request) {
 	//	vars := mux.Vars(r)
 	//	id, _ := strconv.ParseInt(vars["id"], 10, 64)
+	var ni newimage
+	if err := json.NewDecoder(r.Body).Decode(&ni); err != nil {
+		logger.Warnf("error decoding image: %s", err)
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+	bi := baseImage{ni.BaseImage}
+	//	bi := ni.BaseImage
+	log.Println(bi)
+	//	cr := newImage(ni.UserId, ni.ImageName, ni.ImageRealid, ni.Descrip)
+	//	cr.Add()
+	w.Header().Set("content-type", "application/json")
+	w.WriteHeader(http.StatusCreated)
+	if err := json.NewEncoder(w).Encode(bi); err != nil {
+		logger.Error(err)
+	}
 }
 
 func editImage(w http.ResponseWriter, r *http.Request) {

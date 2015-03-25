@@ -2,9 +2,9 @@
  * Created by ZJY on 15-2-4.
  */
 angular.module('Image')
-    .controller('ImageCtrl', ['$scope', '$cookieStore','$stateParams','Images', ImageCtrl]);
+    .controller('ImageCtrl', ['$scope', '$cookieStore','$stateParams','Images','CImage', ImageCtrl]);
 
-function ImageCtrl($scope,$cookieStore,$stateParams,Images) {
+function ImageCtrl($scope,$cookieStore,$stateParams,Images,CImage) {
     /**
      * Sidebar Toggle & Cookie Control
      */
@@ -24,6 +24,7 @@ function ImageCtrl($scope,$cookieStore,$stateParams,Images) {
             })
         }
     });
+    $scope.formData = {};
     //$scope.treedata =
     //    [
     //        { "label" : "c++", "id" : "role1", "children" : [] },
@@ -32,6 +33,7 @@ function ImageCtrl($scope,$cookieStore,$stateParams,Images) {
     //    ];
     Images.query({id: adminid, action: 'list'}).$promise.then(function(data){
         $scope.basics = data;
+        $scope.formData.bm = $scope.basics[0];
         //$scope.bm = $scope.basics[0].ImageName;
         //alert( $scope.basics[0].ImageName);
     });
@@ -44,7 +46,7 @@ function ImageCtrl($scope,$cookieStore,$stateParams,Images) {
     //if ($stateParams.id == undefined) {
     //    alert('ok');
     //};
-    $scope.newTerminal = function() {
+    $scope.processForm = function() {
         //alert($scope.basics[0].ImageName);
         //var a = $resource('/dockerapi/images/star', {}, {'save': { isArray: false, method: 'POST' }});
         //a.save({id: 1, uid: 1}, params).$promise.then(function(c){
@@ -52,15 +54,20 @@ function ImageCtrl($scope,$cookieStore,$stateParams,Images) {
         //});
         var newimage = {
             UserId:currentid,
-            ImageName:$scope.imageName,
-            ImageRealid:0,
-            Descrip:$scope.description
+            ImageName:$scope.formData.imageName,
+            BaseImage:$scope.formData.bm.ImageName,
+            ImageRealid:'0',
+            Descrip:$scope.formData.description
         };
-        Image.save({},newimage).$promise.then(function(c){
-            $location.path("/containers");
+        //alert($scope.formData.imageName);
+        //alert($scope.formData.description);
+        CImage.save({},newimage).$promise.then(function(c){
+            //$location.path("/");
+            alert(c.Bimage);
         }, function(err){
-            $scope.hideLoader();
-            $scope.error = err.data;
+            //$scope.hideLoader();
+            //$scope.error = err.data;
+            alert("failure");
             return false;
         });
     }

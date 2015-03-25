@@ -21,9 +21,9 @@ type CRImage struct {
 	Star        int32  `db:"Star"`
 	Fork        int32  `db:"Fork"`
 	Comm        int32  `db:"Comment"`
-	//	Status      int8   `db:"Status`
-	Descrip string `db:"Description"`
-	Date    string `db:"Date"`
+	Status      int8   `db:"Status`
+	Descrip     string `db:"Description"`
+	Date        string `db:"Date"`
 }
 
 type CRComments struct {
@@ -64,6 +64,7 @@ func newImage(uid int64, imgname string, rid string, des string) CRImage {
 		Star:        0,
 		Fork:        0,
 		Comm:        0,
+		Status:      1,
 		Descrip:     des,
 		Date:        time.Now().Format("2006-01-02"),
 	}

@@ -23,7 +23,7 @@ function EditCtrl($scope,$cookieStore,$stateParams,Images,EImage) {
     Images.get({id: $stateParams.id, action: 'log'}).$promise.then(function (data) {
         $scope.basic = data;
     });
-    $scope.newTerminal = function () {
+    $scope.newEdit = function () {
         alert($scope.basic.description);
         EImage.edit({},$scope.basic).$promise.then(function(c){
             $location.path("/containers");
