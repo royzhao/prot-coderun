@@ -2,9 +2,9 @@
  * Created by Administrator on 2015/3/18.
  */
 angular.module('Image')
-    .controller('EditCtrl', ['$scope', '$cookieStore','$stateParams','Images', 'EImage', EditCtrl]);
+    .controller('EditCtrl', ['$scope', '$cookieStore','$stateParams','Images', 'EImage', '$location', EditCtrl]);
 
-function EditCtrl($scope,$cookieStore,$stateParams,Images,EImage) {
+function EditCtrl($scope,$cookieStore,$stateParams,Images,EImage,$location) {
     /**
      * Sidebar Toggle & Cookie Control
      */
@@ -23,21 +23,16 @@ function EditCtrl($scope,$cookieStore,$stateParams,Images,EImage) {
     Images.get({id: $stateParams.id, action: 'log'}).$promise.then(function (data) {
         $scope.basic = data;
     });
-    $scope.newEdit = function () {
-        alert($scope.basic.description);
+    $scope.processEdit = function () {
+        //alert($scope.basic.Descrip);
+        //alert($scope.basic.Fork)
         EImage.edit({},$scope.basic).$promise.then(function(c){
-            $location.path("/containers");
+            $location.path("/term/"+ $scope.basic.ImageName);
         }, function(err){
-            $scope.hideLoader();
-            $scope.error = err.data;
+            //$scope.hideLoader();
+            //$scope.error = err.data;
+            alert("failure");
             return false;
         });
-        //Container.save({count: $scope.count, pull: $scope.pull}, params).$promise.then(function(c){
-        //    $location.path("/containers");
-        //}, function(err){
-        //    $scope.hideLoader();
-        //    $scope.error = err.data;
-        //    return false;
-        //});
     }
 }

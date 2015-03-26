@@ -47,10 +47,11 @@ type CRFork struct {
 }
 
 type SqlOperation interface {
-	Add()
+	Add() error
 	QuerybyUser(uid int64) []CRImage
 	Querylog(imageid int64)
 	DeleteImg()
+	UpdateImage() error
 	UpdateStar(cs CRStar, star bool)
 	UpdateFork(cf CRFork)
 }
@@ -71,10 +72,9 @@ func newImage(uid int64, imgname string, rid string, des string) CRImage {
 }
 
 //insert a new record into cr_image table
-func (c CRImage) Add() {
+func (c CRImage) Add() error {
 	err := dbmap.Insert(&c)
-	checkErr(err, "Insert failed")
-	return
+	return err
 }
 
 //Query the image list by userid, return an array of CRImage struct
@@ -112,6 +112,12 @@ func (c CRImage) DeleteImg() {
 		log.Println("Delete failed", err)
 		return
 	}
+}
+
+//Update the details of an image
+func (c CRImage) UpdateImage() error {
+	_, err := dbmap.Update(&c)
+	return err
 }
 
 //update the star list of an image, if star is true, insert a new star record, else delete the original record

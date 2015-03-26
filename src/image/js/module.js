@@ -17,4 +17,9 @@ angular.module('Image', ['angularTreeview','ui.bootstrap', 'ui.router', 'ngCooki
             'query': { isArray: true, method: 'GET' },
             'get': { isArray: false, method: 'GET' }
         });
+    }])
+    .filter('trustAsResourceUrl', ['$sce', function($sce) {
+        return function(val) {
+            return $sce.trustAsResourceUrl(val);
+        };
     }]);

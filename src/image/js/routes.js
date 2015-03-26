@@ -22,6 +22,11 @@ angular.module('Image').config(['$stateProvider', '$urlRouterProvider',
                 url: '/edit/:id',
                 templateUrl: 'templates/edit.html',
                 controller:'EditCtrl'
+            })
+            .state('term', {
+                url:'/term/:base',
+                templateUrl:'templates/terminal.html',
+                controller:'TerminalCtrl'
             });
     }
 ]);

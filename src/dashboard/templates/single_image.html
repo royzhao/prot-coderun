@@ -11,8 +11,8 @@
             <rd-widget>
                 <rd-widget-header icon="fa-code" title="{{image.imagename}}">
                     <div class="pull-right">
-                        <i class="fa fa-thumbs-o-up">{{image.star}}</i>
-                        <i class="fa fa-code-fork">{{image.fork}}</i>
+                        <a href=" " ng-click="starImage()"><i class="fa fa-thumbs-o-up">{{image.star}}</i></a>
+                        <a href=" " ng-click="forkImage()"><i class="fa fa-code-fork">{{image.fork}}</i></a>
                         <i class="fa fa-calendar">{{image.date}}</i>
                     </div>
                 </rd-widget-header>

@@ -150,9 +150,13 @@ func createImage(w http.ResponseWriter, r *http.Request) {
 	}
 	bi := baseImage{ni.BaseImage}
 	//	bi := ni.BaseImage
-	log.Println(bi)
-	//	cr := newImage(ni.UserId, ni.ImageName, ni.ImageRealid, ni.Descrip)
+	cr := newImage(ni.UserId, ni.ImageName, ni.ImageRealid, ni.Descrip)
 	//	cr.Add()
+	if err := cr.Add(); err != nil {
+		logger.Warnf("error creating image: %s", err)
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
 	w.Header().Set("content-type", "application/json")
 	w.WriteHeader(http.StatusCreated)
 	if err := json.NewEncoder(w).Encode(bi); err != nil {
@@ -163,6 +167,19 @@ func createImage(w http.ResponseWriter, r *http.Request) {
 func editImage(w http.ResponseWriter, r *http.Request) {
 	//	vars := mux.Vars(r)
 	//	id, _ := strconv.ParseInt(vars["id"], 10, 64)
+	var ci CRImage
+	if err := json.NewDecoder(r.Body).Decode(&ci); err != nil {
+		logger.Warnf("error decoding image: %s", err)
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+	if err := ci.UpdateImage(); err != nil {
+		logger.Warnf("error updating image: %s", err)
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+	w.Header().Set("content-type", "application/json")
+	w.WriteHeader(http.StatusCreated)
 }
 
 func starImage(w http.ResponseWriter, r *http.Request) {

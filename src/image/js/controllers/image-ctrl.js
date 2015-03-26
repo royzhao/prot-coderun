@@ -2,9 +2,9 @@
  * Created by ZJY on 15-2-4.
  */
 angular.module('Image')
-    .controller('ImageCtrl', ['$scope', '$cookieStore','$stateParams','Images','CImage', ImageCtrl]);
+    .controller('ImageCtrl', ['$scope', '$cookieStore','$stateParams','Images','CImage', '$location', ImageCtrl]);
 
-function ImageCtrl($scope,$cookieStore,$stateParams,Images,CImage) {
+function ImageCtrl($scope,$cookieStore,$stateParams,Images,CImage,$location) {
     /**
      * Sidebar Toggle & Cookie Control
      */
@@ -63,7 +63,8 @@ function ImageCtrl($scope,$cookieStore,$stateParams,Images,CImage) {
         //alert($scope.formData.description);
         CImage.save({},newimage).$promise.then(function(c){
             //$location.path("/");
-            alert(c.Bimage);
+            $location.path("/term/"+ c.Bimage);
+            //alert(c.Bimage);
         }, function(err){
             //$scope.hideLoader();
             //$scope.error = err.data;
