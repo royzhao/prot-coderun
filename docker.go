@@ -1,19 +1,20 @@
 package main
 
 import (
-//	"encoding/json"
-//	"flag"
-//	"log"
-//	"net/http"
-//	"strconv"
-
-//	"github.com/Sirupsen/logrus"
-//	"github.com/samalba/dockerclient"
+	"fmt"
+	"github.com/fsouza/go-dockerclient"
 )
 
-//var (
-//	logger = logrus.New()
-//)
+var (
+	endpoint  = "unix:///var/run/docker.sock"
+	client, _ = docker.NewClient(endpoint)
+)
+
+func main() {
+	img, err := client.CommitContainer(docker.CommitContainerOptions{container: "ffc4dfc4827c"})
+	fmt.Println(img)
+	fmt.Println(err)
+}
 
 func deleteImageAPI(id string) {
 

@@ -15,11 +15,10 @@ import (
 )
 
 var (
-	endpoint = flag.String("e", "/var/run/docker.sock", "Dockerd endpoint")
-	addr     = flag.String("p", ":9000", "Address and port to serve dockerui")
-	assets   = flag.String("a", "dist", "Path to the assets")
-	dbmap    = initDb()
-	logger   = logrus.New()
+	addr   = flag.String("p", ":9000", "Address and port to serve dockerui")
+	assets = flag.String("a", "dist", "Path to the assets")
+	dbmap  = initDb()
+	logger = logrus.New()
 )
 
 /*
