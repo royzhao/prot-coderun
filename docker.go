@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"github.com/fsouza/go-dockerclient"
+	"strconv"
 )
 
 var (
@@ -10,9 +11,10 @@ var (
 	client, _ = docker.NewClient(endpoint)
 )
 
-//func dockerCommit() {
-func main() {
-	img, err := client.CommitContainer(docker.CommitContainerOptions{Container: "0383b55de49b", Repository: "hahaha"})
+func (c CRImage) dockerCommit() {
+	//func main() {
+	//req, err := http.NewRequest(method, c.getURL(path), params)
+	img, err := client.CommitContainer(docker.CommitContainerOptions{Container: "0383b55de49b", Repository: "hahaha", Tag: strconv.Itoa(1)})
 	fmt.Println(img)
 	if err != nil {
 		fmt.Println(err)

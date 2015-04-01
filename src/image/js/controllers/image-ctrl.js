@@ -13,6 +13,8 @@ function ImageCtrl($scope,$cookieStore,$stateParams,Images,CImage,$location) {
     //mock data
     var adminid = 1;
     var currentid = 1;
+    var username = 'ragnarok';
+    $scope.username = username;
     $scope.treedata = [];
     Images.query({id: currentid, action: 'list'}).$promise.then(function(data){
         var treedata = data;
@@ -56,7 +58,7 @@ function ImageCtrl($scope,$cookieStore,$stateParams,Images,CImage,$location) {
             UserId:currentid,
             ImageName:$scope.formData.imageName,
             BaseImage:$scope.formData.bm.ImageName,
-            ImageRealid:'0',
+            Tag:1,
             Descrip:$scope.formData.description
         };
         //alert($scope.formData.imageName);

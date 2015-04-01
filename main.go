@@ -127,11 +127,11 @@ func deleteImage(w http.ResponseWriter, r *http.Request) {
 }
 
 type newimage struct {
-	UserId      int64
-	ImageName   string
-	BaseImage   string
-	ImageRealid string
-	Descrip     string
+	UserId    int64
+	ImageName string
+	BaseImage string
+	Tag       int32
+	Descrip   string
 }
 
 type baseImage struct {
@@ -149,7 +149,7 @@ func createImage(w http.ResponseWriter, r *http.Request) {
 	}
 	bi := baseImage{ni.BaseImage}
 	//	bi := ni.BaseImage
-	cr := newImage(ni.UserId, ni.ImageName, ni.ImageRealid, ni.Descrip)
+	cr := newImage(ni.UserId, ni.ImageName, ni.Tag, ni.Descrip)
 	//	cr.Add()
 	if err := cr.Add(); err != nil {
 		logger.Warnf("error creating image: %s", err)
@@ -161,6 +161,10 @@ func createImage(w http.ResponseWriter, r *http.Request) {
 	if err := json.NewEncoder(w).Encode(bi); err != nil {
 		logger.Error(err)
 	}
+}
+
+func commitImage(w http.ResponseWriter, r *http.Request) {
+
 }
 
 func editImage(w http.ResponseWriter, r *http.Request) {
