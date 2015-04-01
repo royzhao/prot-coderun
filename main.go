@@ -15,11 +15,10 @@ import (
 )
 
 var (
-	endpoint = flag.String("e", "/var/run/docker.sock", "Dockerd endpoint")
-	addr     = flag.String("p", ":9000", "Address and port to serve dockerui")
-	assets   = flag.String("a", "dist", "Path to the assets")
-	dbmap    = initDb()
-	logger   = logrus.New()
+	addr   = flag.String("p", ":9000", "Address and port to serve dockerui")
+	assets = flag.String("a", "dist", "Path to the assets")
+	dbmap  = initDb()
+	logger = logrus.New()
 )
 
 /*
@@ -128,11 +127,11 @@ func deleteImage(w http.ResponseWriter, r *http.Request) {
 }
 
 type newimage struct {
-	UserId      int64
-	ImageName   string
-	BaseImage   string
-	ImageRealid string
-	Descrip     string
+	UserId    int64
+	ImageName string
+	BaseImage string
+	Tag       int32
+	Descrip   string
 }
 
 type baseImage struct {
@@ -150,7 +149,7 @@ func createImage(w http.ResponseWriter, r *http.Request) {
 	}
 	bi := baseImage{ni.BaseImage}
 	//	bi := ni.BaseImage
-	cr := newImage(ni.UserId, ni.ImageName, ni.ImageRealid, ni.Descrip)
+	cr := newImage(ni.UserId, ni.ImageName, ni.Tag, ni.Descrip)
 	//	cr.Add()
 	if err := cr.Add(); err != nil {
 		logger.Warnf("error creating image: %s", err)
@@ -162,6 +161,10 @@ func createImage(w http.ResponseWriter, r *http.Request) {
 	if err := json.NewEncoder(w).Encode(bi); err != nil {
 		logger.Error(err)
 	}
+}
+
+func commitImage(w http.ResponseWriter, r *http.Request) {
+
 }
 
 func editImage(w http.ResponseWriter, r *http.Request) {
@@ -289,6 +292,7 @@ func main() {
 	apiRouter.HandleFunc("/dockerapi/images/{id}/log", imageLogs).Methods("GET")
 	apiRouter.HandleFunc("/dockerapi/images/{id}/delete", deleteImage).Methods("DELETE")
 	apiRouter.HandleFunc("/dockerapi/image/create", createImage).Methods("POST")
+	apiRouter.HandleFunc("/dockerapi/image/commit", commitImage).Methods("POST")
 	apiRouter.HandleFunc("/dockerapi/image/edit", editImage).Methods("POST")
 	apiRouter.HandleFunc("/dockerapi/image/star", starImage).Methods("POST")
 	apiRouter.HandleFunc("/dockerapi/image/unstar", unstarImage).Methods("POST")

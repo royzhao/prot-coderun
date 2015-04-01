@@ -22,4 +22,17 @@ angular.module('Image', ['angularTreeview','ui.bootstrap', 'ui.router', 'ngCooki
         return function(val) {
             return $sce.trustAsResourceUrl(val);
         };
-    }]);
+    }])
+    .service('sharedProperties', function () {
+        var image = {};
+        var create = false;
+        var edit = false;
+        return {
+            getImage: function () {
+                return image;
+            },
+            setImage: function(value) {
+                image = value;
+            }
+        };
+    });

@@ -26,6 +26,7 @@ function EditCtrl($scope,$cookieStore,$stateParams,Images,EImage,$location) {
     $scope.processEdit = function () {
         //alert($scope.basic.Descrip);
         //alert($scope.basic.Fork)
+        $scope.basic.Tag += 1;
         EImage.edit({},$scope.basic).$promise.then(function(c){
             $location.path("/term/"+ $scope.basic.ImageName);
         }, function(err){
