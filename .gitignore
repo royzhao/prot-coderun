@@ -52,6 +52,4 @@ prot-coderun.exe
 prot-coderun
 
 # Project folder
-.idea
-.idea/workspace.xml
-/.idea
+.idea/
