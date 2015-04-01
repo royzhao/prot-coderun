@@ -288,6 +288,7 @@ func main() {
 	apiRouter.HandleFunc("/dockerapi/images/{id}/log", imageLogs).Methods("GET")
 	apiRouter.HandleFunc("/dockerapi/images/{id}/delete", deleteImage).Methods("DELETE")
 	apiRouter.HandleFunc("/dockerapi/image/create", createImage).Methods("POST")
+	apiRouter.HandleFunc("/dockerapi/image/commit", commitImage).Methods("POST")
 	apiRouter.HandleFunc("/dockerapi/image/edit", editImage).Methods("POST")
 	apiRouter.HandleFunc("/dockerapi/image/star", starImage).Methods("POST")
 	apiRouter.HandleFunc("/dockerapi/image/unstar", unstarImage).Methods("POST")
