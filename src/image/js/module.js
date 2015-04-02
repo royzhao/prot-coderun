@@ -2,14 +2,26 @@
  * Created by zpl on 15-2-2.
  */
 angular.module('Image', ['angularTreeview','ui.bootstrap', 'ui.router', 'ngCookies','ngResource'])
-    .factory('CImage', ['$resource',function($resource) {
-        return $resource('/dockerapi/image/create',{},{
-            'save': { isArray: false, method: 'POST' }
-        });
-    }])
-    .factory('EImage', ['$resource',function($resource) {
-        return $resource('/dockerapi/image/edit',{},{
-            'edit': { isArray: false, method: 'POST' }
+    //.factory('CImage', ['$resource',function($resource) {
+    //    return $resource('/dockerapi/image/create',{},{
+    //        'save': { isArray: false, method: 'POST' }
+    //    });
+    //}])
+    //.factory('EImage', ['$resource',function($resource) {
+    //    return $resource('/dockerapi/image/edit',{},{
+    //        'edit': { isArray: false, method: 'POST' }
+    //    });
+    //}])
+    //.factory('CommitImage', ['$resource',function($resource) {
+    //    return $resource('/dockerapi/image/commit',{},{
+    //        'commit': { isArray: false, method: 'POST' }
+    //    });
+    //}])
+    .factory('Image', ['$resource',function($resource) {
+        return $resource('/dockerapi/image/:action',{},{
+            'save': { isArray: false, method: 'POST' },
+            'edit': { isArray: false, method: 'POST' },
+            'commit': { isArray: false, method: 'POST' }
         });
     }])
     .factory('Images', ['$resource',function($resource) {
@@ -28,11 +40,24 @@ angular.module('Image', ['angularTreeview','ui.bootstrap', 'ui.router', 'ngCooki
         var create = false;
         var edit = false;
         return {
+            createImages: function (value) {
+                create = true;
+                image = value;
+            },
+            editImages: function (value) {
+                edit = true;
+                image = value;
+            },
             getImage: function () {
                 return image;
             },
-            setImage: function(value) {
-                image = value;
+            imageCreated: function() {
+                image = {};
+                create = false;
+            },
+            imageEdited: function() {
+                image = {};
+                edit = false;
             }
         };
     });

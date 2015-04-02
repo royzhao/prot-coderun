@@ -2,9 +2,9 @@
  * Created by Administrator on 2015/3/18.
  */
 angular.module('Image')
-    .controller('EditCtrl', ['$scope', '$cookieStore','$stateParams','Images', 'EImage', '$location', EditCtrl]);
+    .controller('EditCtrl', ['$scope', '$cookieStore','$stateParams','Images', 'Image', '$location', EditCtrl]);
 
-function EditCtrl($scope,$cookieStore,$stateParams,Images,EImage,$location) {
+function EditCtrl($scope,$cookieStore,$stateParams,Images,Image,$location) {
     /**
      * Sidebar Toggle & Cookie Control
      */
@@ -27,7 +27,7 @@ function EditCtrl($scope,$cookieStore,$stateParams,Images,EImage,$location) {
         //alert($scope.basic.Descrip);
         //alert($scope.basic.Fork)
         $scope.basic.Tag += 1;
-        EImage.edit({},$scope.basic).$promise.then(function(c){
+        Image.edit({action:'edit'},$scope.basic).$promise.then(function(c){
             $location.path("/term/"+ $scope.basic.ImageName);
         }, function(err){
             //$scope.hideLoader();

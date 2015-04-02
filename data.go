@@ -17,10 +17,10 @@ type CRImage struct {
 	ImageId   int64  `db:"Image_id"`
 	UserId    int64  `db:"User_id"`
 	ImageName string `db:"Image_name"`
-	Tag       int32  `db:"Tag"`
-	Star      int32  `db:"Star"`
-	Fork      int32  `db:"Fork"`
-	Comm      int32  `db:"Comment"`
+	Tag       int    `db:"Tag"`
+	Star      int    `db:"Star"`
+	Fork      int    `db:"Fork"`
+	Comm      int    `db:"Comment"`
 	Status    int8   `db:"Status`
 	Descrip   string `db:"Description"`
 	Date      string `db:"Date"`
@@ -57,7 +57,7 @@ type SqlOperation interface {
 }
 
 //return a new CRImage struct by the input data
-func newImage(uid int64, imgname string, tag int32, des string) CRImage {
+func newImage(uid int64, imgname string, tag int, des string) CRImage {
 	return CRImage{
 		UserId:    uid,
 		ImageName: imgname,
@@ -65,7 +65,7 @@ func newImage(uid int64, imgname string, tag int32, des string) CRImage {
 		Star:      0,
 		Fork:      0,
 		Comm:      0,
-		Status:    1,
+		Status:    0,
 		Descrip:   des,
 		Date:      time.Now().Format("2006-01-02"),
 	}

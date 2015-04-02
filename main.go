@@ -130,7 +130,7 @@ type newimage struct {
 	UserId    int64
 	ImageName string
 	BaseImage string
-	Tag       int32
+	Tag       int
 	Descrip   string
 }
 
@@ -148,9 +148,7 @@ func createImage(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	bi := baseImage{ni.BaseImage}
-	//	bi := ni.BaseImage
 	cr := newImage(ni.UserId, ni.ImageName, ni.Tag, ni.Descrip)
-	//	cr.Add()
 	if err := cr.Add(); err != nil {
 		logger.Warnf("error creating image: %s", err)
 		http.Error(w, err.Error(), http.StatusInternalServerError)
@@ -164,7 +162,7 @@ func createImage(w http.ResponseWriter, r *http.Request) {
 }
 
 func commitImage(w http.ResponseWriter, r *http.Request) {
-
+	var ni newimage
 }
 
 func editImage(w http.ResponseWriter, r *http.Request) {

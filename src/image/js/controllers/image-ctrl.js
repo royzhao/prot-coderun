@@ -2,9 +2,9 @@
  * Created by ZJY on 15-2-4.
  */
 angular.module('Image')
-    .controller('ImageCtrl', ['$scope', '$cookieStore','$stateParams','Images','CImage', '$location', ImageCtrl]);
+    .controller('ImageCtrl', ['$scope', '$cookieStore','$stateParams','Images','Image', '$location','sharedProperties', ImageCtrl]);
 
-function ImageCtrl($scope,$cookieStore,$stateParams,Images,CImage,$location) {
+function ImageCtrl($scope,$cookieStore,$stateParams,Images,Image,$location,sharedProperties) {
     /**
      * Sidebar Toggle & Cookie Control
      */
@@ -56,14 +56,15 @@ function ImageCtrl($scope,$cookieStore,$stateParams,Images,CImage,$location) {
         //});
         var newimage = {
             UserId:currentid,
-            ImageName:$scope.formData.imageName,
+            ImageName:username + "-" + $scope.formData.imageName,
             BaseImage:$scope.formData.bm.ImageName,
             Tag:1,
             Descrip:$scope.formData.description
         };
+        sharedProperties.createImages(newimage);
         //alert($scope.formData.imageName);
         //alert($scope.formData.description);
-        CImage.save({},newimage).$promise.then(function(c){
+        Image.save({action:'create'},newimage).$promise.then(function(c){
             //$location.path("/");
             $location.path("/term/"+ c.Bimage);
             //alert(c.Bimage);
