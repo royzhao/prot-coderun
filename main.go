@@ -169,7 +169,7 @@ func commitImage(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
-	if err = ci.dockerCommit(); err != nil {
+	if err := ci.dockerCommit(); err != nil {
 		logger.Warnf("error decoding image: %s", err)
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
