@@ -50,6 +50,7 @@ Icon
 # GO Executive file
 prot-coderun.exe
 prot-coderun
+docker
 
 # Project folder
 .idea/workspace.xml
