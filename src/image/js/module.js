@@ -51,6 +51,12 @@ angular.module('Image', ['angularTreeview','ui.bootstrap', 'ui.router', 'ngCooki
             getImage: function () {
                 return image;
             },
+            isCreate:function() {
+                return create;
+            },
+            isEdit:function() {
+                return edit;
+            },
             imageCreated: function() {
                 image = {};
                 create = false;

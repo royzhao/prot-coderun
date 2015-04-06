@@ -64,8 +64,10 @@ function ImageCtrl($scope,$cookieStore,$stateParams,Images,Image,$location,share
         sharedProperties.createImages(newimage);
         //alert($scope.formData.imageName);
         //alert($scope.formData.description);
+        //var c.Bimage = "ubuntu";
         Image.save({action:'create'},newimage).$promise.then(function(c){
             //$location.path("/");
+            var c={Bimage:"ubuntu"};
             $location.path("/term/"+ c.Bimage);
             //alert(c.Bimage);
         }, function(err){

@@ -162,7 +162,18 @@ func createImage(w http.ResponseWriter, r *http.Request) {
 }
 
 func commitImage(w http.ResponseWriter, r *http.Request) {
-	var ni newimage
+	//	var ni newimage
+	var ci CRImage
+	if err := json.NewDecoder(r.Body).Decode(&ci); err != nil {
+		logger.Warnf("error decoding image: %s", err)
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+	if err = ci.dockerCommit(); err != nil {
+		logger.Warnf("error decoding image: %s", err)
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
 }
 
 func editImage(w http.ResponseWriter, r *http.Request) {
