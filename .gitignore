@@ -53,4 +53,4 @@ prot-coderun
 docker
 
 # Project folder
-.idea/workspace.xml
+.idea/
