@@ -2,14 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="656fc045-884e-4d06-9e65-be3a6ce33b73" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docker.go" afterPath="$PROJECT_DIR$/docker.go" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/image/js/controllers/edit-ctrl.js" afterPath="$PROJECT_DIR$/src/image/js/controllers/edit-ctrl.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/image/js/controllers/image-ctrl.js" afterPath="$PROJECT_DIR$/src/image/js/controllers/image-ctrl.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/image/templates/image.html" afterPath="$PROJECT_DIR$/src/image/templates/image.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main.go" afterPath="$PROJECT_DIR$/main.go" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/image/js/module.js" afterPath="$PROJECT_DIR$/src/image/js/module.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/image/js/controllers/terminal-ctrl.js" afterPath="$PROJECT_DIR$/src/image/js/controllers/terminal-ctrl.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="prot-coderun.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -76,8 +69,8 @@
       <file leaf-file-name="terminal-ctrl.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/image/js/controllers/terminal-ctrl.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.8690852" vertical-offset="190" max-vertical-offset="1197">
-              <caret line="39" column="44" selection-start-line="39" selection-start-column="44" selection-end-line="39" selection-end-column="44" />
+            <state vertical-scroll-proportion="0.20977917" vertical-offset="0" max-vertical-offset="1197">
+              <caret line="7" column="50" selection-start-line="7" selection-start-column="50" selection-end-line="7" selection-end-column="50" />
               <folding />
             </state>
           </provider>
@@ -396,7 +389,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1096" extended-state="1" />
+    <frame x="-8" y="-8" width="1936" height="1096" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Gulp" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
@@ -597,14 +590,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/image/templates/terminal.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="23.142857" vertical-offset="1104" max-vertical-offset="1710">
-          <caret line="24" column="18" selection-start-line="24" selection-start-column="18" selection-end-line="24" selection-end-column="18" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/image/js/controllers/edit-ctrl.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="152" max-vertical-offset="836">
@@ -621,10 +606,18 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/image/templates/terminal.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="23.142857" vertical-offset="1104" max-vertical-offset="1710">
+          <caret line="24" column="18" selection-start-line="24" selection-start-column="18" selection-end-line="24" selection-end-column="18" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/image/js/controllers/terminal-ctrl.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.8690852" vertical-offset="190" max-vertical-offset="1197">
-          <caret line="39" column="44" selection-start-line="39" selection-start-column="44" selection-end-line="39" selection-end-column="44" />
+        <state vertical-scroll-proportion="0.20977917" vertical-offset="0" max-vertical-offset="1197">
+          <caret line="7" column="50" selection-start-line="7" selection-start-column="50" selection-end-line="7" selection-end-column="50" />
           <folding />
         </state>
       </provider>
