@@ -9,6 +9,14 @@ function TerminalCtrl($scope,$cookieStore,$stateParams,$location,sharedPropertie
     //alert($scope.apiUrl);
     $scope.uid = 1;
     $scope.baseimage = $stateParams.base;
+    if(sharedProperties.isEdit()) {
+        image = sharedProperties.getImage();
+        $scope.tag = image.Tag;
+    } else if(sharedProperties.isCreate()) {
+        $scope.tag = 'latest';
+    } else {
+        return;
+    }
     $scope.commit = function() {
         var image = {};
         if(sharedProperties.isEdit()) {
@@ -43,7 +51,7 @@ function TerminalCtrl($scope,$cookieStore,$stateParams,$location,sharedPropertie
         }
         Image.commit({action:'commit'},image).$promise.then(function(c){
             //$location.path("/term/"+ $scope.basic.ImageName);
-            $window.location.href = $location.host()+":9000";
+            $window.location.href = "http://" + $location.host()+":9000/dashboard.html#/image/"+ c.ID;
         }, function(err){
             //$scope.hideLoader();
             //$scope.error = err.data;

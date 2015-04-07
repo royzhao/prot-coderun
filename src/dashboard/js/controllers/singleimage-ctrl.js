@@ -3,9 +3,9 @@
  */
 angular
     .module('RDash')
-    .controller('MySingleImageCtrl', ['$scope', '$stateParams','Images',  MySingleImageCtrl]);
+    .controller('MySingleImageCtrl', ['$scope', '$stateParams','Images','$window','$location',  MySingleImageCtrl]);
 
-function MySingleImageCtrl($scope,$stateParams,Images) {
+function MySingleImageCtrl($scope,$stateParams,Images,$window,$location) {
     //var myimagelist = [
     //    {
     //        'imageid':1,
@@ -82,7 +82,8 @@ function MySingleImageCtrl($scope,$stateParams,Images) {
     });
     //$scope.image = myimagelist[$stateParams.imageid];
     $scope.deleteImage = function() {
-
+        alert("http://" + $location.host()+":9000");
+        $window.location.href = "http://" + $location.host()+":9000/dashboard.html#/image/1";
     }
     $scope.newDiscuss = function(){
         alert('建立一个讨论,多人可以对这个进行交流');

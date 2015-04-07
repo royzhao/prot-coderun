@@ -176,6 +176,9 @@ func commitImage(w http.ResponseWriter, r *http.Request) {
 	}
 	w.Header().Set("content-type", "application/json")
 	w.WriteHeader(http.StatusCreated)
+	if err := json.NewEncoder(w).Encode({ID:ci.ImageId}); err != nil {
+		logger.Error(err)
+	}
 }
 
 func editImage(w http.ResponseWriter, r *http.Request) {
