@@ -48,9 +48,9 @@ Icon
 /src/components
 
 # GO Executive file
+docker
 prot-coderun.exe
 prot-coderun
-docker
 
 # Project folder
 .idea/

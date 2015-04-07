@@ -43,10 +43,10 @@ func (c CRImage) dockerCommit() error {
 		return err
 	}
 
-	if err = client.StopContainer(di.ID, 5); err != nil {
-		logger.Warnf("error stopping container: %s", err)
-		return err
-	}
+	//	if err = client.StopContainer(di.ID, 5); err != nil {
+	//		logger.Warnf("error stopping container: %s", err)
+	//		return err
+	//	}
 
 	commitOpts := docker.CommitContainerOptions{Container: di.ID, Repository: c.ImageName, Tag: strconv.Itoa(c.Tag)}
 	if _, err := client.CommitContainer(commitOpts); err != nil {
