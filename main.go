@@ -174,6 +174,8 @@ func commitImage(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
+	w.Header().Set("content-type", "application/json")
+	w.WriteHeader(http.StatusCreated)
 }
 
 func editImage(w http.ResponseWriter, r *http.Request) {

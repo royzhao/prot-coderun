@@ -27,7 +27,7 @@ function TerminalCtrl($scope,$cookieStore,$stateParams,$location,sharedPropertie
             var ni = sharedProperties.getImage();
             image = {
                 UserId:ni.UserId,
-                ImageName:ni.BaseImage,
+                ImageName:ni.ImageName,
                 Tag:1,
                 Descrip:ni.Descrip,
                 ImageID:0,
