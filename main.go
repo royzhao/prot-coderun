@@ -161,6 +161,10 @@ func createImage(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+type myImageID struct {
+	ID int64
+}
+
 func commitImage(w http.ResponseWriter, r *http.Request) {
 	//	var ni newimage
 	var ci CRImage
@@ -176,7 +180,8 @@ func commitImage(w http.ResponseWriter, r *http.Request) {
 	}
 	w.Header().Set("content-type", "application/json")
 	w.WriteHeader(http.StatusCreated)
-	if err := json.NewEncoder(w).Encode({ID:ci.ImageId}); err != nil {
+	mi := myImageID{ID: ci.ImageId}
+	if err := json.NewEncoder(w).Encode(mi); err != nil {
 		logger.Error(err)
 	}
 }

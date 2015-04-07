@@ -38,7 +38,7 @@ function TerminalCtrl($scope,$cookieStore,$stateParams,$location,sharedPropertie
                 ImageName:ni.ImageName,
                 Tag:1,
                 Descrip:ni.Descrip,
-                ImageID:0,
+                ImageID:1,
                 Star:0,
                 Fork:0,
                 Comm:0,
