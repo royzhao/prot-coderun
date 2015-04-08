@@ -47,7 +47,7 @@ function TerminalCtrl($scope,$cookieStore,$stateParams,$location,sharedPropertie
             };
             sharedProperties.imageCreated();
         } else {
-            return;
+            $location.path("/");
         }
         Image.commit({action:'commit'},image).$promise.then(function(c){
             //$location.path("/term/"+ $scope.basic.ImageName);

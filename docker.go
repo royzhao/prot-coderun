@@ -56,14 +56,14 @@ func (c CRImage) dockerCommit() error {
 		logger.Warnf("error committing container: %s", err)
 		return err
 	}
-	if err = client.StopContainer(di.ID, 5); err != nil {
-		logger.Warnf("error stopping container: %s", err)
-		return err
-	}
-	//	if err = client.RemoveContainer(docker.RemoveContainerOptions{ID: di.ID}); err != nil {
-	//		logger.Warnf("error removing container: %s", err)
+	//	if err = client.StopContainer(di.ID, 5); err != nil {
+	//		logger.Warnf("error stopping container: %s", err)
 	//		return err
 	//	}
+	if err = client.RemoveContainer(docker.RemoveContainerOptions{ID: di.ID, Force: true}); err != nil {
+		logger.Warnf("error removing container: %s", err)
+		return err
+	}
 	return nil
 	//	err = client.RemoveContainer(docker.RemoveContainerOptions{ID: "ffc4dfc4827c"})
 }
