@@ -66,4 +66,29 @@ angular.module('Image', ['angularTreeview','ui.bootstrap', 'ui.router', 'ngCooki
                 edit = false;
             }
         };
+    })
+    .directive('isUnique',function(){
+        return {
+            require: 'ngModel',
+            link: function(scope, elm, attrs, ctrl) {
+                ctrl.$parsers.push(function(viewValue) {
+                    $http({
+                        method: 'GET',
+                        url: '/api/check/' + attrs.isUnique,
+                        data: {'field': attrs.isUnique}
+                    }).success(function(data, status, headers, cfg) {
+                        c.$setValidity('unique', data.isUnique);
+                    }).error(function(data, status, headers, cfg) {
+                        c.$setValidity('unique', false);
+                    });
+                    //if (viewValue % 2 == 0) {
+                    //    ctrl.$setValidity('unique', true);
+                    //    return viewValue;
+                    //} else {
+                    //    ctrl.$setValidity('unique', false);
+                    //    return viewValue;
+                    //}
+                });
+            }
+        };
     });
