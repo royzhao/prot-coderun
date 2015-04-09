@@ -204,6 +204,20 @@ func editImage(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusCreated)
 }
 
+func pushImage(w http.ResponseWriter, r *http.Request) {
+	var ci CRImage
+	if err := json.NewDecoder(r.Body).Decode(&ci); err != nil {
+		logger.Warnf("error decoding image: %s", err)
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+	if err := ci.dockerPush(); err != nil {
+		logger.Warnf("error pushing image: %s", err)
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+}
+
 func starImage(w http.ResponseWriter, r *http.Request) {
 	r.ParseForm()
 	p := r.FormValue("id")
@@ -312,6 +326,7 @@ func main() {
 	apiRouter.HandleFunc("/dockerapi/images/{id}/delete", deleteImage).Methods("DELETE")
 	apiRouter.HandleFunc("/dockerapi/image/create", createImage).Methods("POST")
 	apiRouter.HandleFunc("/dockerapi/image/commit", commitImage).Methods("POST")
+	apiRouter.HandleFunc("/dockerapi/image/push", pushImage).Methods("POST")
 	apiRouter.HandleFunc("/dockerapi/image/edit", editImage).Methods("POST")
 	apiRouter.HandleFunc("/dockerapi/image/star", starImage).Methods("POST")
 	apiRouter.HandleFunc("/dockerapi/image/unstar", unstarImage).Methods("POST")

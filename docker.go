@@ -56,16 +56,26 @@ func (c CRImage) dockerCommit() error {
 		logger.Warnf("error committing container: %s", err)
 		return err
 	}
-	//	if err = client.StopContainer(di.ID, 5); err != nil {
-	//		logger.Warnf("error stopping container: %s", err)
-	//		return err
-	//	}
+	if err = client.TagImage(c.ImageName, docker.TagImageOptions{Repo: "192.168.0.33:5000", Tag: strconv.Itoa(c.Tag), Force: true}); err != nil {
+		logger.Warnf("error tagging container: %s", err)
+		return err
+	}
 	if err = client.RemoveContainer(docker.RemoveContainerOptions{ID: di.ID, Force: true}); err != nil {
 		logger.Warnf("error removing container: %s", err)
 		return err
 	}
 	return nil
 	//	err = client.RemoveContainer(docker.RemoveContainerOptions{ID: "ffc4dfc4827c"})
+}
+
+func (c CRImage) dockerPush() error {
+	opts := docker.PushImageOptions{Name: c.ImageName, Tag: strconv.Itoa(c.Tag), Registry: "192.168.0.33:5000"}
+	var auth docker.AuthConfiguration
+	if err := client.PushImage(opts, auth); err != nil {
+		logger.Warnf("error removing container: %s", err)
+		return err
+	}
+	return nil
 }
 
 //func dockerDelete(id string) {

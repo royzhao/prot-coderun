@@ -74,7 +74,7 @@ angular.module('Image', ['angularTreeview','ui.bootstrap', 'ui.router', 'ngCooki
                 ctrl.$parsers.push(function(viewValue) {
                     $http({
                         method: 'GET',
-                        url: '/api/check/' + attrs.isUnique,
+                        url: '/dockerapi/check/' + attrs.isUnique,
                         data: {'field': attrs.isUnique}
                     }).success(function(data, status, headers, cfg) {
                         c.$setValidity('unique', data.isUnique);
