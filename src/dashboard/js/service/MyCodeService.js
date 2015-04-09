@@ -2,7 +2,7 @@
  * Created by zpl on 15-3-18.
  */
 angular.module('RDash').
-    factory('MyCodeService',['CodeAPIService',function(CodeAPIService){
+    factory('MyCodeService',['CodeAPIService','SessionService',function(CodeAPIService,SessionService){
         return {
             userid:null,
             mycode:null,
@@ -12,10 +12,14 @@ angular.module('RDash').
             setMyCode : function(code){
                 this.mycode = code;
             },
-            getMyCodeFromBack : function(callback){
-                if(this.userid == null){
-                    callback(null);
+            checkUser : function(){
+                if(this.userid == "" || this.userid == null){
+                    var user = SessionService.getUserinfo();
+                    this.userid = user.userid;
                 }
+            },
+            getMyCodeFromBack : function(callback){
+                this.checkUser();
               CodeAPIService.getCodesByUser(this.userid).
                   then(function(data){
                       this.mycode = data;
@@ -27,9 +31,7 @@ angular.module('RDash').
 
             },
             getMyOneCodeFromBack : function(codeid,callback){
-                if(this.userid == null){
-                    callback(null);
-                };
+                this.checkUser();
                 CodeAPIService.getCodeById(this.userid,codeid).
                     then(function(data){
                         this.mycode = data;
@@ -51,6 +53,7 @@ angular.module('RDash').
                 }
             },
             getMyCodeStep: function(codeid,callback){
+                this.checkUser();
                 CodeAPIService.getCodeSteps(this.userid,codeid).
                     then(function(data){
                         this.mycode = data;
@@ -58,6 +61,19 @@ angular.module('RDash').
                     },function(error){
                         console.log(error);
                         this.mycode = null;
+                        callback(null);
+                    });
+            },
+            addMyCodeStep: function(codeid,codestep,callback){
+                this.checkUser();
+                if(typeof codestep.image_id == 'string'){
+                    codestep.image_id = parseInt(codestep.image_id)
+                }
+                CodeAPIService.addCodeStep(this.userid,codeid,codestep).
+                    then(function(data){
+                        callback(data);
+                    },function(error){
+                        console.log(error);
                         callback(null);
                     });
             }

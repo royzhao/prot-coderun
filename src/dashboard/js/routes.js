@@ -41,7 +41,8 @@ angular.module('RDash').config(['$httpProvider','$stateProvider', '$urlRouterPro
                         redirectTo: 'login'
                     }
                 }
-            }).state('myimage', {
+            })
+            .state('myimage', {
                 url: '/myimage',
                 templateUrl: 'templates/myimage_table.html'
             }).state('codehub', {
@@ -53,6 +54,15 @@ angular.module('RDash').config(['$httpProvider','$stateProvider', '$urlRouterPro
             }).state('code', {
                 url: '/code/:codeid',
                 templateUrl: 'templates/single_code.html'
+            }).state('addstep',{
+                url:'/addstep/:codeid',
+                templateUrl: 'templates/newstep.html',
+                data: {
+                    permissions: {
+                        except: ['anonymous'],
+                        redirectTo: 'login'
+                    }
+                }
             }).state('image', {
                 url: '/image/:imageid',
                 templateUrl: 'templates/single_image.html'

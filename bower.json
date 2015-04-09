@@ -29,7 +29,9 @@
     "angular.treeview": "*",
     "bootstrap": "~3.2.0",
     "font-awesome": "~4.1.0",
-    "angular-permission": "~0.2.0"
+    "angular-permission": "~0.2.0",
+    "jquery.steps": "~1.1.0",
+    "ngDialog": "~0.3.12"
   },
   "repository": {
     "type": "git",

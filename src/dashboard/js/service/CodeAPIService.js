@@ -52,9 +52,9 @@ angular.module('RDash').
                 });
 
             },
-            addCodeStep: function(codeid,codestep){
+            addCodeStep: function(userid,codeid,codestep){
                 return RestfulService.restfulOp({
-                    url:baseUrl+"/code/"+userid+"/"+codeid,
+                    url:baseUrl+"/code/"+userid+"/"+codeid+"/step",
                     method:"POST",
                     data:codestep
                 });

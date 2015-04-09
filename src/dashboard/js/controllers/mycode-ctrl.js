@@ -11,9 +11,8 @@ function MyCodeCtrl($scope,MyCodeService,$localStorage) {
         x: 42
     });
     //$scope.codedata = CodeAPIService.one('code',1).getList();
-    var userid = 1;
     $scope.codedata = [];
-    MyCodeService.setMyUserId(userid);
+
     MyCodeService.getMyCode(function(data){
         $scope.codedata = data;
     });

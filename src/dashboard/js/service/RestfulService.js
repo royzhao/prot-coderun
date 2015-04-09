@@ -11,6 +11,9 @@ angular.module('RDash').
                     config
                 ).then(function(response) {
                         console.log(response);
+                        if(typeof response != 'object'){
+                            return $q.reject({error:"server error"});
+                        }
                         if (typeof response.data === 'object') {
                             var data = response.data;
                             if (data == null ||data.hasOwnProperty("code")) {

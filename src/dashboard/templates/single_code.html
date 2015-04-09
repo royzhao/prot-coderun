@@ -21,17 +21,23 @@
         <div class="col-lg-12 col-md-12 col-xs-12" >
             <rd-widget>
                 <rd-widget-header icon="fa-files-o" title="{{code.codename}}代码">
-                    <a href="editor.html#/editor/{{code.codeid}}" class="btn btn-sm btn-info">增加步骤</a>
+                    <!--<a href="editor.html#/editor/{{code.codeid}}" class="btn btn-sm btn-info">增加步骤</a>-->
+                    <a href="#/addstep/{{code.id}}" class="btn btn-sm btn-info">增加步骤</a>
                 </rd-widget-header>
                 <rd-widget-body classes="medium no-padding">
                     <div class="table-responsive">
                         <table class="table">
+                            <thead>
+                            <tr><th>名称</th><th>描述</th><th>创建时间</th><th>镜像</th></tr>
+                            </thead>
                             <tbody>
                             <tr ng-repeat="step in codesteps" ng-if="codesteps!=null">
                                 <td>
                                     <a href="editor.html#/show/{{code.id}}/{{step.id}}" class="fa fa-file-code-o">{{step.name}}</a>
                                 </td>
                                 <td>{{step.description}}</td>
+                                <td>{{step.create_date}}</td>
+                                <td>{{step.image_id}}</td>
                             </tr>
                             <div ng-if="codesteps == null">
                                 暂时没有

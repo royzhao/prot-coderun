@@ -24,9 +24,10 @@ angular.module('RDash').
                 return false;
             },
             isLogin:function(){
-                if($localStorage.token)
-                    return true;
-                return false;
+                //if($localStorage.token)
+                //    return true;
+                //return false;
+                return true;
             },
             getToken:function(){
                 var token = $localStorage.token;
@@ -40,7 +41,7 @@ angular.module('RDash').
             login:function(){
                 $localStorage.token= "xxjjskldifu";
                 $localStorage.user = {
-                    userid:1,
+                    userid:2,
                     name : "培龙",
                     userimg : 'img/avatar.jpg'
                 };

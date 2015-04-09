@@ -30,9 +30,7 @@ function MySingleCodeCtrl($scope,$stateParams,MyCodeService) {
         $scope.code = data;
         MyCodeService.getMyCodeStep($scope.code.id,function(steps){
             console.log(steps);
-            if(steps == null){
-
-            }
+            $scope.codesteps = steps;
         });
     });
 
