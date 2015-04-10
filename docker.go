@@ -56,7 +56,7 @@ func (c CRImage) dockerCommit() error {
 		logger.Warnf("error committing container: %s", err)
 		return err
 	}
-	if err = client.TagImage(c.ImageName, docker.TagImageOptions{Repo: "192.168.0.33:5000", Tag: strconv.Itoa(c.Tag), Force: true}); err != nil {
+	if err = client.TagImage(c.ImageName, docker.TagImageOptions{Repo: "127.0.0.1:5000", Tag: strconv.Itoa(c.Tag), Force: true}); err != nil {
 		logger.Warnf("error tagging container: %s", err)
 		return err
 	}
@@ -69,7 +69,7 @@ func (c CRImage) dockerCommit() error {
 }
 
 func (c CRImage) dockerPush() error {
-	opts := docker.PushImageOptions{Name: c.ImageName, Tag: strconv.Itoa(c.Tag), Registry: "192.168.0.33:5000"}
+	opts := docker.PushImageOptions{Name: c.ImageName, Tag: strconv.Itoa(c.Tag), Registry: "127.0.0.1:5000"}
 	var auth docker.AuthConfiguration
 	if err := client.PushImage(opts, auth); err != nil {
 		logger.Warnf("error removing container: %s", err)

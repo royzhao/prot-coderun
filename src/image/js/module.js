@@ -21,7 +21,8 @@ angular.module('Image', ['angularTreeview','ui.bootstrap', 'ui.router', 'ngCooki
         return $resource('/dockerapi/image/:action',{},{
             'save': { isArray: false, method: 'POST' },
             'edit': { isArray: false, method: 'POST' },
-            'commit': { isArray: false, method: 'POST' }
+            'commit': { isArray: false, method: 'POST' },
+            'push': {isArray:false, method: 'POST'}
         });
     }])
     .factory('Images', ['$resource',function($resource) {

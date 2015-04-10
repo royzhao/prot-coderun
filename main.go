@@ -180,10 +180,11 @@ func commitImage(w http.ResponseWriter, r *http.Request) {
 	}
 	w.Header().Set("content-type", "application/json")
 	w.WriteHeader(http.StatusCreated)
-	mi := myImageID{ID: ci.ImageId}
-	if err := json.NewEncoder(w).Encode(mi); err != nil {
-		logger.Error(err)
-	}
+	//response the image id
+	//	mi := myImageID{ID: ci.ImageId}
+	//	if err := json.NewEncoder(w).Encode(mi); err != nil {
+	//		logger.Error(err)
+	//	}
 }
 
 func editImage(w http.ResponseWriter, r *http.Request) {
