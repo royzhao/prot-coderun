@@ -60,6 +60,13 @@ angular.module('RDash').
                 });
 
             },
+            updateCodeStepCmd: function(userid,codeid,stepid,data){
+                return RestfulService.restfulOp({
+                    url:baseUrl+"/code/"+userid+"/"+codeid+"/step/"+stepid+"/cmd",
+                    method:"PUT",
+                    data:data
+                })
+            },
             updateCodeStep: function(userid,codeid,stepid,codestep){
                 return RestfulService.restfulOp({
                     url:baseUrl+"/code/"+userid+"/"+codeid+"/step/"+stepid,

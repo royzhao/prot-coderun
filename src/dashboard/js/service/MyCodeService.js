@@ -76,6 +76,16 @@ angular.module('RDash').
                         console.log(error);
                         callback(null);
                     });
+            },
+            addMyCodeStepCmd: function(codeid,stepid,data,callback){
+                this.checkUser();
+                CodeAPIService.updateCodeStepCmd(this.userid,codeid,stepid,data).
+                    then(function(d){
+                        callback(d);
+                    },function(error){
+                        console.log(error);
+                        callback(null);
+                    })
             }
         }
     }])

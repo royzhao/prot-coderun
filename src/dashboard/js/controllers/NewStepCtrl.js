@@ -25,10 +25,10 @@ function NewStepCtrl($scope,$stateParams,MyCodeService,ngDialog){
     };
     $scope.cmd = {
         commands : [
-            {cmd:"",args:"",is_replace:false},
-            {cmd:"",args:"",is_replace:false},
-            {cmd:"",args:"",is_replace:false},
-            {cmd:"",args:"",is_replace:false}
+            {seq:1,cmd:"",args:"",is_replace:false},
+            {seq:2,cmd:"",args:"",is_replace:false},
+            {seq:3,cmd:"",args:"",is_replace:false},
+            {seq:4,cmd:"",args:"",is_replace:false}
         ]
         };
     $scope.addCmd = function(){
@@ -36,6 +36,7 @@ function NewStepCtrl($scope,$stateParams,MyCodeService,ngDialog){
     }
     $scope.removeCmd = function(i){
         $scope.cmd.commands[i] = {
+            seq:0,
             cmd:"",
             args:"",
             is_replace:false
@@ -46,6 +47,9 @@ function NewStepCtrl($scope,$stateParams,MyCodeService,ngDialog){
             var tmp = $scope.cmd.commands[i-1];
             $scope.cmd.commands[i-1] = $scope.cmd.commands[i];
             $scope.cmd.commands[i] = tmp;
+            var seq = $scope.cmd.commands[i-1].seq;
+            $scope.cmd.commands[i-1].seq = $scope.cmd.commands[i].seq;
+            $scope.cmd.commands[i].seq = seq;
         }
     }
     $scope.downCmd = function(i){
@@ -54,6 +58,9 @@ function NewStepCtrl($scope,$stateParams,MyCodeService,ngDialog){
             var tmp = $scope.cmd.commands[i+1];
             $scope.cmd.commands[i+1] = $scope.cmd.commands[i];
             $scope.cmd.commands[i] = tmp;
+            var seq = $scope.cmd.commands[i+1].seq;
+            $scope.cmd.commands[i+1].seq = $scope.cmd.commands[i].seq;
+            $scope.cmd.commands[i].seq = seq;
         }
     }
 
@@ -74,13 +81,6 @@ function NewStepCtrl($scope,$stateParams,MyCodeService,ngDialog){
                     alert("请填写好表单");
                     return false;
                 }
-                //var dialog =ngDialog.open({
-                //    template: 'templates/pop/wait4add.html',
-                //    showClose:false,
-                //    closeByDocument:false,
-                //    closeByEscape:false,
-                //    className: 'ngdialog-theme-default'
-                //});
                 MyCodeService.addMyCodeStep($stateParams.codeid,$scope.newstep,function(data){
                     console.log(data);
                     //dialog.close();
@@ -93,6 +93,18 @@ function NewStepCtrl($scope,$stateParams,MyCodeService,ngDialog){
                 })
 
                 return true;
+            }
+            if(currentIndex == 1){
+                $scope.stepinfo.is_created = false;
+                MyCodeService.addMyCodeStepCmd($stateParams.codeid,$scope.stepinfo.data.id,$scope.cmd.commands,function(data){
+                    console.log(data);
+                    if(data == null){
+                        $scope.stepinfo.msg="服务器装逼被雷劈了。。。，请稍后在找它";
+                    }else{
+                        $scope.stepinfo.data = data;
+                        $scope.stepinfo.is_created = true;
+                    }
+                })
             }
             return true;
         },

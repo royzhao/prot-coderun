@@ -187,7 +187,7 @@ margin-left: 144px;">
                 <span id="bubblingG_3"></span>
             </div>
             <legend ng-show="stepinfo.is_created">
-                <abbr title="比如编译命令和执行命令，可以替代shell脚本,最多执行4条">增加执行时的命令</abbr>
+                <abbr class="iconset-fontawesome icon-cog" title="eg:编译命令和执行命令，可以替代shell脚本,最多4条">增加执行时的命令</abbr>
             </legend>
             <div ng-show="stepinfo.is_created">
                     <div icon="fa-tasks fa-fire" title="命令列表">
@@ -195,7 +195,7 @@ margin-left: 144px;">
                         <div class="table-responsive">
                             <table class="table">
                                 <thead>
-                                <tr><th class="text-center">编号</th><th>命令</th><th>参数</th><th><abbr title="若是选择，则执行该条命令的时候，入参可以重新输入">是否为可替换参数</abbr></th><th>删除</th></tr>
+                                <tr><th class="text-center">编号</th><th>命令</th><th>参数</th><th><abbr title="执行该条命令的时候，入参可以重新输入">是否为可替换参数</abbr></th><th>清空</th></tr>
                                 </thead>
                                 <tbody>
                                 <tr>
@@ -288,6 +288,18 @@ margin-left: 144px;">
             </div>
         </fieldset>
 
+        <h3>进入内容编辑</h3>
+
+        <fieldset>
+            <legend ng-hide="stepinfo.is_created">{{stepinfo.msg}}</legend>
+            <div ng-hide="stepinfo.is_created" class="bubblingG" style="
+margin-left: 144px;">
+                <span id="bubblingG_1"></span>
+                <span id="bubblingG_2"></span>
+                <span id="bubblingG_3"></span>
+            </div>
+            <button class="btn" ng-show="stepinfo.is_created">去编辑</button>
+        </fieldset>
     </div>
 
 </div>
