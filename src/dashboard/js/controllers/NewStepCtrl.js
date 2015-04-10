@@ -23,6 +23,40 @@ function NewStepCtrl($scope,$stateParams,MyCodeService,ngDialog){
         msg:"正在为您创建中，请稍等。。。",
         data:null
     };
+    $scope.cmd = {
+        commands : [
+            {cmd:"",args:"",is_replace:false},
+            {cmd:"",args:"",is_replace:false},
+            {cmd:"",args:"",is_replace:false},
+            {cmd:"",args:"",is_replace:false}
+        ]
+        };
+    $scope.addCmd = function(){
+        $scope.cmd.commands.push({cmd:"",args:"",is_replace:false});
+    }
+    $scope.removeCmd = function(i){
+        $scope.cmd.commands[i] = {
+            cmd:"",
+            args:"",
+            is_replace:false
+        }
+    }
+    $scope.upCmd = function(i){
+        if(i >0){
+            var tmp = $scope.cmd.commands[i-1];
+            $scope.cmd.commands[i-1] = $scope.cmd.commands[i];
+            $scope.cmd.commands[i] = tmp;
+        }
+    }
+    $scope.downCmd = function(i){
+        var len = $scope.cmd.commands.length;
+        if(i< len-1){
+            var tmp = $scope.cmd.commands[i+1];
+            $scope.cmd.commands[i+1] = $scope.cmd.commands[i];
+            $scope.cmd.commands[i] = tmp;
+        }
+    }
+
 
     $scope.stepconfig ={
         headerTag: "h3",
@@ -84,5 +118,6 @@ function NewStepCtrl($scope,$stateParams,MyCodeService,ngDialog){
             alert("Submitted!");
         }
     }
+    $('#step-create').steps($scope.stepconfig);
 
 }
