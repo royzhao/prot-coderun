@@ -14,7 +14,12 @@ function MyCodeCtrl($scope,MyCodeService,$localStorage) {
     $scope.codedata = [];
 
     MyCodeService.getMyCode(function(data){
-        $scope.codedata = data;
+        if(data instanceof Array){
+            $scope.codedata = data;
+        }else{
+            $scope.codedata.push(data);
+        }
+
     });
     console.log($scope.codedata)
     $scope.newCode = function(){

@@ -86,6 +86,14 @@ angular.module('RDash').
                         console.log(error);
                         callback(null);
                     })
+            },
+            addCode2User:function(obj,cb){
+                this.checkUser();
+                CodeAPIService.addCode2User(this.userid,obj).then(function(data){
+                    cb(data);
+                },function(error){
+                    cb(error);
+                })
             }
         }
     }])

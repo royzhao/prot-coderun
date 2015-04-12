@@ -5,10 +5,9 @@
 
 angular
     .module('RDash')
-    .controller('NewCodeCtrl', ['$location','$scope','CodeAPIService','AlertOnceService', NewCodeCtrl]);
-function NewCodeCtrl($location,$scope,CodeAPIService,AlertOnceService){
+    .controller('NewCodeCtrl', ['$location','$scope','MyCodeService','AlertOnceService', NewCodeCtrl]);
+function NewCodeCtrl($location,$scope,MyCodeService,AlertOnceService){
     // Injector
-    var userid = 1;
     $scope.newcodes = {
         name:"",
         description:""
@@ -19,16 +18,13 @@ function NewCodeCtrl($location,$scope,CodeAPIService,AlertOnceService){
             return;
         }
         //创建新对象
-        CodeAPIService.addCode2User(userid,$scope.newcodes).then(function(data){
+        MyCodeService.addCode2User($scope.newcodes,function(data){
             if(data == null){
                 AlertOnceService.addNotify('danger',"添加失败,请稍后重试");
                 return;
             }
             $location.path('/code/'+data.id);
-        },function(error){
-            console.log(error);
-            AlertOnceService.addNotify('danger',"添加失败,请稍后重试");
-        })
+        });
     };
     $scope.reset2 = function(){
         $scope.newcodes ={

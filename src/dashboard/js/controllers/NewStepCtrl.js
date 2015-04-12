@@ -9,6 +9,7 @@ function NewStepCtrl($scope,$stateParams,MyCodeService,ngDialog){
     $scope.newstep = {
         name:"",
         description:"",
+        code_name:"",
         image_id:0,
         code_id:parseInt($stateParams.codeid)
     };
@@ -78,11 +79,13 @@ function NewStepCtrl($scope,$stateParams,MyCodeService,ngDialog){
             // Allways allow previous action even if the current form is not valid!
             if (currentIndex > newIndex)
             {
-                $scope.stepinfo.is_created:false;
+                if(newIndex == 0){
+                    $scope.stepinfo.is_created=false;
 
-                $scope.stepinfo.msg:"正在为您创建中，请稍等。。。";
-                currentIndex = newIndex;
-                //return true;
+                    $scope.stepinfo.msg="正在为您创建中，请稍等。。。";
+                }
+
+                return true;
             }
             if(currentIndex == 0){
                 if($scope.newstep.name == ""||$scope.newstep.description == "" || $scope.newstep.image_id == 0){
@@ -95,8 +98,8 @@ function NewStepCtrl($scope,$stateParams,MyCodeService,ngDialog){
                     if(data == null){
                         $scope.stepinfo.msg="服务器装逼被雷劈了。。。，请稍后在找它";
                     }else{
-                        $scope.stepinfo.data = data;
                         $scope.stepinfo.is_created = true;
+                        $scope.stepinfo.data = data;
                     }
                 })
 
@@ -105,13 +108,18 @@ function NewStepCtrl($scope,$stateParams,MyCodeService,ngDialog){
             if(currentIndex == 1){
                 $scope.stepinfo.is_created = false;
                 $scope.cmd.commands[$scope.cmd.is_replace].is_replace =2;
+                if($scope.stepinfo.data.id == null){
+                    $scope.stepinfo.is_created = false;
+                    $scope.stepinfo.msg="创建失败，请回退到第一步重来吧";
+                    return false;
+                }
                 MyCodeService.addMyCodeStepCmd($stateParams.codeid,$scope.stepinfo.data.id,$scope.cmd.commands,function(data){
                     console.log(data);
                     if(data == null){
                         $scope.stepinfo.msg="服务器装逼被雷劈了。。。，请稍后在找它";
                     }else{
                         $scope.stepinfo.msg="创建已经成功";
-                        $scope.stepinfo.data = data;
+
                         $scope.stepinfo.is_created = true;
                     }
                 })
