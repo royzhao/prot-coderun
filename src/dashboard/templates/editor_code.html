@@ -133,7 +133,7 @@
 
     }
 </style>
-<div class="newstep-container" data-ng-controller="NewStepCtrl">
+<div class="newstep-container" data-ng-controller="EditorCodeCtrl">
     <div steps>
         <h3>创建步骤</h3>
         <fieldset>
@@ -142,7 +142,7 @@
                 <label for="name" class="col-md-2 control-label">名称</label>
                 <div class="col-md-10">
                     <input type="text"
-                           ng-model="newstep.meta.name"
+                           ng-model="newstep.name"
                            class="form-control"
                            id="name"
                            placeholder="请输入名称">
@@ -152,7 +152,7 @@
             <div class="form-group">
                 <label for="image" class="col-md-2 control-label">关联镜像</label>
                 <div class="col-md-10">
-                    <select id="image" ng-model="newstep.meta.image_id">
+                    <select id="image" ng-model="newstep.image_id">
                         <option value=1>ubuntu</option>
                         <option value=2>python:2</option>
                         <option value=3>python:3</option>
@@ -165,7 +165,7 @@
                 <label for="code_name" class="col-md-2 control-label">默认代码文件名</label>
                 <div class="col-md-10">
                     <input type="text"
-                           ng-model="newstep.meta.code_name"
+                           ng-model="newstep.code_name"
                            class="form-control"
                            id="code_name"
                            placeholder="请输入存储代码的文件名称（后面的操作以这个文件名为准）">
@@ -178,7 +178,7 @@
                     <textarea  name="description"
                                required
                                style="height:200px"
-                               ng-model="newstep.meta.description"
+                               ng-model="newstep.description"
                                class="form-control"
                                id="description"
                                placeholder="请简要描述一下"
@@ -201,101 +201,101 @@ margin-left: 144px;">
                 <abbr class="iconset-fontawesome icon-cog" title="eg:编译命令和执行命令，可以替代shell脚本,最多4条">增加执行时的命令</abbr>
             </legend>
             <div ng-show="stepinfo.is_created">
-                    <div icon="fa-tasks fa-fire" title="命令列表">
-                    </div>
-                        <div class="table-responsive">
-                            <table class="table">
-                                <thead>
-                                <tr><th class="text-center">编号</th><th>命令</th><th>参数</th><th><abbr title="执行该条命令的时候，入参可以重新输入">是否为可替换参数</abbr></th><th>清空</th></tr>
-                                </thead>
-                                <tbody>
-                                <tr>
-                                    <td>
-                                        <div class="col-lg-6">
-                                            <div class="col-lg-12">
-                                                <a ng-click="upCmd(0)"><i class="fa fa-arrow-up"></i></a>
-                                            </div>
-                                            <div class="col-lg-12">
-                                                <a ng-click="downCmd(0)"><i class="fa fa-arrow-down"></i></a>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-6">
-                                            <p>1</p>
-                                        </div>
-                                    </td>
-                                    <td><input type="text" ng-model="newstep.cmds[0].Cmd"/></td>
-                                    <td><input type="text" ng-model="newstep.cmds[0].Args"/></td>
-                                    <td>
-                                        <input type="radio" name="is_replace" value="0" ng-model="cmd.is_replace">
-                                    </td>
-                                    <td><a ng-click="removeCmd(0)"><i class="fa fa-times"></i></a></td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <div class="col-lg-6">
-                                            <div class="col-lg-12">
-                                                <a ng-click="upCmd(1)"><i class="fa fa-arrow-up"></i></a>
-                                            </div>
-                                            <div class="col-lg-12">
-                                                <a ng-click="downCmd(1)"><i class="fa fa-arrow-down"></i></a>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-6">
-                                            <p>2</p>
-                                        </div>
-                                    </td>
-                                    <td><input type="text" ng-model="newstep.cmds[1].Cmd"/></td>
-                                    <td><input type="text" ng-model="newstep.cmds[1].Args"/></td>
-                                    <td>
-                                        <input type="radio" name="is_replace" value="1" ng-model="cmd.is_replace">
-                                    </td>
-                                    <td><a ng-click="removeCmd(1)"><i class="fa fa-times"></i></a></td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <div class="col-lg-6">
-                                            <div class="col-lg-12">
-                                                <a ng-click="upCmd(2)"><i class="fa fa-arrow-up"></i></a>
-                                            </div>
-                                            <div class="col-lg-12">
-                                                <a ng-click="downCmd(2)"><i class="fa fa-arrow-down"></i></a>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-6">
-                                            <p>3</p>
-                                        </div>
-                                    </td>
-                                    <td><input type="text" ng-model="newstep.cmds[2].Cmd"/></td>
-                                    <td><input type="text" ng-model="newstep.cmds[2].Args"/></td>
-                                    <td>
-                                        <input type="radio" name="is_replace" value="2" ng-model="cmd.is_replace">
-                                    </td>
-                                    <td><a ng-click="removeCmd(2)"><i class="fa fa-times"></i></a></td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <div class="col-lg-6">
-                                            <div class="col-lg-12">
-                                                <a ng-click="upCmd(3)"><i class="fa fa-arrow-up"></i></a>
-                                            </div>
-                                            <div class="col-lg-12">
-                                                <a ng-click="downCmd(3)"><i class="fa fa-arrow-down"></i></a>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-6">
-                                            <p>4</p>
-                                        </div>
-                                    </td>
-                                    <td><input type="text" ng-model="newstep.cmds[3].Cmd"/></td>
-                                    <td><input type="text" ng-model="newstep.cmds[3].Args"/></td>
-                                    <td>
-                                        <input type="radio" name="is_replace" value="3" ng-model="cmd.is_replace">
-                                    </td>
-                                    <td><a ng-click="removeCmd(3)"><i class="fa fa-times"></i></a></td>
-                                </tr>
-                                </tbody>
-                            </table>
-                        </div>
+                <div icon="fa-tasks fa-fire" title="命令列表">
+                </div>
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                        <tr><th class="text-center">编号</th><th>命令</th><th>参数</th><th><abbr title="执行该条命令的时候，入参可以重新输入">是否为可替换参数</abbr></th><th>清空</th></tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>
+                                <div class="col-lg-6">
+                                    <div class="col-lg-12">
+                                        <a ng-click="upCmd(0)"><i class="fa fa-arrow-up"></i></a>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <a ng-click="downCmd(0)"><i class="fa fa-arrow-down"></i></a>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <p>1</p>
+                                </div>
+                            </td>
+                            <td><input type="text" ng-model="cmd.commands[0].cmd"/></td>
+                            <td><input type="text" ng-model="cmd.commands[0].args"/></td>
+                            <td>
+                                <input type="radio" name="is_replace" value="0" ng-model="cmd.is_replace">
+                            </td>
+                            <td><a ng-click="removeCmd(0)"><i class="fa fa-times"></i></a></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="col-lg-6">
+                                    <div class="col-lg-12">
+                                        <a ng-click="upCmd(1)"><i class="fa fa-arrow-up"></i></a>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <a ng-click="downCmd(1)"><i class="fa fa-arrow-down"></i></a>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <p>2</p>
+                                </div>
+                            </td>
+                            <td><input type="text" ng-model="cmd.commands[1].cmd"/></td>
+                            <td><input type="text" ng-model="cmd.commands[1].args"/></td>
+                            <td>
+                                <input type="radio" name="is_replace" value="1" ng-model="cmd.is_replace">
+                            </td>
+                            <td><a ng-click="removeCmd(1)"><i class="fa fa-times"></i></a></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="col-lg-6">
+                                    <div class="col-lg-12">
+                                        <a ng-click="upCmd(2)"><i class="fa fa-arrow-up"></i></a>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <a ng-click="downCmd(2)"><i class="fa fa-arrow-down"></i></a>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <p>3</p>
+                                </div>
+                            </td>
+                            <td><input type="text" ng-model="cmd.commands[2].cmd"/></td>
+                            <td><input type="text" ng-model="cmd.commands[2].args"/></td>
+                            <td>
+                                <input type="radio" name="is_replace" value="2" ng-model="cmd.is_replace">
+                            </td>
+                            <td><a ng-click="removeCmd(2)"><i class="fa fa-times"></i></a></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="col-lg-6">
+                                    <div class="col-lg-12">
+                                        <a ng-click="upCmd(3)"><i class="fa fa-arrow-up"></i></a>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <a ng-click="downCmd(3)"><i class="fa fa-arrow-down"></i></a>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <p>4</p>
+                                </div>
+                            </td>
+                            <td><input type="text" ng-model="cmd.commands[3].cmd"/></td>
+                            <td><input type="text" ng-model="cmd.commands[3].args"/></td>
+                            <td>
+                                <input type="radio" name="is_replace" value="3" ng-model="cmd.is_replace">
+                            </td>
+                            <td><a ng-click="removeCmd(3)"><i class="fa fa-times"></i></a></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </fieldset>
 

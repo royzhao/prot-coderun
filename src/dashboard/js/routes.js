@@ -63,6 +63,24 @@ angular.module('RDash').config(['$httpProvider','$stateProvider', '$urlRouterPro
                         redirectTo: 'login'
                     }
                 }
+            }).state('CodeEditor',{
+                url:'/editor/code/:codeid',
+                templateUrl:'templates/newcode.html',
+                data: {
+                    permissions: {
+                        except: ['anonymous'],
+                        redirectTo: 'login'
+                    }
+                }
+            }).state('StepEditor',{
+                url:'/editor/step/:codeid/:stepid',
+                templateUrl:'templates/newstep.html',
+                data: {
+                    permissions: {
+                        except: ['anonymous'],
+                        redirectTo: 'login'
+                    }
+                }
             }).state('image', {
                 url: '/image/:imageid',
                 templateUrl: 'templates/single_image.html'

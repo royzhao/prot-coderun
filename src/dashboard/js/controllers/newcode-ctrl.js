@@ -5,13 +5,25 @@
 
 angular
     .module('RDash')
-    .controller('NewCodeCtrl', ['$location','$scope','MyCodeService','AlertOnceService', NewCodeCtrl]);
-function NewCodeCtrl($location,$scope,MyCodeService,AlertOnceService){
+    .controller('NewCodeCtrl', ['$location','$scope','MyCodeService','AlertOnceService','$stateParams', NewCodeCtrl]);
+function NewCodeCtrl($location,$scope,MyCodeService,AlertOnceService,$stateParams){
     // Injector
     $scope.newcodes = {
         name:"",
         description:""
     };
+    var codeid = $stateParams.codeid;
+    if(codeid != null){
+        MyCodeService.getCodeInfoById(codeid,function(data){
+            if(data == null){
+                AlertOnceService.addNotify('danger',"添加失败,请稍后重试");
+                $location.path('/code/'+data.id);
+                return;
+            }
+            $scope.newcodes = data;
+
+        })
+    }
     $scope.submit2 = function(){
         console.log($scope.newcodes);
         if ($scope.code.$invalid) {
