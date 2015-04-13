@@ -51,12 +51,13 @@ function TerminalCtrl($scope,$cookieStore,$stateParams,$location,sharedPropertie
         }
         Image.commit({action:'commit'},image).$promise.then(function(c){
             //$location.path("/term/"+ $scope.basic.ImageName);
+            alert("创建成功！");
             $window.location.href = "http://" + $location.host()+":9000/dashboard.html#/myimage";
             Image.push({action:'push'},image).$promise.then(function(c) {
 
             }, function(err) {
-                console.log(err);
-                alert("failure");
+                //console.log(err);
+                //alert("failure");
                 return false;
             });
         }, function(err){

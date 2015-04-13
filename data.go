@@ -49,6 +49,7 @@ type CRFork struct {
 type SqlOperation interface {
 	Add() error
 	QuerybyUser(uid int64) []CRImage
+	QueryVerify(name string) bool
 	Querylog(imageid int64)
 	DeleteImg()
 	UpdateImage() error
@@ -81,7 +82,7 @@ func (c CRImage) Add() error {
 func (c CRImage) QuerybyUser(uid int64) []CRImage {
 	var image []CRImage
 	_, err := dbmap.Select(&image, "select * from cr_image where User_id = ?", uid)
-	checkErr(err, "Select failed")
+	checkErr(err, "Select list failed")
 	return image
 }
 
@@ -89,10 +90,23 @@ func (c CRImage) QuerybyUser(uid int64) []CRImage {
 func (c *CRImage) Querylog(imageid int64) *CRImage {
 	obj, err := dbmap.Get(CRImage{}, imageid)
 	if err != nil {
-		log.Fatalln("Select failed", err)
+		log.Fatalln("Select log failed", err)
 	}
 	c = obj.(*CRImage)
 	return obj.(*CRImage)
+}
+
+//Verify whether the name of image is existed
+func QueryVeriy(name string) bool {
+	count, err := dbmap.SelectInt("select count(*) from cr_image where Image_name = ?", name)
+	if err != nil {
+		log.Fatalln("Verify failed", err)
+		return false
+	}
+	if count < 1 {
+		return true
+	}
+	return false
 }
 
 //Delete an image by its id, if it is forked from another image, delete the fork record too

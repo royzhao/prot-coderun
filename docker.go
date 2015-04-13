@@ -56,23 +56,30 @@ func (c CRImage) dockerCommit() error {
 		logger.Warnf("error committing container: %s", err)
 		return err
 	}
-	if err = client.TagImage(c.ImageName, docker.TagImageOptions{Repo: "127.0.0.1:5000", Tag: strconv.Itoa(c.Tag), Force: true}); err != nil {
-		logger.Warnf("error tagging container: %s", err)
+	if err = client.StopContainer(di.ID, 5); err != nil {
+		logger.Warnf("error stopping container: %s", err)
 		return err
 	}
-	if err = client.RemoveContainer(docker.RemoveContainerOptions{ID: di.ID, Force: true}); err != nil {
-		logger.Warnf("error removing container: %s", err)
-		return err
-	}
+	//	if err = client.RemoveContainer(docker.RemoveContainerOptions{ID: di.ID, Force: true}); err != nil {
+	//		logger.Warnf("error removing container: %s", err)
+	//		return err
+	//	}
 	return nil
 	//	err = client.RemoveContainer(docker.RemoveContainerOptions{ID: "ffc4dfc4827c"})
 }
 
 func (c CRImage) dockerPush() error {
-	opts := docker.PushImageOptions{Name: c.ImageName, Tag: strconv.Itoa(c.Tag), Registry: "127.0.0.1:5000"}
+	logger.Println(c.ImageName)
+	name := c.ImageName + ":" + strconv.Itoa(c.Tag)
+	if err := client.TagImage(name, docker.TagImageOptions{Repo: "127.0.0.1:5000/" + c.ImageName, Tag: strconv.Itoa(c.Tag), Force: true}); err != nil {
+		logger.Warnf("error tagging container: %s", err)
+		return err
+	}
+	logger.Println(strconv.Itoa(c.Tag))
+	opts := docker.PushImageOptions{Name: "127.0.0.1:5000/" + c.ImageName, Tag: strconv.Itoa(c.Tag), Registry: "127.0.0.1:5000"}
 	var auth docker.AuthConfiguration
 	if err := client.PushImage(opts, auth); err != nil {
-		logger.Warnf("error removing container: %s", err)
+		logger.Warnf("error pushing container: %s", err)
 		return err
 	}
 	return nil

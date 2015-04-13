@@ -68,28 +68,42 @@ angular.module('Image', ['angularTreeview','ui.bootstrap', 'ui.router', 'ngCooki
             }
         };
     })
-    .directive('isUnique',function(){
+    .directive('isUnique',['$http', function($http){
+        var name;
         return {
+            restrict: 'A',
             require: 'ngModel',
             link: function(scope, elm, attrs, ctrl) {
-                ctrl.$parsers.push(function(viewValue) {
+                //ctrl.$parsers.push(function(viewValue) {
+                scope.$watch(attrs.ngModel, function (viewValue) {
+                //elm.bind('blur',function (evt) {
+                    name = scope.username + '-' + viewValue;
+                    //$http({
+                    //    method: 'GET',
+                    //    url: '/dockerapi/images/' + viewValue + '/verify'
+                    //}).success(function(data, status, headers, cfg) {
+                    //    ctrl.$setValidity('unique', data.IsUnique);
+                    //}).error(function(data, status, headers, cfg) {
+                    //    ctrl.$setValidity('unique', false);
+                    //});
+                });
+                elm.bind('blur',function(evt) {
                     $http({
                         method: 'GET',
-                        url: '/dockerapi/check/' + attrs.isUnique,
-                        data: {'field': attrs.isUnique}
+                        url: '/dockerapi/images/' + name + '/verify'
                     }).success(function(data, status, headers, cfg) {
-                        c.$setValidity('unique', data.isUnique);
+                        ctrl.$setValidity('unique', data.IsUnique);
                     }).error(function(data, status, headers, cfg) {
-                        c.$setValidity('unique', false);
+                        ctrl.$setValidity('unique', false);
                     });
-                    //if (viewValue % 2 == 0) {
-                    //    ctrl.$setValidity('unique', true);
-                    //    return viewValue;
-                    //} else {
-                    //    ctrl.$setValidity('unique', false);
-                    //    return viewValue;
-                    //}
                 });
+                //element.bind('focus', function(evt) {
+                //    element.addClass(FOCUS_CLASS);
+                //    scope.$apply(function() {ctrl.$focused = true;});
+                //}).bind('blur', function(evt) {
+                //    element.removeClass(FOCUS_CLASS);
+                //    scope.$apply(function() {ctrl.$focused = false;});
+                //});
             }
         };
-    });
+    }]);

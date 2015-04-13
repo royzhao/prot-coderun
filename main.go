@@ -121,6 +121,19 @@ func imageLogs(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+type unique struct {
+	IsUnique bool
+}
+
+func imageVerify(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	name := vars["name"]
+	isUnique := QueryVeriy(name)
+	if err := json.NewEncoder(w).Encode(unique{IsUnique: isUnique}); err != nil {
+		logger.Error(err)
+	}
+}
+
 func deleteImage(w http.ResponseWriter, r *http.Request) {
 	//	vars := mux.Vars(r)
 	//	id, _ := strconv.ParseInt(vars["id"], 10, 64)
@@ -324,6 +337,7 @@ func main() {
 	apiRouter.HandleFunc("/dockerapi/images", listImages).Methods("GET")
 	apiRouter.HandleFunc("/dockerapi/images/{id}/list", listMyImages).Methods("GET")
 	apiRouter.HandleFunc("/dockerapi/images/{id}/log", imageLogs).Methods("GET")
+	apiRouter.HandleFunc("/dockerapi/images/{name}/verify", imageVerify).Methods("GET")
 	apiRouter.HandleFunc("/dockerapi/images/{id}/delete", deleteImage).Methods("DELETE")
 	apiRouter.HandleFunc("/dockerapi/image/create", createImage).Methods("POST")
 	apiRouter.HandleFunc("/dockerapi/image/commit", commitImage).Methods("POST")

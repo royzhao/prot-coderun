@@ -79,9 +79,12 @@
                                     <label for="imageName" class="col-sm-2 control-label">镜像名称</label>
                                     <div class="col-sm-8">
                                         <div class="input-group">
-                                            <span class="input-group-addon">{{username + ' / '}}</span>
-                                            <input type="text" class="form-control" id="imageName" name="imageName" ng-pattern="/^[a-zA-Z]*$/" ng-maxlength="10" data-ng-model="formData.imageName" required>
+                                            <span class="input-group-addon">{{username + ' - '}}</span>
+                                            <input type="text" class="form-control" id="imageName" name="imageName" ng-pattern="/^[a-zA-Z]*$/" ng-maxlength="10" data-ng-model="formData.imageName" is-unique required>
                                         </div>
+                                        <div class="error" ng-show="myForm.imageName.$dirty && myForm.imageName.$error.required">*必须填写镜像名称</div>
+                                        <div class="error" ng-show="myForm.imageName.$error.unique">*该镜像名称已存在</div>
+                                        <div class="error" ng-show="myForm.imageName.$error.pattern || myForm.imageName.$error.maxlength">*镜像名称只能使用英文字母，最长不得超过10个字符</div>
                                     </div>
                                 </div>
                                 <div class="form-group">
