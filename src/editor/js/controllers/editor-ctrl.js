@@ -7,9 +7,13 @@ angular.module('Editor')
 function EditorCtrl($scope,$cookieStore,$stateParams) {
     $scope.codeid = $stateParams.codeid;
     $scope.stepid = $stateParams.stepid;
-
+    $scope.page={};
+    $scope.page.toggle = true;
     console.log($scope.codeid);
     console.log($scope.stepid);
+    $scope.switchIt = function(){
+        $scope.toggleSidebar()
+    }
     $scope.commit = function(){
         if($scope.editor && $scope.editor.codemirror){
             $scope.markdown = $scope.editor.codemirror.getValue();
@@ -17,37 +21,31 @@ function EditorCtrl($scope,$cookieStore,$stateParams) {
         }
     }
 
-    ///**
-    // * Sidebar Toggle & Cookie Control
-    // */
-    //var mobileView = 1024;
-    //
-    //$scope.getWidth = function() {
-    //    return window.innerWidth;
-    //};
-    //
-    //$scope.$watch($scope.getWidth, function(newValue, oldValue) {
-    //    if (newValue >= mobileView) {
-    //        if (angular.isDefined($cookieStore.get('toggle'))) {
-    //            $scope.toggle = ! $cookieStore.get('toggle') ? false : true;
-    //        } else {
-    //            $scope.toggle = true;
-    //        }
-    //    } else {
-    //        $scope.toggle = false;
-    //    }
-    //
-    //});
-    //
-    //$scope.toggleSidebar = function() {
-    //    $scope.toggle = !$scope.toggle;
-    //    $cookieStore.put('toggle', $scope.toggle);
-    //};
-    //window.onresize = function() {
-    //    $scope.$apply();
-    //};
-    //$scope.runCode = function(){
-    //    alert('点击这个运行代码,代码结果输出到下面的控制台!如果是网络程序,那么输出访问地址!hhh');
-    //}
+    /**
+    * Sidebar Toggle & Cookie Control
+    */
+    var mobileView = 1024;
+
+    $scope.getWidth = function() {
+        return window.innerWidth;
+    };
+
+    $scope.$watch($scope.getWidth, function(newValue, oldValue) {
+        if (newValue >= mobileView) {
+                $scope.page.toggle = true;
+        } else {
+            $scope.page.toggle = false;
+        }
+
+    });
+
+    $scope.toggleSidebar = function() {
+        console.log($scope.page.toggle);
+        $scope.page.toggle = !$scope.page.toggle;
+        $scope.$apply();
+    };
+    window.onresize = function() {
+        $scope.$apply();
+    };
 
 }

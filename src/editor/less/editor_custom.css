@@ -18,6 +18,49 @@
 #page-wrapper2.open #sidebar-wrapper {
 }
 
+
+@media only screen and (min-width: 1255px)  {
+    #page-wrapper3:not(.open) {
+        margin-left: -97% !important;
+    }
+}
+@media only screen and (min-width: 1055px) and (max-width: 1254px){
+    #page-wrapper3:not(.open) {
+        margin-left: -96% !important;
+    }
+}
+
+@media only screen and (min-width: 561px) and (max-width: 1054px) {
+    #page-wrapper3:not(.open) {
+        margin-left: -94% !important;
+    }
+}
+@media only screen and (min-width: 360px) and (max-width: 560px){
+    #page-wrapper3:not(.open) {
+        margin-left: -91% !important;
+    }
+}
+@media only screen and (max-width: 359px) and (min-width: 0px){
+    #page-wrapper3:not(.open) {
+        margin-left: -88% !important;
+    }
+}
+#page-wrapper3.open .editor-left {
+    float: left;
+    width: 50%;
+}
+#page-wrapper3.open .editor-right {
+    float: left;
+    width: 50%;
+}
+#page-wrapper3:not(.open) .editor-left {
+    float: left;
+    width: 50%;
+}
+#page-wrapper3:not(.open) .editor-right {
+    float: left;
+    width: 50%;
+}
 /**
  * Hamburg Menu
  * When the class of 'hamburg' is applied to the body tag of the document,
@@ -25,28 +68,50 @@
  * where the content is overlaying the content, rather than push it.
  */
 @media only screen and (max-width: 560px) {
-    body.hamburg #page-wrapper2 {
+    #page-wrapper3{
+
+    }
+    #page-wrapper3:not(.open) .editor-left {
+        float:left;
+        width: 50%;
+    }
+    #page-wrapper3:not(.open) .editor-right {
+        float:left;
+        width: 50%;
+    }
+    #page-wrapper3.open .editor-left {
+        float:left;
+        width: 100%;
+    }
+    #page-wrapper3.open .editor-right {
+        float:left;
+        width: 0;
+    }
+    #page-wrapper2 {
         padding-left: 0;
     }
-    body.hamburg #page-wrapper2:not(.open) #sidebar-wrapper {
+    #page-wrapper2:not(.open) #sidebar-wrapper {
         position: absolute;
         left: -100px;
     }
-    body.hamburg #page-wrapper2:not(.open) ul.sidebar .sidebar-title.separator {
+    #page-wrapper2:not(.open) ul.sidebar .sidebar-title.separator {
         display: none;
     }
-    body.hamburg #page-wrapper2.open #sidebar-wrapper {
+    #page-wrapper2.open #sidebar-wrapper {
         position: fixed;
     }
-    body.hamburg #page-wrapper2.open #sidebar-wrapper ul.sidebar li.sidebar-main {
+    #page-wrapper2.open #sidebar-wrapper ul.sidebar li.sidebar-main {
         margin-left: 0px;
     }
-    body.hamburg #sidebar-wrapper ul.sidebar li.sidebar-main,
-    body.hamburg .row.header .meta {
+    #sidebar-wrapper ul.sidebar li.sidebar-main
+    {
         margin-left: 70px;
     }
-    body.hamburg #sidebar-wrapper ul.sidebar li.sidebar-main,
-    body.hamburg #page-wrapper2.open #sidebar-wrapper ul.sidebar li.sidebar-main {
+    .row.header .meta{
+        margin-left: -10px;
+    }
+    #sidebar-wrapper ul.sidebar li.sidebar-main,
+    #page-wrapper2.open #sidebar-wrapper ul.sidebar li.sidebar-main {
         transition: margin-left 0.4s ease 0s;
     }
 }
@@ -235,6 +300,7 @@ body {
     z-index: 999;
 }
 #page-wrapper2,
+#page-wrapper3,
 #sidebar-wrapper {
     transition: all .4s ease 0s;
 }
@@ -494,7 +560,6 @@ ul.sidebar .sidebar-list .menu-icon {
 /*
 add zpl sidebar
 */
-.editor-left{
-    position: absolute;
-    top: 0;
+.ttt{
+    float: right;
 }
