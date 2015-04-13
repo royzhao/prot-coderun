@@ -97,7 +97,7 @@ func (c *CRImage) Querylog(imageid int64) *CRImage {
 }
 
 //Verify whether the name of image is existed
-func QueryVeriy(name string) bool {
+func QueryVerify(name string) bool {
 	count, err := dbmap.SelectInt("select count(*) from cr_image where Image_name = ?", name)
 	if err != nil {
 		log.Fatalln("Verify failed", err)
@@ -136,14 +136,22 @@ func (c CRImage) UpdateImage() error {
 
 //update the star list of an image, if star is true, insert a new star record, else delete the original record
 func (c CRImage) UpdateStar(cs CRStar, star bool) {
-	_, err := dbmap.Update(&c)
-	checkErr(err, "Update failed")
+	//	_, err := dbmap.Update(&c)
+	if _, err := dbmap.Update(&c); err != nil {
+		log.Println("Update image log failed", err)
+	}
+	//	checkErr(err, "Update failed")
 	if star {
-		err = dbmap.Insert(&cs)
-		checkErr(err, "Insert failed")
+		//		err = dbmap.Insert(&cs)
+		if err := dbmap.Insert(&cs); err != nil {
+			log.Println("Star failed", err)
+		}
+		//		checkErr(err, "Insert failed")
 	} else {
-		_, err = dbmap.Delete(&cs)
-		checkErr(err, "Delete failed")
+		//		_, err = dbmap.Delete(&cs)
+		if _, err := dbmap.Delete(&cs); err != nil {
+			log.Println("Unstar failed", err)
+		}
 	}
 }
 

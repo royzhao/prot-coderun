@@ -11,4 +11,10 @@ angular.module('RDash', ['ui.bootstrap', 'ui.router', 'ngCookies', 'ngResource']
             'query': { isArray: true, method: 'GET' },
             'get': { isArray: false, method: 'GET' }
         });
+    }])
+    .factory('Star', ['$resource',function($resource){
+        return $resource('/dockerapi/image/:action',{},{
+            'star':{isArray:false,method:'POST'},
+            'unstar':{isArray:false,method:'POST'}
+        })
     }]);

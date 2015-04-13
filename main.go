@@ -128,7 +128,7 @@ type unique struct {
 func imageVerify(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	name := vars["name"]
-	isUnique := QueryVeriy(name)
+	isUnique := QueryVerify(name)
 	if err := json.NewEncoder(w).Encode(unique{IsUnique: isUnique}); err != nil {
 		logger.Error(err)
 	}
@@ -235,17 +235,19 @@ func pushImage(w http.ResponseWriter, r *http.Request) {
 func starImage(w http.ResponseWriter, r *http.Request) {
 	r.ParseForm()
 	p := r.FormValue("id")
-	c := r.FormValue("uid")
+	c := r.FormValue("sbool")
+	star, _ := strconv.ParseBool(c)
 	log.Println(p)
 	log.Println(c)
-	//	var image CRImage
-	var cs CRStar
-	if err := json.NewDecoder(r.Body).Decode(&cs); err != nil {
+	var cr CRImage
+	//	var cs CRStar
+	if err := json.NewDecoder(r.Body).Decode(&cr); err != nil {
 		logger.Warnf("error decoding image: %s", err)
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
-	//	UpdateStar(cs, true)
+	log.Println(cr)
+	cr.UpdateStar(cs, star)
 	//	log.Println(cs)
 	//	cs := CRStar{id, uid}
 	//	UpdateStar(cs, true)

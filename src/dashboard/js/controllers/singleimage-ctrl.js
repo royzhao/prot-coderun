@@ -3,9 +3,9 @@
  */
 angular
     .module('RDash')
-    .controller('MySingleImageCtrl', ['$scope', '$stateParams','Images','$window','$location',  MySingleImageCtrl]);
+    .controller('MySingleImageCtrl', ['$scope', '$stateParams','Images','$location', 'Star',  MySingleImageCtrl]);
 
-function MySingleImageCtrl($scope,$stateParams,Images,$window,$location) {
+function MySingleImageCtrl($scope,$stateParams,Images,$location,Star) {
     //var myimagelist = [
     //    {
     //        'imageid':1,
@@ -70,7 +70,12 @@ function MySingleImageCtrl($scope,$stateParams,Images,$window,$location) {
     //];
     //$scope.image = [];
     //alert($stateParams.imageid);
+    $scope.starcolor = "#808080";
+    $scope.forkcolor = "";
+    var myimage;
     Images.get({id: $stateParams.imageid, action: 'log'}).$promise.then(function(data){
+        //$scope.image = data;
+        myimage = data;
         $scope.image = {
             imagename : data.ImageName,
             star : data.Star,
@@ -81,15 +86,24 @@ function MySingleImageCtrl($scope,$stateParams,Images,$window,$location) {
         };
     });
     //$scope.image = myimagelist[$stateParams.imageid];
-    $scope.deleteImage = function() {
-        alert("http://" + $location.host()+":9000");
-        $window.location.href = "http://" + $location.host()+":9000/dashboard.html#/image/1";
-    }
+    //$scope.deleteImage = function() {
+    //    alert("http://" + $location.host()+":9000");
+    //    $window.location.href = "http://" + $location.host()+":9000/dashboard.html#/image/1";
+    //}
     $scope.newDiscuss = function(){
         alert('建立一个讨论,多人可以对这个进行交流');
     }
     $scope.starImage = function () {
-        alert('a');
+        //$scope.image.star += 1;
+        //myimage.Star += 1;
+        Star.star({action:'star',id:1,sbool:true},myimage).$promise.then(function(c){
+
+        }, function(err){
+            //$scope.hideLoader();
+            //$scope.error = err.data;
+            alert("failure");
+            return false;
+        });
     }
     $scope.forkImage = function () {
         alert('a');
