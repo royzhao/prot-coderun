@@ -46,3 +46,4 @@ Icon
 
 # Bower components
 /src/components
+npm-debug.log
