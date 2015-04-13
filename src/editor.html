@@ -5,26 +5,34 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <title>码上跑</title>
-    <link rel="stylesheet" type="text/css" href="lib/css/angular.treeview.css">
     <link rel="stylesheet" type="text/css" href="css/editor_custom.css">
     <!-- STYLES -->
     <!-- build:css lib/css/main-editor.min.css -->
     <link rel="stylesheet" type="text/css" href="components/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="components/font-awesome/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="components/rdash-ui/dist/css/rdash.css">
+    <link rel="stylesheet" type="text/css" href="components/editor/editor.css">
 
     <!-- endbuild -->
     <!-- SCRIPTS -->
     <!-- build:js lib/js/main-editor.min.js -->
-    <script type="text/javascript" src="components/angular/angular.min.js"></script>
+    <script type="text/javascript" src="components/editor/editor.js"></script>
+    <script type="text/javascript" src="components/editor/marked.js"></script>
+    <script type="text/javascript" src="components/ace-builds/src-min-noconflict/ace.js"></script>
+    <script type="text/javascript" src="components/ace-builds/src-min-noconflict/ext-language_tools.js"></script>
+    <script type="text/javascript" src="components/angular/angular.js"></script>
+    <script type="text/javascript" src="components/angular-sanitize/angular-sanitize.js"></script>
+
     <script type="text/javascript" src="components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
     <script type="text/javascript" src="components/angular-cookies/angular-cookies.min.js"></script>
     <script type="text/javascript" src="components/angular-ui-router/release/angular-ui-router.min.js"></script>
+    <script type="text/javascript" src="components/angular-ui-ace/ui-ace.min.js"></script>
+    <script type="text/javascript" src="components/showdown/src/showdown.js"></script>
+    <script type="text/javascript" src="components/angular-markdown-directive/markdown.js"></script>
 
     <!-- endbuild -->
     <!-- Custom Scripts -->
     <script type="text/javascript" src="js/editor.min.js"></script>
-    <script type="text/javascript" src="lib/js/angular.treeview.min.js"></script>
 
 </head>
 <body ng-controller="EditorCtrl">

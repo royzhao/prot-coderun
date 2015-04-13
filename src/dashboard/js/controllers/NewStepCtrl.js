@@ -18,12 +18,12 @@ function NewStepCtrl($scope,$stateParams,MyCodeService,ngDialog){
         msg:"正在为您创建中，请稍等。。。",
         data:null
     };
-    var stepid = $stateParams.stepid;
-    var codeid = $stateParams.codeid;
-    if(stepid != null){
-        MyCodeService.getMyCodeOneStep(codeid,stepid,function(data){
+    $scope.stepid = $stateParams.stepid;
+    $scope.codeid = $stateParams.codeid;
+    if($scope.stepid != null){
+        MyCodeService.getMyCodeOneStep($scope.codeid,$scope.stepid,function(data){
             if(data == null){
-                $location.path('/code/'+codeid);
+                $location.path('/code/'+$scope.codeid);
                 return
             }else{
                 $scope.newstep = data;
@@ -43,7 +43,7 @@ function NewStepCtrl($scope,$stateParams,MyCodeService,ngDialog){
                 description:"",
                 code_name:"",
                 image_id:0,
-                code_id:parseInt(codeid)
+                code_id:parseInt($scope.codeid)
             },
             cmds:[
                     {Seq:1,Cmd:"",Args:"",Is_replace:1},
@@ -127,8 +127,8 @@ function NewStepCtrl($scope,$stateParams,MyCodeService,ngDialog){
                         $scope.stepinfo.msg="服务器装逼被雷劈了。。。，请稍后在找它";
                     }else{
                         $scope.stepinfo.data = data;
+                        $scope.stepid = data.meta.id;
                         $scope.stepinfo.is_created = true;
-                        $scope.stepinfo.data = data;
                     }
                 })
 
@@ -137,12 +137,12 @@ function NewStepCtrl($scope,$stateParams,MyCodeService,ngDialog){
             if(currentIndex == 1){
                 $scope.stepinfo.is_created = false;
                 $scope.newstep.cmds[$scope.cmd.is_replace].Is_replace =2;
-                if($scope.stepinfo.data.id == null){
+                if($scope.stepinfo.data.meta.id == null){
                     $scope.stepinfo.is_created = false;
                     $scope.stepinfo.msg="创建失败，请回退到第一步重来吧";
                     return false;
                 }
-                MyCodeService.addMyCodeStepCmd($stateParams.codeid,$scope.stepinfo.data.id,$scope.newstep.cmds,function(data){
+                MyCodeService.addMyCodeStepCmd($stateParams.codeid,$scope.stepinfo.data.meta.id,$scope.newstep.cmds,function(data){
                     console.log(data);
                     if(data == null){
                         $scope.stepinfo.msg="服务器装逼被雷劈了。。。，请稍后在找它";

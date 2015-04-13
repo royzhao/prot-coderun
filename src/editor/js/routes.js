@@ -14,9 +14,9 @@ angular.module('Editor').config(['$stateProvider', '$urlRouterProvider',
 
         // Application routes
         $stateProvider
-            .state('index', {
-                url: '/',
-                templateUrl: 'templates/editor.html'
+            .state('editor',{
+                url:"/editor/:codeid/:stepid",
+                templateUrl:'templates/editor.html'
             })
             .state('show', {
                 url: '/show/:codeid/:stepid',
