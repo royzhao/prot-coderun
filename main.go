@@ -111,6 +111,22 @@ func listMyImages(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+type imageFullName struct {
+	fullname string
+}
+
+func getImageName(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	id, _ := strconv.ParseInt(vars["id"], 10, 64)
+	var img CRImage
+	image := img.Querylog(id)
+	name := image.ImageName + ":" + strconv.Itoa(image.Tag)
+	fullName := imageFullName{fullname: name}
+	if err := json.NewEncoder(w).Encode(fullName); err != nil {
+		logger.Error(err)
+	}
+}
+
 func imageLogs(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	id, _ := strconv.ParseInt(vars["id"], 10, 64)
@@ -233,12 +249,12 @@ func pushImage(w http.ResponseWriter, r *http.Request) {
 }
 
 func starImage(w http.ResponseWriter, r *http.Request) {
-	r.ParseForm()
-	p := r.FormValue("id")
-	c := r.FormValue("sbool")
-	star, _ := strconv.ParseBool(c)
-	log.Println(p)
-	log.Println(c)
+	//	r.ParseForm()
+	//	starStr := r.FormValue("sbool")
+	//	star, _ := strconv.ParseBool(starStr)
+	//	sid := r.FormValue("id")
+	//	log.Println(sid)
+	//	log.Println(star)
 	var cr CRImage
 	//	var cs CRStar
 	if err := json.NewDecoder(r.Body).Decode(&cr); err != nil {
@@ -246,11 +262,40 @@ func starImage(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
-	log.Println(cr)
-	cr.UpdateStar(cs, star)
+	//	var cs CRStar
+	//	if star {
+	//		cs = CRStar{ImageId: cr.ImageId, UserId: cr.UserId}
+	//		//		sid, _ := strconv.ParseInt(r.FormValue("id"), 10, 64)
+	//		//		cs = CRStar{StarId: sid, ImageId: cr.ImageId, UserId: cr.UserId}
+	//	} else {
+	//		sid, _ := strconv.ParseInt(r.FormValue("id"), 10, 64)
+	//		cs = CRStar{StarId: sid, ImageId: cr.ImageId, UserId: cr.UserId}
+	//	}
+	//	log.Println(cr)
+	err := cr.UpdateStar()
+	if err != nil {
+		logger.Warnf("error staring image: %s", err)
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
 	//	log.Println(cs)
 	//	cs := CRStar{id, uid}
 	//	UpdateStar(cs, true)
+}
+
+type starID struct {
+	ID int64
+}
+
+func queryStarid(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	id, _ := strconv.ParseInt(vars["id"], 10, 64)
+	uid, _ := strconv.ParseInt(vars["uid"], 10, 64)
+	cs := CRStar{ImageId: id, UserId: uid}
+	sid := cs.QueryStar()
+	if err := json.NewEncoder(w).Encode(starID{ID: sid}); err != nil {
+		logger.Error(err)
+	}
 }
 
 func unstarImage(w http.ResponseWriter, r *http.Request) {
@@ -336,6 +381,7 @@ func main() {
 	*/
 	globalMux := http.NewServeMux()
 	apiRouter := mux.NewRouter()
+	apiRouter.HandleFunc("/dockerapi/image/{id}/name", getImageName).Methods("GET")
 	apiRouter.HandleFunc("/dockerapi/images", listImages).Methods("GET")
 	apiRouter.HandleFunc("/dockerapi/images/{id}/list", listMyImages).Methods("GET")
 	apiRouter.HandleFunc("/dockerapi/images/{id}/log", imageLogs).Methods("GET")
@@ -348,6 +394,7 @@ func main() {
 	apiRouter.HandleFunc("/dockerapi/image/star", starImage).Methods("POST")
 	apiRouter.HandleFunc("/dockerapi/image/unstar", unstarImage).Methods("POST")
 	apiRouter.HandleFunc("/dockerapi/image/fork", forkImage).Methods("POST")
+	apiRouter.HandleFunc("/dockerapi/star/{uid}/{id}", queryStarid).Methods("GET")
 	//	apiRouter.HandleFunc("/dockerapi/image/comment/{id}", getComment).Methods("GET")
 	//	apiRouter.HandleFunc("/dockerapi/image/star/{id}/{uid}", getStarLog).Methods("GET")
 	//	apiRouter.HandleFunc("/dockerapi/image/fork/{id}/{uid}", getForkLog).Methods("GET")

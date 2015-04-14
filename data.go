@@ -98,7 +98,7 @@ func (c *CRImage) Querylog(imageid int64) *CRImage {
 
 //Verify whether the name of image is existed
 func QueryVerify(name string) bool {
-	count, err := dbmap.SelectInt("select count(*) from cr_image where Image_name = ?", name)
+	count, err := dbmap.SelectInt("select count(1) from cr_image where Image_name = ?", name)
 	if err != nil {
 		log.Fatalln("Verify failed", err)
 		return false
@@ -135,24 +135,57 @@ func (c CRImage) UpdateImage() error {
 }
 
 //update the star list of an image, if star is true, insert a new star record, else delete the original record
-func (c CRImage) UpdateStar(cs CRStar, star bool) {
-	//	_, err := dbmap.Update(&c)
-	if _, err := dbmap.Update(&c); err != nil {
-		log.Println("Update image log failed", err)
+func (c CRImage) UpdateStar() error {
+	//	if _, err := dbmap.Update(&c); err != nil {
+	//		log.Println("Update image log failed", err)
+	//	}
+	var cs CRStar
+	star := true
+	trans, _ := dbmap.Begin()
+	count, err := trans.SelectInt("select count(1) from cr_star where user_id = ? and image_id = ?", c.UserId, c.ImageId)
+	if err != nil {
+		log.Println("1 failed", err)
+		return err
 	}
-	//	checkErr(err, "Update failed")
+	if count > 0 {
+		star = false
+		err = trans.SelectOne(&cs, "select * from cr_star where user_id = ? and image_id = ?", c.UserId, c.ImageId)
+		if err != nil {
+			log.Println("2 failed", err)
+			trans.Rollback()
+			return err
+		}
+	}
 	if star {
 		//		err = dbmap.Insert(&cs)
-		if err := dbmap.Insert(&cs); err != nil {
+		cs = CRStar{UserId: c.UserId, ImageId: c.ImageId}
+		if err := trans.Insert(&cs); err != nil {
 			log.Println("Star failed", err)
+			trans.Rollback()
+			return err
 		}
-		//		checkErr(err, "Insert failed")
+		_, err := trans.Exec("update cr_image set Star = Star + 1 WHERE Image_id = ? ", c.ImageId)
+		if err != nil {
+			log.Println("Star failed", err)
+			trans.Rollback()
+			return err
+		}
 	} else {
 		//		_, err = dbmap.Delete(&cs)
-		if _, err := dbmap.Delete(&cs); err != nil {
+		if _, err := trans.Delete(&cs); err != nil {
 			log.Println("Unstar failed", err)
+			trans.Rollback()
+			return err
+		}
+		_, err := trans.Exec("update cr_image set Star = Star - 1 WHERE Image_id = ? ", c.ImageId)
+		if err != nil {
+			log.Println("Unstar failed", err)
+			trans.Rollback()
+			return err
 		}
 	}
+	trans.Commit()
+	return nil
 }
 
 //insert a fork record of an image
@@ -164,6 +197,17 @@ func (c CRImage) UpdateFork(cf CRFork) {
 	}
 	err = dbmap.Insert(&cf)
 	checkErr(err, "Insert failed")
+}
+
+func (c CRStar) QueryStar() int64 {
+	var cs CRStar
+	err := dbmap.SelectOne(&cs, "select star_id from cr_star where user_id = ? and image_id = ?", c.UserId, c.ImageId)
+	//	count, err := dbmap.SelectInt("select count(1) from cr_star where user_id = ? and image_id = ?", cs.UserId, cs.ImageId)
+	if err != nil {
+		log.Println("Query starlog failed", err)
+		return 0
+	}
+	return cs.StarId
 }
 
 func initDb() *gorp.DbMap {
