@@ -45,7 +45,7 @@
                     编辑器
                 </div>
                 <div class="breadcrumb-links">
-                    Home / Dashboard /Editor
+                    Home / <a href="dashboard.html#/">Dashboard</a> /Editor
                 </div>
             </div>
         </div>
@@ -61,17 +61,29 @@
             </div>
         </div>
         <div class="editor-right">
-            <div ui-ace="{
-              require: ['ace/ext/language_tools'],
-              advanced: {
-                  enableSnippets: true,
-                  enableBasicAutocompletion: true,
-                  enableLiveAutocompletion: true,
-                  enableBasicAutocompletion: true
-              },
-              theme:'twilight'
-            }">
+            <div role="tabpanel">
+                <ul class="nav nav-tabs" role="tablist">
+                    <li role="presentation" class="active">
+                        <a  style="background: #1d1515" aria-controls="home" role="tab" data-toggle="tab">{{step.meta.code_name}}</a>
+                    </li>
+                </ul>
+                <div class="tab-content">
+                    <div role="tabpanel" class="tab-pane active">
+                        <div  ui-ace="{
+                  require: ['ace/ext/language_tools'],
+                  advanced: {
+                      enableSnippets: true,
+                      enableBasicAutocompletion: true,
+                      enableLiveAutocompletion: true,
+                      enableBasicAutocompletion: true
+                  },
+                  theme:'twilight'
+                }">
 
+                        </div>
+                    </div>
+
+                </div>
             </div>
         </div>
 

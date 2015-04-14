@@ -32,7 +32,8 @@
     "jquery.steps": "~1.1.0",
     "ngDialog": "~0.3.12",
     "angular-ui-tinymce": "latest",
-      "angular-ui-ace":"*"
+    "angular-ui-ace": "*",
+    "angular-tabs": "~1.0.2"
   },
   "repository": {
     "type": "git",

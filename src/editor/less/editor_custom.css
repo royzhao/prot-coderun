@@ -67,7 +67,7 @@
  * the sidebar changes it's style to attempt to mimic a menu on a phone app,
  * where the content is overlaying the content, rather than push it.
  */
-@media only screen and (max-width: 560px) {
+@media only screen and (max-width: 900px) {
     #page-wrapper3{
 
     }

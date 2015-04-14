@@ -92,7 +92,7 @@ angular.module('RDash').
                 if(typeof codestep.image_id == 'string'){
                     codestep.image_id = parseInt(codestep.image_id)
                 }
-                if(codestep.id != null){
+                if(codestep.id != null && codestep.id != ""){
                     CodeAPIService.updateCodeStep(this.userid,codeid,codestep.id,codestep).
                         then(function(data){
                             callback(data);
@@ -101,6 +101,7 @@ angular.module('RDash').
                             callback(null);
                         });
                 }else{
+                    codestep.id = null;
                     CodeAPIService.addCodeStep(this.userid,codeid,codestep).
                         then(function(data){
                             callback(data);

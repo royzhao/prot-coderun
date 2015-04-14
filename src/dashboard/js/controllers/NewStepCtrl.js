@@ -3,9 +3,9 @@
  */
 angular
     .module('RDash')
-    .controller('NewStepCtrl', ['$scope','$stateParams','MyCodeService','ngDialog', NewStepCtrl]);
+    .controller('NewStepCtrl', ['$scope','$stateParams','MyCodeService','ngDialog','$localStorage', NewStepCtrl]);
 
-function NewStepCtrl($scope,$stateParams,MyCodeService,ngDialog){
+function NewStepCtrl($scope,$stateParams,MyCodeService,ngDialog,$localStorage){
     $scope.newstep = {
         meta:{},
         cmds:[]
@@ -148,7 +148,10 @@ function NewStepCtrl($scope,$stateParams,MyCodeService,ngDialog){
                         $scope.stepinfo.msg="服务器装逼被雷劈了。。。，请稍后在找它";
                     }else{
                         $scope.stepinfo.msg="创建已经成功";
-
+                        if($localStorage.addstepobj){
+                            delete $localStorage.addstepobj;
+                        }
+                        $localStorage.addstepobj = data;
                         $scope.stepinfo.is_created = true;
                     }
                 })

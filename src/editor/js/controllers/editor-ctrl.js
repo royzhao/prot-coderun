@@ -2,15 +2,36 @@
  * Created by zpl on 15-2-2.
  */
 angular.module('Editor')
-    .controller('EditorCtrl', ['$scope', '$cookieStore','$stateParams', EditorCtrl]);
+    .controller('EditorCtrl', ['$scope', '$cookieStore','$stateParams','$localStorage', EditorCtrl]);
 
-function EditorCtrl($scope,$cookieStore,$stateParams) {
+function EditorCtrl($scope,$cookieStore,$stateParams,$localStorage) {
     $scope.codeid = $stateParams.codeid;
     $scope.stepid = $stateParams.stepid;
     $scope.page={};
     $scope.page.toggle = true;
     console.log($scope.codeid);
     console.log($scope.stepid);
+    if($localStorage.addstepobj == null){
+        $scope.step = {
+            meta:{
+                id:"",
+                name:"",
+                description:"",
+                code_name:"test.py",
+                image_id:0,
+                code_id:parseInt($scope.codeid)
+            },
+            cmds:[
+                {Seq:1,Cmd:"",Args:"",Is_replace:1},
+                {Seq:2,Cmd:"",Args:"",Is_replace:1},
+                {Seq:3,Cmd:"",Args:"",Is_replace:1},
+                {Seq:4,Cmd:"",Args:"",Is_replace:1}
+            ]
+        }
+    }else{
+        $scope.step = $localStorage.addstepobj;
+    }
+
     $scope.switchIt = function(){
         $scope.toggleSidebar()
     }
