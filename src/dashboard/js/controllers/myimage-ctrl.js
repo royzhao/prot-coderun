@@ -5,12 +5,14 @@
 
 angular
     .module('RDash')
-    .controller('MyImageCtrl', ['$scope','$resource','Images', MyImageCtrl]);
+    .controller('MyImageCtrl', ['$scope','$resource','Images', '$cookies', MyImageCtrl]);
 
-function MyImageCtrl($scope,$resource,Images) {
+function MyImageCtrl($scope,$resource,Images,$cookies) {
     //var imagequery = $resource('/dockerapi/images/:id/:action', {id: '@id',action:'list' }, {});
     //$scope.imagedata = imagequery.query({id:1}, function() {
     //});
+    //$cookieStore.put("token","aa");
+    alert($cookies.token);
     var currentid = 1;
     $scope.imagenum = 0;
     $scope.forknum = 0;

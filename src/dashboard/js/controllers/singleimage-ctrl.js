@@ -3,7 +3,7 @@
  */
 angular
     .module('RDash')
-    .controller('MySingleImageCtrl', ['$scope', '$stateParams','Images','$location', 'Star','Image',  MySingleImageCtrl]);
+    .controller('MySingleImageCtrl', ['$scope', '$stateParams','Images','$location', 'Star', 'Image', '$cookieStore',  MySingleImageCtrl]);
 
 function MySingleImageCtrl($scope,$stateParams,Images,$location,Star,Image) {
     //var myimagelist = [

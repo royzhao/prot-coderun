@@ -298,33 +298,24 @@ func queryStarid(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-func unstarImage(w http.ResponseWriter, r *http.Request) {
+//func unstarImage(w http.ResponseWriter, r *http.Request) {
 
-}
+//}
 
 func forkImage(w http.ResponseWriter, r *http.Request) {
-
+	r.ParseForm()
+	id := r.FormValue("uid")
+	uid, _ := strconv.ParseInt(vars["uid"], 10, 64)
 }
+
+//func fortest(w http.ResponseWriter, r *http.Request) {
+//	if err := json.NewEncoder(w).Encode(starID{ID: 2}); err != nil {
+//		logger.Error(err)
+//	}
+//}
 
 func main() {
 	flag.Parse()
-
-	/*	var (
-			globalMux = http.NewServeMux()
-			h         http.Handler
-		)
-
-		if strings.Contains(*endpoint, "http") {
-			h = createTcpHandler(*endpoint)
-		} else {
-			if _, err := os.Stat(*endpoint); err != nil {
-				if os.IsNotExist(err) {
-					log.Fatalf("unix socket %s does not exist", *endpoint)
-				}
-				log.Fatal(err)
-			}
-			h = createUnixHandler(*endpoint)
-		}*/
 
 	/*	db, err := sql.Open("mysql", "root:root@/coderun_image")
 		if err != nil {
@@ -350,23 +341,6 @@ func main() {
 	*/
 
 	defer dbmap.Db.Close()
-	//	cf := &CRFork{'1', '1', '1'}
-	//	c := CRImage{3, 0, "", "", 0, 0, ""}
-	//	err := dbmap.SelectOne(cf, "select fork_id from cr_fork where user_id = ? and image_id = ?", c.UserId, c.ImageId)
-	//	log.Println(*cf)
-	//	log.Println(err)
-
-	//	image := CRImage{3, 0, "", "", 0, 0, ""}
-	//	image.DeleteImg()
-
-	//	c := newImage(2, "golang", "422", "test")
-	//	c.Add()
-
-	//	var image CRImage
-	//	im := image.Querylog(1)
-
-	//	log.Println(*im)
-
 	/*
 		docker, _ := dockerclient.NewDockerClient("unix:///var/run/docker.sock", nil)
 
@@ -392,9 +366,10 @@ func main() {
 	apiRouter.HandleFunc("/dockerapi/image/push", pushImage).Methods("POST")
 	apiRouter.HandleFunc("/dockerapi/image/edit", editImage).Methods("POST")
 	apiRouter.HandleFunc("/dockerapi/image/star", starImage).Methods("POST")
-	apiRouter.HandleFunc("/dockerapi/image/unstar", unstarImage).Methods("POST")
+	//	apiRouter.HandleFunc("/dockerapi/image/unstar", unstarImage).Methods("POST")
 	apiRouter.HandleFunc("/dockerapi/image/fork", forkImage).Methods("POST")
 	apiRouter.HandleFunc("/dockerapi/star/{uid}/{id}", queryStarid).Methods("GET")
+	//	apiRouter.HandleFunc("/dockerapi/test", fortest).Methods("GET")
 	//	apiRouter.HandleFunc("/dockerapi/image/comment/{id}", getComment).Methods("GET")
 	//	apiRouter.HandleFunc("/dockerapi/image/star/{id}/{uid}", getStarLog).Methods("GET")
 	//	apiRouter.HandleFunc("/dockerapi/image/fork/{id}/{uid}", getForkLog).Methods("GET")

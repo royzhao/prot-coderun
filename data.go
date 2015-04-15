@@ -4,6 +4,7 @@ import (
 	"database/sql"
 	"gopkg.in/gorp.v1"
 	"log"
+	"strings"
 	"time"
 
 	_ "github.com/go-sql-driver/mysql"
@@ -53,8 +54,8 @@ type SqlOperation interface {
 	Querylog(imageid int64)
 	DeleteImg()
 	UpdateImage() error
-	UpdateStar(cs CRStar, star bool)
-	UpdateFork(cf CRFork)
+	UpdateStar() error
+	UpdateFork(uid int64, uname string) error
 }
 
 //return a new CRImage struct by the input data
@@ -141,17 +142,18 @@ func (c CRImage) UpdateStar() error {
 	//	}
 	var cs CRStar
 	star := true
-	trans, _ := dbmap.Begin()
+	trans, err := dbmap.Begin()
+	if err != nil {
+		return err
+	}
 	count, err := trans.SelectInt("select count(1) from cr_star where user_id = ? and image_id = ?", c.UserId, c.ImageId)
 	if err != nil {
-		log.Println("1 failed", err)
 		return err
 	}
 	if count > 0 {
 		star = false
 		err = trans.SelectOne(&cs, "select * from cr_star where user_id = ? and image_id = ?", c.UserId, c.ImageId)
 		if err != nil {
-			log.Println("2 failed", err)
 			trans.Rollback()
 			return err
 		}
@@ -173,13 +175,11 @@ func (c CRImage) UpdateStar() error {
 	} else {
 		//		_, err = dbmap.Delete(&cs)
 		if _, err := trans.Delete(&cs); err != nil {
-			log.Println("Unstar failed", err)
 			trans.Rollback()
 			return err
 		}
 		_, err := trans.Exec("update cr_image set Star = Star - 1 WHERE Image_id = ? ", c.ImageId)
 		if err != nil {
-			log.Println("Unstar failed", err)
 			trans.Rollback()
 			return err
 		}
@@ -189,7 +189,35 @@ func (c CRImage) UpdateStar() error {
 }
 
 //insert a fork record of an image
-func (c CRImage) UpdateFork(cf CRFork) {
+func (c CRImage) UpdateFork(uid int64, uname string) error {
+	var cf CRFork
+	trans, err := dbmap.Begin()
+	if err != nil {
+		return err
+	}
+	count, err := trans.SelectInt("select count(1) from cr_fork where user_id = ? and image_id = ?", c.UserId, c.ImageId)
+	if err != nil {
+		return err
+	}
+	if count > 0 {
+		trans.Rollback()
+		return err
+	}
+	cf = CRFork{UserId: c.UserId, ImageId: c.ImageId}
+	if err := trans.Insert(&cf); err != nil {
+		trans.Rollback()
+		return err
+	}
+	_, err := trans.Exec("update cr_image set Fork = Fork + 1 WHERE Image_id = ? ", c.ImageId)
+	if err != nil {
+		trans.Rollback()
+		return err
+	}
+	oldName := strings.Split(c.ImageName, "-")
+	newName := uname + "-" + oldName[1]
+
+	//	ni := newImage()
+
 	_, err := dbmap.Update(&c)
 	if err != nil {
 		log.Println("Update failed", err)
