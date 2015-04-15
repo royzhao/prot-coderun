@@ -5,8 +5,8 @@
 
 angular
     .module('RDash')
-    .controller('NewCodeCtrl', ['$location','$scope','MyCodeService','AlertOnceService','$stateParams', NewCodeCtrl]);
-function NewCodeCtrl($location,$scope,MyCodeService,AlertOnceService,$stateParams){
+    .controller('NewCodeCtrl', ['$location','$scope','MyCodeService','AlertOnceService','$stateParams', 'ngDialog',NewCodeCtrl]);
+function NewCodeCtrl($location,$scope,MyCodeService,AlertOnceService,$stateParams,ngDialog){
     // Injector
     $scope.newcodes = {
         name:"",
@@ -30,7 +30,9 @@ function NewCodeCtrl($location,$scope,MyCodeService,AlertOnceService,$stateParam
             return;
         }
         //创建新对象
+        var dig = ngDialog.open({template:'templates/pop/wait4add.html'});
         MyCodeService.addCode2User($scope.newcodes,function(data){
+            dig.close();
             if(data == null){
                 AlertOnceService.addNotify('danger',"添加失败,请稍后重试");
                 return;

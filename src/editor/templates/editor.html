@@ -62,27 +62,17 @@
         </div>
         <div class="editor-right">
             <div role="tabpanel">
-                <ul class="nav nav-tabs" role="tablist">
-                    <li role="presentation" class="active">
-                        <a  style="background: #1d1515" aria-controls="home" role="tab" data-toggle="tab">{{step.meta.code_name}}</a>
+                <ul class="nav nav-pills" role="tablist" style="background: #503333">
+                    <li ng-repeat="pane in panes" role="presentation" ng-class="{'active': pane.active}">
+                        <button  class="btn" ng-click="active(pane)" ng-class="{'btn_clickd': pane.active}" style="background: #1d1515;" role="tab" data-toggle="tab">{{pane.title}}</button>
                     </li>
                 </ul>
                 <div class="tab-content">
-                    <div role="tabpanel" class="tab-pane active">
-                        <div  ui-ace="{
-                  require: ['ace/ext/language_tools'],
-                  advanced: {
-                      enableSnippets: true,
-                      enableBasicAutocompletion: true,
-                      enableLiveAutocompletion: true,
-                      enableBasicAutocompletion: true
-                  },
-                  theme:'twilight'
-                }">
+                    <div ng-repeat="pane in panes" role="tabpanel"  ng-class="{'tab-pane fade in active': pane.active,'tab-pane fade':!pane.active}">
+                        <div ng-include="pane.content">
 
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>

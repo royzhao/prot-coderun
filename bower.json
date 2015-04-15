@@ -33,7 +33,7 @@
     "ngDialog": "~0.3.12",
     "angular-ui-tinymce": "latest",
     "angular-ui-ace": "*",
-    "angular-tabs": "~1.0.2"
+    "term.js":"https://github.com/chjj/term.js.git"
   },
   "repository": {
     "type": "git",

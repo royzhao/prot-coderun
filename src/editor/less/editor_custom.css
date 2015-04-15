@@ -563,3 +563,12 @@ add zpl sidebar
 .ttt{
     float: right;
 }
+.btn_clickd{
+    color: #E9D3D3 !important;
+    text-decoration: none;
+}
+/*.btn_clickd:focus,*/
+/*.btn_clickd:hover{*/
+    /*color: #E9D3D3 !important;*/
+    /*text-decoration: none;*/
+/*}*/

@@ -11,6 +11,7 @@ function EditorCtrl($scope,$cookieStore,$stateParams,$localStorage) {
     $scope.page.toggle = true;
     console.log($scope.codeid);
     console.log($scope.stepid);
+
     if($localStorage.addstepobj == null){
         $scope.step = {
             meta:{
@@ -31,7 +32,25 @@ function EditorCtrl($scope,$cookieStore,$stateParams,$localStorage) {
     }else{
         $scope.step = $localStorage.addstepobj;
     }
+    $scope.panes = [
+        {title:$scope.step.meta.code_name,content:"templates/ace_editor.html",active:true},
+        {title:"运行代码",content:"templates/run.html",active:false}
+    ]
+    $scope.active = function(obj){
 
+        $scope.panes.filter(function(pane){
+            pane.active = false;
+            if(obj == pane){
+                pane.active = true;
+            }
+        })
+    }
+    $scope.coderun = function(){
+        var header = '>'
+        if($scope.page.term){
+            $scope.page.term.writeln(header+'运行一次');
+        }
+    }
     $scope.switchIt = function(){
         $scope.toggleSidebar()
     }
