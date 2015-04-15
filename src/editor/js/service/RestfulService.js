@@ -16,7 +16,7 @@ angular.module('Editor').
                         }
                         if (typeof response.data === 'object') {
                             var data = response.data;
-                            if (data == null ||data.hasOwnProperty("code")) {
+                            if (data == null) {
                                 return $q.reject(response.data);
                             } else {
                                 // invalid response

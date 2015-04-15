@@ -25,7 +25,6 @@ function MySingleCodeCtrl($scope,$stateParams,MyCodeService) {
     //];
     //$scope.code = mycodelist[$stateParams.codeid-1];
     var codeid = $stateParams.codeid;
-    MyCodeService.setMyUserId(1);
     MyCodeService.getMyOneCodeFromBack(codeid,function(data){
         $scope.code = data;
         MyCodeService.getMyCodeStep($scope.code.id,function(steps){

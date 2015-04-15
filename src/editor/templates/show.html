@@ -1,78 +1,95 @@
 <div class="showcode-container" data-ng-controller="ShowCtrl">
-    <div id="page-wrapper2"  ng-class="{'open': toggle}" ng-cloak>
-
-        <!-- Sidebar -->
-        <div id="sidebar-wrapper" style="background: #C5CDDF !important;">
-            <div class="sidebar">
-                <ul class="sidebar">
-                    <li class="sidebar-main">
-                        <a id="link" ng-click="toggleSidebar()">
-                            {{code.codename}}
-                            <span class="menu-icon glyphicon glyphicon-transfer"></span>
-                        </a>
-                    </li>
-                    <li class="sidebar-title"><span ng-bind="code.codename"></span></li>
-                    <div class="col-lg-12">
-                        <h1>下面讲解如何使用这个代码</h1>
-                        <p>hehe2</p>
-                        <p>dsafasfasffas</p>
-                        <p>sdfwqrwejfhsdhfdsuhfu</p>
-                        <p>用户在这里显示它的代码说明</p>
-                        <p>别人就来借鉴这个说明来进行围观代码</p>
-                        <p>为了较少难度,我觉得还是从单文件开始,比如先弄一些c,C++,go,python等语言的hello world,这部分功能做好之后,我们在做网络程序一类的代码</p>
-                    </div>
-
+    <!-- Header Bar -->
+    <div class="row header">
+        <div class="col-lg-12">
+            <div class="user pull-right">
+                <div class="item dropdown">
+                    <a href="#" class="dropdown-toggle">
+                        <img src="{{user.userimg}}">
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-right">
+                        <li class="dropdown-header">
+                            {{user.name}}
+                        </li>
+                        <li class="divider"></li>
+                        <li class="link">
+                            <a href="#">
+                                我的资料
+                            </a>
+                        </li>
+                        <li class="divider"></li>
+                        <li class="link">
+                            <a href="#" ng-click="logout()">
+                                退出登陆
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="item dropdown">
+                    <a href="#" class="dropdown-toggle">
+                        <i class="fa fa-bell-o"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-right">
+                        <li class="dropdown-header">
+                            通知
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a href="#">你的镜像被xx fork啦!</a>
+                        </li>
+                    </ul>
+                </div>
             </div>
-            <div class="sidebar-footer">
-                <div class="col-xs-4">
-                    <a ui-sref="show" >
-                        上一部分
-                    </a>
+            <div class="meta">
+                <div class="page">
+                    {{step.meta.name}}
                 </div>
-                <div class="col-xs-4">
-                    <a href="dashboard.html#/code/1">
-                        返回
-                    </a>
-                </div>
-                <div class="col-xs-4">
-                    <a ui-sref="show">
-                        下一部分
-                    </a>
+                <div class="breadcrumb-links">
+                    Home / <a href="dashboard.html#/">Dashboard</a> /{{code.name}}
                 </div>
             </div>
         </div>
-        <!-- End Sidebar -->
+    </div>
+    <!-- End Header Bar -->
+    <div id="page-wrapper3"  ng-if="page.show" ng-class="{'open': page.toggle}" ng-cloak>
 
-        <div id="content-wrapper">
-            <div class="page-content">
-                <!-- Main Content -->
-                <!--code editor-->
-                <div class="row">
-                    <div class="col-lg-12">
-                        <rd-widget>
-                            <rd-widget-header icon="fa-tasks" title="代码">
-                                <button class="btn btn-sm btn-info" ng-click="runCode()">运行</button>
-                            </rd-widget-header>
-                            <rd-widget-body classes="medium no-padding">
-                                <div class="comments">这里面时用来显示代码的</div>
-                            </rd-widget-body>
-                        </rd-widget>
+        <div class="editor-left" style="height: 813px;background: #e59494">
+            <div class="editor-left-main">
+                <div btf-markdown="step.code.post_content">
+                </div>
+            </div>
+        </div>
+        <div class="editor-right">
+            <div role="tabpanel">
+                <ul class="nav nav-pills" role="tablist" style="background: #503333;margin-bottom: 1px">
+                    <li ng-repeat="pane in panes" role="presentation" ng-class="{'active': pane.active}">
+                        <button  class="btn" ng-click="active(pane)" ng-class="{'btn_clickd': pane.active}" style="background: #1d1515;" role="tab" data-toggle="tab">{{pane.title}}</button>
+                    </li>
+                </ul>
+                <div class="tab-content">
+                    <div ng-repeat="pane in panes" role="tabpanel"  ng-class="{'tab-pane fade in active': pane.active,'tab-pane fade':!pane.active}">
+                        <div ng-include="pane.content">
+
+                        </div>
                     </div>
                 </div>
-                <!--code console-->
-                <div class="row">
-                    <div class="col-lg-12">
-                        <rd-widget>
-                            <rd-widget-header icon="fa-tasks" title="输出">
-                            </rd-widget-header>
-                            <rd-widget-body classes="medium no-padding">
-                                <div class="comments">这里来显示结果</div>
-                            </rd-widget-body>
-                        </rd-widget>
-                    </div>
-                </div>
+            </div>
+        </div>
 
-            </div><!-- End Page Content -->
-        </div><!-- End Content Wrapper -->
     </div><!-- End Page Wrapper -->
+    <div id="page-wrapper3" class="open" ng-if="!page.show">
+        <div class="col-lg-4 col-lg-offset-5">
+            <div style="height: 200px;">
+                <h1>正在准备中。。。</h1>
+                <div class="bubblingG" style="
+    margin-left: 144px;">
+                    <span id="bubblingG_1"></span>
+                    <span id="bubblingG_2"></span>
+                    <span id="bubblingG_3"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div  class="sidebar-footer col-lg-12">
+    </div>
 </div>

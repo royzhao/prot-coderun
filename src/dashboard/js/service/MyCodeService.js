@@ -31,8 +31,7 @@ angular.module('RDash').
 
             },
             getMyOneCodeFromBack : function(codeid,callback){
-                this.checkUser();
-                CodeAPIService.getCodeById(this.userid,codeid).
+                CodeAPIService.getCodeById(codeid).
                     then(function(data){
                         this.mycode = data;
                         callback(this.mycode);
@@ -66,8 +65,7 @@ angular.module('RDash').
                 }
             },
             getMyCodeOneStep:function(codeid,stepid,callback){
-                this.checkUser();
-                CodeAPIService.getCodeStepById(this.userid,codeid,stepid).
+                CodeAPIService.getCodeStepById(codeid,stepid).
                     then(function(data){
                         callback(data);
                     },function(error){
@@ -76,14 +74,22 @@ angular.module('RDash').
                     })
             },
             getMyCodeStep: function(codeid,callback){
-                this.checkUser();
-                CodeAPIService.getCodeSteps(this.userid,codeid).
+                CodeAPIService.getCodeSteps(codeid).
                     then(function(data){
                         this.mycode = data;
                         callback(this.mycode);
                     },function(error){
                         console.log(error);
                         this.mycode = null;
+                        callback(null);
+                    });
+            },
+            getMyCodeAllInfo: function(codeid,stepid,callback){
+                CodeAPIService.getCodeStepDetail(codeid,stepid).
+                    then(function(data){
+                        callback(data);
+                    },function(error){
+                        console.log(error);
                         callback(null);
                     });
             },
@@ -122,12 +128,36 @@ angular.module('RDash').
                         callback(null);
                     })
             },
+            addMyContentStep: function(codeid,stepid,data,callback){
+                this.checkUser();
+                CodeAPIService.updateCodeStepDetail(this.userid,codeid,stepid,data).
+                    then(function(d){
+                        callback(d);
+                    },function(error){
+                        console.log(error);
+                        callback(null);
+                    })
+            },
             addCode2User:function(obj,cb){
                 this.checkUser();
                 CodeAPIService.addCode2User(this.userid,obj).then(function(data){
                     cb(data);
                 },function(error){
                     cb(error);
+                })
+            },
+            runCode:function(obj,cb){
+                CodeAPIService.coderun(obj.meta.image_id,obj).then(function(data){
+                    cb(null,data);
+                },function(error){
+                    cb(error,null)
+                })
+            },
+            queryRunRes:function(id,cb){
+                CodeAPIService.coderunRes(id).then(function(data){
+                    cb(null,data)
+                },function(err){
+                    cb(err,null)
                 })
             }
         }

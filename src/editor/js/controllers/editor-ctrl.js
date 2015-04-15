@@ -2,13 +2,15 @@
  * Created by zpl on 15-2-2.
  */
 angular.module('Editor')
-    .controller('EditorCtrl', ['$timeout','$scope', '$cookieStore','$stateParams','$localStorage', 'MyCodeService',EditorCtrl]);
+    .controller('EditorCtrl', ['$timeout','$scope', '$cookieStore','$stateParams','$localStorage', 'MyCodeService','ngDialog',EditorCtrl]);
 
-function EditorCtrl($timeout,$scope,$cookieStore,$stateParams,$localStorage,MyCodeService) {
+function EditorCtrl($timeout,$scope,$cookieStore,$stateParams,$localStorage,MyCodeService,ngDialog) {
     $scope.codeid = $stateParams.codeid;
     $scope.stepid = $stateParams.stepid;
     $scope.page={};
     $scope.page.toggle = true;
+    $scope.page.show = true;
+    $scope.page.status = 1;
     console.log($scope.codeid);
     console.log($scope.stepid);
 
@@ -34,11 +36,26 @@ function EditorCtrl($timeout,$scope,$cookieStore,$stateParams,$localStorage,MyCo
         $scope.step = $localStorage.addstepobj;
     }
     //add code content
-    $scope.step.code = "";
+    $scope.step.code = {
+        code_content :"",
+        post_content:"",
+        id:null
+    };
     $scope.panes = [
         {title:$scope.step.meta.code_name,content:"templates/ace_editor.html",active:true},
         {title:"运行代码",content:"templates/run.html",active:false}
     ]
+    $scope.editor = {};
+
+    //func
+    $scope.getPostContent = function(){
+        var content = "";
+        if($scope.editor && $scope.editor.instance && $scope.editor.instance.codemirror){
+            content = $scope.editor.instance.codemirror.getValue();
+        }
+        return content;
+
+    }
     $scope.active = function(obj){
 
         $scope.panes.filter(function(pane){
@@ -48,7 +65,6 @@ function EditorCtrl($timeout,$scope,$cookieStore,$stateParams,$localStorage,MyCo
             }
         })
     }
-
     $scope.queryRunRes = function(){
         setTimeout(function(){
             MyCodeService.queryRunRes($scope.run_res.run_id,function(err,data){
@@ -92,16 +108,33 @@ function EditorCtrl($timeout,$scope,$cookieStore,$stateParams,$localStorage,MyCo
         $scope.toggleSidebar()
     }
     $scope.commit = function(){
-        if($scope.editor && $scope.editor.codemirror){
-            $scope.markdown = $scope.editor.codemirror.getValue();
-            console.log($scope.markdown);
+        var content = $scope.getPostContent();
+        if(content == ""){
+            alert("请填写内容")
+            return;
         }
+
+        var post = {
+            id:$scope.step.meta.id,
+            code_content:$scope.step.code.code_content,
+            post_content:content
+        }
+        $scope.page.show = false;
+        MyCodeService.addMyContentStep($scope.codeid,$scope.stepid,post,function(data){
+            if(data == null){
+                $scope.page.status = 2;
+                console.log('error')
+            }else{
+                $scope.page.status = 3;
+                console.log('ok')
+            }
+        })
     }
 
     /**
     * Sidebar Toggle & Cookie Control
     */
-    var mobileView = 1024;
+    var mobileView = 5;
 
     $scope.getWidth = function() {
         return window.innerWidth;

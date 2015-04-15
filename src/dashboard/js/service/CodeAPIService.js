@@ -6,19 +6,19 @@ angular.module('RDash').
         return {
             getCodesByUser: function(userid){
                 return RestfulService.restfulOp({
-                    url:baseUrl+"/code/"+userid,
+                    url:baseUrl+"/user/code/"+userid,
                     method:"GET"
                 });
             },
-            getCodeById: function(userid,id){
+            getCodeById: function(id){
                 return RestfulService.restfulOp({
-                    url:baseUrl+"/code/"+userid+"/"+id,
+                    url:baseUrl+"/code/"+id,
                     method:"GET"
                 });
             },
             addCode2User: function(userid,codeinfo){
                 return RestfulService.restfulOp({
-                    url:baseUrl+"/code/"+userid,
+                    url:baseUrl+"/user/code/"+userid,
                     method:"POST",
                     data:codeinfo
                 });
@@ -39,15 +39,15 @@ angular.module('RDash').
                 });
 
             },
-            getCodeSteps:function(userid,codeid){
+            getCodeSteps:function(codeid){
                 return RestfulService.restfulOp({
-                    url:baseUrl+"/code/"+userid+"/"+codeid+"/step",
+                    url:baseUrl+"/code/"+codeid+"/step",
                     method:"GET"
                 });
             },
-            getCodeStepById: function(userid,codeid,stepid){
+            getCodeStepById: function(codeid,stepid){
                 return RestfulService.restfulOp({
-                    url:baseUrl+"/code/"+userid+"/"+codeid+"/step/"+stepid,
+                    url:baseUrl+"/code/"+codeid+"/step/"+stepid,
                     method:"GET"
                 });
 
@@ -82,15 +82,15 @@ angular.module('RDash').
                 });
 
             },
-            getCodeStepDetail: function(userid,codeid,stepid){
+            getCodeStepDetail: function(codeid,stepid){
                 return RestfulService.restfulOp({
-                    url:baseUrl+"/code/"+userid+"/"+codeid+"/step/"+stepid,
+                    url:baseUrl+"/code/"+codeid+"/step/"+stepid+"/detail",
                     method:"GET"
                 });
             },
             updateCodeStepDetail: function(userid,codeid,stepid,codestepdetail){
                 return RestfulService.restfulOp({
-                    url:baseUrl+"/code/"+userid+"/"+codeid+"/step/"+stepid,
+                    url:baseUrl+"/code/"+userid+"/"+codeid+"/step/"+stepid+"/detail",
                     method:"PUT",
                     data:codestepdetail
                 });

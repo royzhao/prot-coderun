@@ -51,7 +51,7 @@
         </div>
     </div>
     <!-- End Header Bar -->
-    <div id="page-wrapper3"  ng-class="{'open': page.toggle}" ng-cloak>
+    <div ng-if="page.show" id="page-wrapper3"  ng-class="{'open': page.toggle}" ng-cloak>
 
         <div class="editor-left">
             <div class="editor-left-main">
@@ -78,4 +78,35 @@
         </div>
 
     </div><!-- End Page Wrapper -->
+    <div ng-if="!page.show" id="page-wrapper3" class="open">
+        <div ng-if="page.status ==1">
+            <div style="height: 200px;" class="col-lg-4 col-lg-offset-5">
+                <h1>正在创建中。。。</h1>
+                <div class="bubblingG" style="
+    margin-left: 144px;">
+                    <span id="bubblingG_1"></span>
+                    <span id="bubblingG_2"></span>
+                    <span id="bubblingG_3"></span>
+                </div>
+            </div>
+        </div>
+        <div ng-if="page.status ==2">
+            <div class="col-lg-4 col-lg-offset-5">
+                <h1>出错了。。。</h1>
+                <a href="dashboard.html">返回</a>
+            </div>
+        </div>
+        <div ng-if="page.status ==3">
+            <div class="col-lg-4 col-lg-offset-5">
+                <h1>创建成功</h1>
+                <a href="dashboard.html">返回</a>
+            </div>
+        </div>
+    </div>
+    <div  class="sidebar-footer col-lg-12">
+            <button ng-click="commit()" class="btn btn-primary btn-lg" style="width:100%">
+                提交
+            </button>
+    </div>
+
 </div>

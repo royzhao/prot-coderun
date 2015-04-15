@@ -31,8 +31,7 @@ angular.module('Editor').
 
             },
             getMyOneCodeFromBack : function(codeid,callback){
-                this.checkUser();
-                CodeAPIService.getCodeById(this.userid,codeid).
+                CodeAPIService.getCodeById(codeid).
                     then(function(data){
                         this.mycode = data;
                         callback(this.mycode);
@@ -66,8 +65,7 @@ angular.module('Editor').
                 }
             },
             getMyCodeOneStep:function(codeid,stepid,callback){
-                this.checkUser();
-                CodeAPIService.getCodeStepById(this.userid,codeid,stepid).
+                CodeAPIService.getCodeStepById(codeid,stepid).
                     then(function(data){
                         callback(data);
                     },function(error){
@@ -76,14 +74,22 @@ angular.module('Editor').
                     })
             },
             getMyCodeStep: function(codeid,callback){
-                this.checkUser();
-                CodeAPIService.getCodeSteps(this.userid,codeid).
+                CodeAPIService.getCodeSteps(codeid).
                     then(function(data){
                         this.mycode = data;
                         callback(this.mycode);
                     },function(error){
                         console.log(error);
                         this.mycode = null;
+                        callback(null);
+                    });
+            },
+            getMyCodeAllInfo: function(codeid,stepid,callback){
+                CodeAPIService.getCodeStepDetail(codeid,stepid).
+                    then(function(data){
+                        callback(data);
+                    },function(error){
+                        console.log(error);
                         callback(null);
                     });
             },
@@ -115,6 +121,16 @@ angular.module('Editor').
             addMyCodeStepCmd: function(codeid,stepid,data,callback){
                 this.checkUser();
                 CodeAPIService.updateCodeStepCmd(this.userid,codeid,stepid,data).
+                    then(function(d){
+                        callback(d);
+                    },function(error){
+                        console.log(error);
+                        callback(null);
+                    })
+            },
+            addMyContentStep: function(codeid,stepid,data,callback){
+                this.checkUser();
+                CodeAPIService.updateCodeStepDetail(this.userid,codeid,stepid,data).
                     then(function(d){
                         callback(d);
                     },function(error){
