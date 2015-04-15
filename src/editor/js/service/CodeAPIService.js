@@ -1,7 +1,7 @@
 /**
  * Created by zpl on 15-3-16.
  */
-angular.module('RDash').
+angular.module('Editor').
     factory('CodeAPIService',['$http','$q','RestfulService',function($http,$q,RestfulService){
         return {
             getCodesByUser: function(userid){

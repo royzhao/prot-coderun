@@ -3,9 +3,9 @@
  */
 angular
     .module('RDash')
-    .controller('NewStepCtrl', ['$scope','$stateParams','MyCodeService','ngDialog','$localStorage', NewStepCtrl]);
+    .controller('NewStepCtrl', ['$scope','$stateParams','MyCodeService','ngDialog','$localStorage','$location', NewStepCtrl]);
 
-function NewStepCtrl($scope,$stateParams,MyCodeService,ngDialog,$localStorage){
+function NewStepCtrl($scope,$stateParams,MyCodeService,ngDialog,$localStorage,$location){
     $scope.newstep = {
         meta:{},
         cmds:[]
@@ -38,11 +38,12 @@ function NewStepCtrl($scope,$stateParams,MyCodeService,ngDialog,$localStorage){
     }else{
         $scope.newstep = {
             meta:{
-                id:"",
+                id:null,
                 name:"",
                 description:"",
                 code_name:"",
                 image_id:0,
+                work_dir:"/root",
                 code_id:parseInt($scope.codeid)
             },
             cmds:[
@@ -136,7 +137,8 @@ function NewStepCtrl($scope,$stateParams,MyCodeService,ngDialog,$localStorage){
             }
             if(currentIndex == 1){
                 $scope.stepinfo.is_created = false;
-                $scope.newstep.cmds[$scope.cmd.is_replace].Is_replace =2;
+                if($scope.cmd.is_replace>=0)
+                    $scope.newstep.cmds[$scope.cmd.is_replace].Is_replace =2;
                 if($scope.stepinfo.data.meta.id == null){
                     $scope.stepinfo.is_created = false;
                     $scope.stepinfo.msg="创建失败，请回退到第一步重来吧";

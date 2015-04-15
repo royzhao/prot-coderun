@@ -2,9 +2,9 @@
  * Created by zpl on 15-2-2.
  */
 angular.module('Editor')
-    .controller('EditorCtrl', ['$scope', '$cookieStore','$stateParams','$localStorage', EditorCtrl]);
+    .controller('EditorCtrl', ['$timeout','$scope', '$cookieStore','$stateParams','$localStorage', 'MyCodeService',EditorCtrl]);
 
-function EditorCtrl($scope,$cookieStore,$stateParams,$localStorage) {
+function EditorCtrl($timeout,$scope,$cookieStore,$stateParams,$localStorage,MyCodeService) {
     $scope.codeid = $stateParams.codeid;
     $scope.stepid = $stateParams.stepid;
     $scope.page={};
@@ -19,6 +19,7 @@ function EditorCtrl($scope,$cookieStore,$stateParams,$localStorage) {
                 name:"",
                 description:"",
                 code_name:"test.py",
+                work_dir:"/root",
                 image_id:0,
                 code_id:parseInt($scope.codeid)
             },
@@ -32,6 +33,8 @@ function EditorCtrl($scope,$cookieStore,$stateParams,$localStorage) {
     }else{
         $scope.step = $localStorage.addstepobj;
     }
+    //add code content
+    $scope.step.code = "";
     $scope.panes = [
         {title:$scope.step.meta.code_name,content:"templates/ace_editor.html",active:true},
         {title:"运行代码",content:"templates/run.html",active:false}
@@ -45,10 +48,44 @@ function EditorCtrl($scope,$cookieStore,$stateParams,$localStorage) {
             }
         })
     }
+
+    $scope.queryRunRes = function(){
+        setTimeout(function(){
+            MyCodeService.queryRunRes($scope.run_res.run_id,function(err,data){
+                if(err != null){
+                    $scope.writeConsole("some error happen");
+                }else{
+                    $scope.run_res.data = data;
+                    if(data && data.status == 2){
+                        //successful
+                        $scope.writeConsole(data.res);
+                    }else{
+                        setTimeout($scope.queryRunRes,3000);
+                    }
+                }
+            })
+        },3000);
+    }
+    $scope.writeConsole = function(s){
+        var header = '> '
+        $scope.page.term.writeln(header+s);
+    }
     $scope.coderun = function(){
-        var header = '>'
         if($scope.page.term){
-            $scope.page.term.writeln(header+'运行一次');
+            console.log($scope.step)
+            $scope.writeConsole("running");
+            MyCodeService.runCode($scope.step,function(err,data){
+                if(err == null){
+                    $scope.run_res = {};
+                    $scope.run_res.run_id = data.run_id;
+                    $scope.writeConsole(data.res);
+                    $scope.queryRunRes();
+
+                }else{
+                    $scope.writeConsole("failed commit!")
+                }
+            })
+
         }
     }
     $scope.switchIt = function(){

@@ -138,7 +138,7 @@
         <h3>创建步骤</h3>
         <fieldset>
             <legend>步骤信息</legend>
-            <div class="form-group">
+            <!--<div class="form-group">-->
                 <label for="name" class="col-md-2 control-label">名称</label>
                 <div class="col-md-10">
                     <input type="text"
@@ -148,8 +148,7 @@
                            placeholder="请输入名称">
                     <span><p class="validation-invalid">此处必填</p></span>
                 </div>
-            </div>
-            <div class="form-group">
+
                 <label for="image" class="col-md-2 control-label">关联镜像</label>
                 <div class="col-md-10">
                     <select id="image" ng-model="newstep.meta.image_id">
@@ -160,8 +159,17 @@
                     </select>
                     <span><p class="validation-invalid">此处必选</p></span>
                 </div>
-            </div>
-            <div class="form-group">
+
+                <label for="work_dir" class="col-md-2 control-label">工作目录</label>
+                <div class="col-md-10">
+                    <input type="text"
+                           ng-model="newstep.meta.work_dir"
+                           class="form-control"
+                           id="work_dir"
+                           placeholder="请输入名称">
+                    <span><p class="validation-invalid">执行程序的工作目录。默认值/root</p></span>
+                </div>
+
                 <label for="code_name" class="col-md-2 control-label">默认代码文件名</label>
                 <div class="col-md-10">
                     <input type="text"
@@ -171,21 +179,66 @@
                            placeholder="请输入存储代码的文件名称（后面的操作以这个文件名为准）">
                     <span><p class="validation-invalid">此处必填</p></span>
                 </div>
-            </div>
-            <div class="form-group">
+
                 <label for="description" class="col-md-2 control-label">描述</label>
                 <div class="col-md-10">
                     <textarea  name="description"
                                required
-                               style="height:200px"
                                ng-model="newstep.meta.description"
                                class="form-control"
                                id="description"
                                placeholder="请简要描述一下"
                             ></textarea>
-                    <span><p class="validation-invalid">此处必填</p></span>
                 </div>
-            </div>
+            <!--</div>-->
+            <!--<div class="form-group">-->
+                <!--<label for="image" class="col-md-2 control-label">关联镜像</label>-->
+                <!--<div class="col-md-10">-->
+                    <!--<select id="image" ng-model="newstep.meta.image_id">-->
+                        <!--<option value=1>ubuntu</option>-->
+                        <!--<option value=2>python:2</option>-->
+                        <!--<option value=3>python:3</option>-->
+                        <!--<option value=4>centos</option>-->
+                    <!--</select>-->
+                    <!--<span><p class="validation-invalid">此处必选</p></span>-->
+                <!--</div>-->
+            <!--</div>-->
+            <!--<div class="form-group">-->
+                <!--<label for="work_dir" class="col-md-2 control-label">工作目录</label>-->
+                <!--<div class="col-md-10">-->
+                    <!--<input type="text"-->
+                           <!--ng-model="newstep.meta.work_dir"-->
+                           <!--class="form-control"-->
+                           <!--id="work_dir"-->
+                           <!--placeholder="请输入名称">-->
+                    <!--<span><p class="validation-invalid">执行程序的工作目录。默认值/root</p></span>-->
+                <!--</div>-->
+            <!--</div>-->
+            <!--<div class="form-group">-->
+                <!--<label for="code_name" class="col-md-2 control-label">默认代码文件名</label>-->
+                <!--<div class="col-md-10">-->
+                    <!--<input type="text"-->
+                           <!--ng-model="newstep.meta.code_name"-->
+                           <!--class="form-control"-->
+                           <!--id="code_name"-->
+                           <!--placeholder="请输入存储代码的文件名称（后面的操作以这个文件名为准）">-->
+                    <!--<span><p class="validation-invalid">此处必填</p></span>-->
+                <!--</div>-->
+            <!--</div>-->
+            <!--<div class="form-group">-->
+                <!--<label for="description" class="col-md-2 control-label">描述</label>-->
+                <!--<div class="col-md-10">-->
+                    <!--<textarea  name="description"-->
+                               <!--required-->
+                               <!--style="height:200px"-->
+                               <!--ng-model="newstep.meta.description"-->
+                               <!--class="form-control"-->
+                               <!--id="description"-->
+                               <!--placeholder="请简要描述一下"-->
+                            <!--></textarea>-->
+                    <!--<span><p class="validation-invalid">此处必填</p></span>-->
+                <!--</div>-->
+            <!--</div>-->
         </fieldset>
 
         <h3>增加执行命令</h3>
