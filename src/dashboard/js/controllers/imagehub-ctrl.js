@@ -6,9 +6,10 @@
 
 angular
     .module('RDash')
-    .controller('MyImageHubCtrl', ['$scope', MyImageHubCtrl]);
+    .controller('MyImageHubCtrl', ['$scope', '$resource', MyImageHubCtrl]);
 
-function MyImageHubCtrl($scope) {
+function MyImageHubCtrl($scope,$resource) {
+    //var myimagelist = $resource('/dockerapi/images/json?all=0', {}, {}).query();
     var myimagelist = [
         {
             'imageid':2,

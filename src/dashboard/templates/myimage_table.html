@@ -6,8 +6,8 @@
                     <div class="widget-icon green pull-left">
                         <i class="fa fa-users"></i>
                     </div>
-                    <div class="title">80</div>
-                    <div class="comment">有80个用户fork你的镜像</div>
+                    <div class="title">{{forknum}}</div>
+                    <div class="comment">有{{forknum}}个用户fork你的镜像</div>
                 </rd-widget-body>
             </rd-widget>
         </div>
@@ -17,8 +17,8 @@
                     <div class="widget-icon orange pull-left">
                         <i class="fa fa-sitemap"></i>
                     </div>
-                    <div class="title">225</div>
-                    <div class="comment">总共有225个镜像</div>
+                    <div class="title">{{imagenum}}</div>
+                    <div class="comment">总共有{{imagenum}}个镜像</div>
                 </rd-widget-body>
             </rd-widget>
         </div>
@@ -45,7 +45,7 @@
                     <div class="table-responsive">
                         <table class="table">
                             <thead>
-                            <tr><th>镜像名称</th><th>解释</th><th>状态</th></tr>
+                                <th>镜像名称</th><th>解释</th><th>状态</th>
                             </thead>
                             <tbody>
                             <!--<tr><td><a href="#">C运行环境</a> </td><td>解释说明</td><td><span class="text-success"><i class="fa fa-check"></i></span></td></tr>-->
@@ -55,11 +55,11 @@
                             <!--<tr><td><a href="#">spring运行环境</a> </td><td>解释说明</td><td><span class="text-success"><i class="fa fa-check"></i></span></td></tr>-->
                             <!--<tr><td><a href="#">rust运行环境</a> </td><td>解释说明</td><td><span class="text-success"><i class="fa fa-check"></i></span></td></tr>-->
                                 <tr ng-repeat="image in imagedata">
-                                    <td><a href="#/image/{{image.imageid}}">{{image.imagename}}</a></td>
-                                    <td>{{image.description}}</td>
+                                    <td><a href="#/image/{{image.ImageId}}">{{image.ImageName}}</a></td>
+                                    <td>{{image.Descrip}}</td>
                                     <td>
-                                        <span class="text-success" ng-if="image.status == 1"><i class="fa fa-check"></i></span>
-                                        <span tooltip="没有实例运行!" class="text-danger" ng-if="image.status == 2"><i class="fa fa-warning"></i></span>
+                                        <span class="text-success" ng-if="image.Status == 1"><i class="fa fa-check"></i></span>
+                                        <span tooltip="没有实例运行!" class="text-danger" ng-if="image.Status == 2"><i class="fa fa-warning"></i></span>
                                     </td>
                                 </tr>
                             </tbody>
@@ -67,18 +67,19 @@
                     </div>
                 </rd-widget-body>
                 <rd-widget-footer>
-                    <ul class="pagination pagination-sm pull-right">
-                        <li><a href="#">&laquo;</a></li>
-                        <li><a href="#">1</a></li>
-                        <li><a href="#">2</a></li>
-                        <li><a href="#">3</a></li>
-                        <li><a href="#">4</a></li>
-                        <li><a href="#">5</a></li>
-                        <li><a href="#">&raquo;</a></li>
-                    </ul>
-                    <div class="clearfix"></div>
+                    <!--<ul class="pagination pagination-sm pull-right">-->
+                        <!--<li><a href="#">&laquo;</a></li>-->
+                        <!--<li><a href="#">1</a></li>-->
+                        <!--<li><a href="#">2</a></li>-->
+                        <!--<li><a href="#">3</a></li>-->
+                        <!--<li><a href="#">4</a></li>-->
+                        <!--<li><a href="#">5</a></li>-->
+                        <!--<li><a href="#">&raquo;</a></li>-->
+                    <!--</ul>-->
+                    <!--<div class="clearfix"></div>-->
                 </rd-widget-footer>
-                <rd-widget>
+            </rd-widget>
+
         </div>
     </div>
     <div class="row">

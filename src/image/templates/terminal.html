@@ -72,40 +72,10 @@
                 <div class="col-lg-12">
                     <rd-widget>
                         <rd-widget-header icon="fa-tasks" title="新建镜像">
+                            <button type="submit" class="btn btn-primary" data-ng-click="commit()">提交</button>
                         </rd-widget-header>
                         <rd-widget-body>
-                            <form class="form-horizontal" name="myForm" novalidate ng-submit="processForm()">
-                                <div class="form-group">
-                                    <label for="imageName" class="col-sm-2 control-label">镜像名称</label>
-                                    <div class="col-sm-8">
-                                        <div class="input-group">
-                                            <span class="input-group-addon">{{username + ' - '}}</span>
-                                            <input type="text" class="form-control" id="imageName" name="imageName" ng-pattern="/^[a-zA-Z]*$/" ng-maxlength="10" data-ng-model="formData.imageName" is-unique required>
-                                        </div>
-                                        <div class="error" ng-show="myForm.imageName.$dirty && myForm.imageName.$error.required">*必须填写镜像名称</div>
-                                        <div class="error" ng-show="myForm.imageName.$error.unique">*该镜像名称已存在</div>
-                                        <div class="error" ng-show="myForm.imageName.$error.pattern || myForm.imageName.$error.maxlength">*镜像名称只能使用英文字母，最长不得超过10个字符</div>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label for="imageBasic" class="col-sm-2 control-label">基镜像</label>
-                                    <div class="col-sm-4">
-                                        <select type="text" class="form-control" id="imageBasic" name="imageBasic" ng-init="formData.bm = basics[0]" data-ng-model="formData.bm" ng-options="basic.ImageName for basic in basics" required></select>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label for="description" class="col-sm-2 control-label">描述</label>
-                                    <div class="col-sm-8">
-                                        <textarea class="form-control" rows="12" id="description" name="description" data-ng-model="formData.description" required></textarea>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <div class="col-sm-offset-2 col-sm-10">
-                                        <button type="submit" class="btn btn-primary" ng-disabled="myForm.imageName.$invalid || myForm.description.$invalid || myForm.imageBasic.$invalid">创建</button>
-                                        <a href="dashboard.html#/myimage" class="btn btn-default">取消</a>
-                                    </div>
-                                </div>
-                            </form>
+                            <iframe ng-src="{{apiUrl + uid +  '/' + baseimage + '/' + tag | trustAsResourceUrl}}" style="width:100%;height:800px"></iframe>
                         </rd-widget-body>
                     </rd-widget>
                 </div>

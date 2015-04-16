@@ -47,3 +47,8 @@ Icon
 # Bower components
 /src/components
 npm-debug.log
+
+# GO Executive file
+
+# Project folder
+.idea/
