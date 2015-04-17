@@ -3,9 +3,9 @@
  */
 angular
     .module('RDash')
-    .controller('MySingleImageCtrl', ['$scope', '$stateParams','Images','$location', 'Star', 'Image', '$cookieStore','Fork',  MySingleImageCtrl]);
+    .controller('MySingleImageCtrl', ['$scope', '$stateParams','Images','$location', 'Star', 'Fork', 'Image', '$cookieStore',  MySingleImageCtrl]);
 
-function MySingleImageCtrl($scope,$stateParams,Images,$location,Star,Image,Fork) {
+function MySingleImageCtrl($scope,$stateParams,Images,$location,Star, Fork, Image, $cookieStore) {
     //var myimagelist = [
     //    {
     //        'imageid':1,
@@ -73,16 +73,15 @@ function MySingleImageCtrl($scope,$stateParams,Images,$location,Star,Image,Fork)
     var star;
     var fork;
     var currentuid = 1;
+    var currentname="dylan";
     Star.query({id:$stateParams.imageid,uid:currentuid}).$promise.then(function(data){
         star = parseInt(data.ID);
-        console.log(data.ID);
         if(data.ID > 0) {
             $scope.starcolor = "#808080";
         } else {
             $scope.starcolor = "";
         }
     });
-    var test;
     Fork.query({id:$stateParams.imageid,uid:currentuid}).$promise.then(function(data){
         fork = data.Forked;
         if(fork) {
@@ -145,7 +144,29 @@ function MySingleImageCtrl($scope,$stateParams,Images,$location,Star,Image,Fork)
         });
     }
     $scope.forkImage = function () {
-        alert('a');
+        var postData = {
+            uid:currentuid,
+            uname:currentname,
+            image:myimage
+        }
+        Image.fork({action:'fork'},postData).$promise.then(function(c){
+            Fork.query({id:$stateParams.imageid,uid:currentuid}).$promise.then(function(data){
+                fork = data.Forked;
+                if(fork) {
+                    $scope.forkcolor = "#808080";
+                } else {
+                    $scope.forkcolor = "";
+                }
+            });
+            Images.get({id: $stateParams.imageid, action: 'log'}).$promise.then(function(data){
+                $scope.image.fork = data.Fork;
+            });
+        }, function(err){
+            //$scope.hideLoader();
+            //$scope.error = err.data;
+            alert("failure");
+            return false;
+        });
     }
     //$scope.editTerminal = function(){
     //}

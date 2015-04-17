@@ -4,7 +4,8 @@ angular.module('RDash')
             'save': { isArray: false, method: 'POST' },
             'edit': { isArray: false, method: 'POST' },
             'delete': { isArray: false, method: 'DELETE' },
-            'star': {isArray:false,method:'POST'}
+            'star': {isArray:false,method:'POST'},
+            'fork': {isArray:false,method:'POST'}
         });
     }])
 
