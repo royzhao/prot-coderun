@@ -3,9 +3,9 @@
  */
 angular
     .module('RDash')
-    .controller('MySingleImageCtrl', ['$scope', '$stateParams','Images','$location', 'Star', 'Image', '$cookieStore',  MySingleImageCtrl]);
+    .controller('MySingleImageCtrl', ['$scope', '$stateParams','Images','$location', 'Star', 'Image', '$cookieStore','Fork',  MySingleImageCtrl]);
 
-function MySingleImageCtrl($scope,$stateParams,Images,$location,Star,Image) {
+function MySingleImageCtrl($scope,$stateParams,Images,$location,Star,Image,Fork) {
     //var myimagelist = [
     //    {
     //        'imageid':1,
@@ -71,17 +71,24 @@ function MySingleImageCtrl($scope,$stateParams,Images,$location,Star,Image) {
     //$scope.image = [];
     //alert($stateParams.imageid);
     var star;
-    var starbool;
+    var fork;
     var currentuid = 1;
     Star.query({id:$stateParams.imageid,uid:currentuid}).$promise.then(function(data){
         star = parseInt(data.ID);
         console.log(data.ID);
         if(data.ID > 0) {
             $scope.starcolor = "#808080";
-            starbool = false;
         } else {
             $scope.starcolor = "";
-            starbool = true;
+        }
+    });
+    var test;
+    Fork.query({id:$stateParams.imageid,uid:currentuid}).$promise.then(function(data){
+        fork = data.Forked;
+        if(fork) {
+            $scope.forkcolor = "#808080";
+        } else {
+            $scope.forkcolor = "";
         }
     });
     //console.log(starbool);
@@ -93,7 +100,7 @@ function MySingleImageCtrl($scope,$stateParams,Images,$location,Star,Image) {
     //    starbool = true;
     //}
     //$scope.starcolor = "#808080";
-    $scope.forkcolor = "";
+    //$scope.forkcolor = "";
     var myimage;
     Images.get({id: $stateParams.imageid, action: 'log'}).$promise.then(function(data){
         //$scope.image = data;
@@ -123,10 +130,8 @@ function MySingleImageCtrl($scope,$stateParams,Images,$location,Star,Image) {
                 star = parseInt(data.ID);
                 if(star > 0) {
                     $scope.starcolor = "#808080";
-                    starbool = false;
                 } else {
                     $scope.starcolor = "";
-                    starbool = true;
                 }
             });
             Images.get({id: $stateParams.imageid, action: 'log'}).$promise.then(function(data){

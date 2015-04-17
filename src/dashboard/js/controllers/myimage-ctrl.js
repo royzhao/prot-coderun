@@ -12,7 +12,8 @@ function MyImageCtrl($scope,$resource,Images,$cookies) {
     //$scope.imagedata = imagequery.query({id:1}, function() {
     //});
     //$cookieStore.put("token","aa");
-    alert($cookies.token);
+    //alert($cookies.token);
+
     var currentid = 1;
     $scope.imagenum = 0;
     $scope.forknum = 0;

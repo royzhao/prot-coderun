@@ -35,7 +35,7 @@ var paths = {
     bower_fonts: 'src/components/**/*.{ttf,woff,eof,svg}',
 };
 
-var dist = "/code/go/workspace/go/code_run_server/public";
+var dist = "D:\\workspace\\go\\src\\code_run_server\\public";
 /**
  * Handle bower components from index
  */
