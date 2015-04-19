@@ -86,6 +86,7 @@
     #page-wrapper3.open .editor-right {
         float:left;
         width: 0;
+        display: none;
     }
     #page-wrapper2 {
         padding-left: 0;
@@ -429,22 +430,22 @@ ul.sidebar .sidebar-list .menu-icon {
 #page-wrapper2:not(.open) .sidebar-footer {
     display: none;
 }
-.sidebar-footer {
-    position: absolute;
+.editor-footer {
     height: 40px;
-    bottom: 0;
+    float:left;
     width: 100%;
+    bottom: 0;
     padding: 0;
     margin: 0;
     transition: all .6s ease 0s;
     text-align: center;
 }
-.sidebar-footer div a {
+.editor-footer div a {
     color: #b2bfdc;
     font-size: 12px;
     line-height: 43px;
 }
-.sidebar-footer div a:hover {
+.editor-footer div a:hover {
     color: #ffffff;
     text-decoration: none;
 }

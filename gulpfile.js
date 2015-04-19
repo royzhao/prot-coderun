@@ -33,9 +33,11 @@ var paths = {
 
     index: 'src/index.html',
     bower_fonts: 'src/components/**/*.{ttf,woff,eof,svg}',
+    ace_plugin_js: 'src/components/ace-builds/src-noconflict/**/*.*'
 };
 
 var dist = "D:\\workspace\\go\\src\\code_run_server\\public";
+//var dist = "/home/zpl/workspace/code_web/src/mashangpao_code_web/public"
 /**
  * Handle bower components from index
  */
@@ -52,15 +54,22 @@ gulp.task('usemin', function() {
 /**
  * Copy assets
  */
-gulp.task('build-assets', ['copy-bower_fonts']);
+gulp.task('build-assets', ['copy-bower_fonts','copy-ace_plugin']);
 
 gulp.task('copy-bower_fonts', function() {
     return gulp.src(paths.bower_fonts)
         .pipe(rename({
             dirname: '/fonts'
         }))
-        .pipe(gulp.dest(dist+'/lib'));
+        .pipe(gulp.dest(dist+'/lib'))
+        .pipe(gulp.dest(dist+'/lib/css'))
+        .pipe(gulp.dest(dist));
 });
+
+gulp.task('copy-ace_plugin',function(){
+    return gulp.src(paths.ace_plugin_js)
+        .pipe(gulp.dest(dist))
+})
 
 /**
  * Handle custom files dashboard
