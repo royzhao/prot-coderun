@@ -4,14 +4,9 @@
  */
 angular.module('RDash').
     factory('SessionService',['$localStorage','$cookies','User','$window', function($localStorage,$cookies,User,$window){
-        var verifyData = {
-            App_id:1,
-            App_key:"Ei1F4LeTIUmJeFdO1MfbdkGQpZMeQ0CUX3aQD4kMOMVsRz7IAbjeBpurD6LTvNoI",
-            Token:null
-        }
         return {
             getUserinfo: function(){
-                this.login();
+                this.login()
                 var user ={
                     userid: $cookies.u_id,
                     name:$cookies.u_name
@@ -32,30 +27,23 @@ angular.module('RDash').
                 return true;
             },
             getToken:function(){
-                var token = $localStorage.token;
+                var token = $cookies.token;
                 if(token == null){
                     //TODO need login,mock login
                     this.login();
-                    token = $localStorage.token;
+                    token = $cookies.token;
                 }
                 return token;
             },
             login:function(){
+
                 if(($cookies.token)==undefined) {
+                    alert('请先登陆')
                     $window.location.href = "http://sso.peilong.me/html/baigoSSO/mypage/login.php?refer=http://image.peilong.me:9000";
                 }
-                verifyData.Token = $cookies.token;
-                User.login({action:'islogin'},verifyData,function(c){
-                    if(!c.is_login) {
-                        $window.location.href = "http://sso.peilong.me/html/baigoSSO/mypage/login.php?refer=http://image.peilong.me:9000";
-                    }
-                },function(err){
-                    $window.location.href = "http://sso.peilong.me/html/baigoSSO/mypage/login.php?refer=http://image.peilong.me:9000";
-                });
             },
             logout:function(){
-                delete $localStorage.token;
-                delete $localStorage.user;
+                //delete $cookies.token;
             }
         }
     }]);

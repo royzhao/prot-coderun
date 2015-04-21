@@ -19,7 +19,6 @@ angular.module('Editor').config(['$httpProvider','$stateProvider', '$urlRouterPr
             .state('login',{
                 templateUrl: function (){
                     //TODO mock login
-                    alert('mock 登陆页面,先重定向到百度去')
                     window.location.href = 'http://sso.peilong.me/html/baigoSSO/mypage/login.php?refer=http://image.peilong.me:9000';
                 }
             })
