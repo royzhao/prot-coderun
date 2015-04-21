@@ -3,11 +3,23 @@
  * 拦截器
  */
 angular.module('RDash').
-    factory('httpInterceptor',['SessionService','$q', '$injector', function(SessionService,$q, $injector){
+    factory('httpInterceptor',['$q','$cookies', function($q,$cookies){
+        var isNeedAuth=function(uri,method){
+            //check url is contain api
+            if(uri.indexOf('api')){
+                if(method == 'POST' || method== 'PUT' ||method=='DELETE'){
+                    return true;
+                }
+            }
+            return false;
+        };
         var httpInterceptor = {
             request: function(config) {
-                if (SessionService.isNeedAuth(config.url,config.method)) {
-                    config.headers['x-session-token'] = SessionService.getToken();
+                if (isNeedAuth(config.url,config.method)) {
+                    if(($cookies.token)==undefined) {
+                        return $q.reject(config);
+                    }
+                    config.headers['x-session-token'] = $cookies.token;
                 }
                 return config;
             },
@@ -17,6 +29,7 @@ angular.module('RDash').
             responseError : function(response) {
                 if (response.status == 401) {
                     alert('must login');
+                    window.location.href = 'http://sso.peilong.me/html/baigoSSO/mypage/login.php?refer=http://image.peilong.me:9000';
                     return $q.reject(response);
                 } else if (response.status === 404) {
                     alert("404!");

@@ -3,52 +3,41 @@
  * 专门存储token
  */
 angular.module('Editor').
-    factory('SessionService',['$localStorage', function($localStorage){
+    factory('SessionService',['$localStorage','$cookies','User','$window', function($localStorage,$cookies,User,$window){
         return {
             getUserinfo: function(){
-                var user = $localStorage.user;
-                if(user == null){
-                    //TODO need login,mock login
-                    this.login();
-                    user = $localStorage.user;
+                this.login();
+                var user ={
+                    userid: $cookies.u_id,
+                    name:$cookies.u_name
                 }
+                //if(user == null){
+                //    //TODO need login,mock login
+                //    user = $localStorage.user;
+                //}
                 return user;
-            },
-            isNeedAuth:function(uri,method){
-                //check url is contain api
-                if(uri.indexOf('api')){
-                    if(method == 'POST' || method== 'PUT' ||method=='DELETE'){
-                        return true;
-                    }
-                }
-                return false;
             },
             isLogin:function(){
                 //if($localStorage.token)
                 //    return true;
                 //return false;
+                if(($cookies.token)==undefined) {
+                    return false;
+                }
                 return true;
             },
             getToken:function(){
-                var token = $localStorage.token;
-                if(token == null){
-                    //TODO need login,mock login
-                    this.login();
-                    token = $localStorage.token;
-                }
-                return token;
+                return $cookies.token;
             },
             login:function(){
-                $localStorage.token= "xxjjskldifu";
-                $localStorage.user = {
-                    userid:2,
-                    name : "培龙",
-                    userimg : 'img/avatar.jpg'
-                };
+                console.log($cookies.token)
+                if(($cookies.token)==undefined) {
+                    alert("请先登陆")
+                    $window.location.href = "http://sso.peilong.me/html/baigoSSO/mypage/login.php?refer=http://image.peilong.me:9000";
+                }
             },
             logout:function(){
-                delete $localStorage.token;
-                delete $localStorage.user;
+                //delete $cookies.token;
             }
         }
     }]);

@@ -2,18 +2,19 @@
  * Created by ZJY on 15-2-4.
  */
 angular.module('Image')
-    .controller('ImageCtrl', ['$scope', '$cookieStore','$stateParams','Images','Image', '$location','sharedProperties', ImageCtrl]);
+    .controller('ImageCtrl', ['$scope', '$cookies','$stateParams','Images','Image', '$location','sharedProperties','loginService','$window', ImageCtrl]);
 
-function ImageCtrl($scope,$cookieStore,$stateParams,Images,Image,$location,sharedProperties) {
+function ImageCtrl($scope,$cookies,$stateParams,Images,Image,$location,sharedProperties,loginService,$window) {
     /**
      * Sidebar Toggle & Cookie Control
      */
     //var codeid = $stateParams.codeid;
     //console.log('codeid:'+codeid);
     //mock data
+    //loginService.isLogin();
     var adminid = 1;
-    var currentid = 1;
-    var username = 'ragnarok';
+    var currentid = parseInt($cookies.u_id);
+    var username = $cookies.u_name;
     $scope.username = username;
     $scope.treedata = [];
     Images.query({id: currentid, action: 'list'}).$promise.then(function(data){
