@@ -5,7 +5,7 @@ angular.module('Image')
     .controller('TerminalCtrl', ['$scope', '$cookieStore','$stateParams', '$location','sharedProperties','Image','$window', TerminalCtrl]);
 
 function TerminalCtrl($scope,$cookieStore,$stateParams,$location,sharedProperties,Image,$window) {
-    $scope.apiUrl = "http://vpn.peilong.me:8080/user/";
+    $scope.apiUrl = "http://127.0.0.1:8080/user/";
     //alert($scope.apiUrl);
     $scope.uid = 1;
     $scope.baseimage = $stateParams.base;

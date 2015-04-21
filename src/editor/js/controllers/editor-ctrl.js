@@ -76,7 +76,13 @@ function EditorCtrl($timeout,$scope,$cookieStore,$stateParams,$localStorage,MyCo
             }
         })
     }
+    var retry_times=0;
     $scope.queryRunRes = function(){
+        if(retry_times >3){
+            $scope.writeConsole("run failed!pls try again");
+            return;
+        }
+        retry_times++;
         setTimeout(function(){
             MyCodeService.queryRunRes($scope.run_res.run_id,function(err,data){
                 if(err != null){
@@ -107,6 +113,7 @@ function EditorCtrl($timeout,$scope,$cookieStore,$stateParams,$localStorage,MyCo
                     $scope.run_res = {};
                     $scope.run_res.run_id = data.run_id;
                     $scope.writeConsole(data.res);
+                    retry_times = 0;
                     $scope.queryRunRes();
 
                 }else{
