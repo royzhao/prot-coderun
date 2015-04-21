@@ -2,13 +2,13 @@
  * Created by Administrator on 2015/3/18.
  */
 angular.module('Image')
-    .controller('EditCtrl', ['$scope', '$cookieStore','$stateParams','Images', 'Image', '$location', 'sharedProperties', EditCtrl]);
+    .controller('EditCtrl', ['$scope', '$cookieStore','$stateParams','Images', 'Image', '$location', 'sharedProperties','$cookies', EditCtrl]);
 
-function EditCtrl($scope,$cookieStore,$stateParams,Images,Image,$location,sharedProperties) {
+function EditCtrl($scope,$cookieStore,$stateParams,Images,Image,$location,sharedProperties,$cookies) {
     /**
      * Sidebar Toggle & Cookie Control
      */
-    var currentid = 1;
+    var currentid = parseInt($cookies.u_id);
     $scope.treedata = [];
     Images.query({id: currentid, action: 'list'}).$promise.then(function (data) {
         var treedata = data;

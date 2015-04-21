@@ -2,12 +2,12 @@
  * Created by Administrator on 2015/3/26.
  */
 angular.module('Image')
-    .controller('TerminalCtrl', ['$scope', '$cookieStore','$stateParams', '$location','sharedProperties','Image','$window', TerminalCtrl]);
+    .controller('TerminalCtrl', ['$scope', '$cookieStore','$stateParams', '$location','sharedProperties','Image','$window','ngDialog','$cookies', TerminalCtrl]);
 
-function TerminalCtrl($scope,$cookieStore,$stateParams,$location,sharedProperties,Image,$window) {
+function TerminalCtrl($scope,$cookieStore,$stateParams,$location,sharedProperties,Image,$window,ngDialog,$cookies) {
     $scope.apiUrl = "http://vpn.peilong.me:8080/user/";
     //alert($scope.apiUrl);
-    $scope.uid = 1;
+    $scope.uid = parseInt($cookies.u_id);
     $scope.baseimage = $stateParams.base;
     if(sharedProperties.isEdit()) {
         image = sharedProperties.getImage();
@@ -19,6 +19,7 @@ function TerminalCtrl($scope,$cookieStore,$stateParams,$location,sharedPropertie
     }
     $scope.commit = function() {
         var image = {};
+        var dialog = ngDialog.open({template:'templates/dialog/loading.html'});
         if(sharedProperties.isEdit()) {
             image = sharedProperties.getImage();
             image.Tag += 1;
@@ -51,10 +52,10 @@ function TerminalCtrl($scope,$cookieStore,$stateParams,$location,sharedPropertie
         }
         Image.commit({action:'commit'},image).$promise.then(function(c){
             //$location.path("/term/"+ $scope.basic.ImageName);
-            alert("创建成功！");
-            $window.location.href = "http://" + $location.host()+":9000/dashboard.html#/myimage";
             Image.push({action:'push'},image).$promise.then(function(c) {
-
+                alert("创建成功！");
+                dialog.close();
+                //$window.location.href = "http://" + $location.host()+":9000/dashboard.html#/myimage";
             }, function(err) {
                 //console.log(err);
                 //alert("failure");
