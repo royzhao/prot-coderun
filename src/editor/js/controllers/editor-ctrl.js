@@ -13,7 +13,18 @@ function EditorCtrl($timeout,$scope,$cookieStore,$stateParams,$localStorage,MyCo
     $scope.page.status = 1;
     console.log($scope.codeid);
     console.log($scope.stepid);
-
+    if($localStorage.myImages == null){
+        $scope.page.status = 2;
+        return
+    }
+    $scope.getImageNameByID = function(id){
+        for (var i = $localStorage.myImages.length - 1; i >= 0; i--) {
+            if($localStorage.myImages[i].ImageId == id){
+                return $localStorage.myImages[i].ImageName+":"+$localStorage.myImages[i].Tag
+            }
+        };
+        return null
+    }
     if($localStorage.addstepobj == null){
         $scope.step = {
             meta:{
@@ -90,7 +101,8 @@ function EditorCtrl($timeout,$scope,$cookieStore,$stateParams,$localStorage,MyCo
         if($scope.page.term){
             console.log($scope.step)
             $scope.writeConsole("running");
-            MyCodeService.runCode($scope.step,function(err,data){
+            var image = $scope.getImageNameByID($scope.step.meta.image_id)
+            MyCodeService.runCode(image,$scope.step,function(err,data){
                 if(err == null){
                     $scope.run_res = {};
                     $scope.run_res.run_id = data.run_id;

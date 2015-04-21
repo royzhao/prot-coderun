@@ -26,7 +26,7 @@ angular.module('Editor').
             },
             updateCode:function(userid,codeinfo){
                 return RestfulService.restfulOp({
-                    url:baseUrl+"/code/"+userid+"/"+codeinfo.Id,
+                    url:baseUrl+"/code/"+userid+"/"+codeinfo.id,
                     method:"PUT",
                     data:codeinfo
                 });

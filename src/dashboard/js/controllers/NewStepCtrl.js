@@ -3,9 +3,9 @@
  */
 angular
     .module('RDash')
-    .controller('NewStepCtrl', ['$scope','$stateParams','MyCodeService','ngDialog','$localStorage','$location', NewStepCtrl]);
+    .controller('NewStepCtrl', ['SessionService','$scope','$stateParams','MyCodeService','ngDialog','$localStorage','$location', 'Images',NewStepCtrl]);
 
-function NewStepCtrl($scope,$stateParams,MyCodeService,ngDialog,$localStorage,$location){
+function NewStepCtrl(SessionService,$scope,$stateParams,MyCodeService,ngDialog,$localStorage,$location,Images){
     $scope.newstep = {
         meta:{},
         cmds:[]
@@ -18,6 +18,26 @@ function NewStepCtrl($scope,$stateParams,MyCodeService,ngDialog,$localStorage,$l
         msg:"正在为您创建中，请稍等。。。",
         data:null
     };
+   var user = SessionService.getUserinfo()
+   $scope.images = []
+    Images.query({id: user.userid, action: 'list'}).$promise.then(function(data){
+        $scope.images = data;
+        $localStorage.myImages =data
+        var checked_str = '';
+        var checked = -1;
+        if($scope.newstep &&$scope.newstep.meta&& $scope.newstep.meta.image_id){
+            checked = $scope.newstep.meta.image_id;
+        }
+        for (var i = data.length - 1; i >= 0; i--) {
+            var image = data[i]
+            if(checked == image.ImageId){
+                checked_str = 'selected';
+            }
+            $('#newstepimage').append('<option value="'+image.ImageId+'" '+checked_str+'>'+image.ImageName+':'+image.Tag+'</option>');
+            checked_str = ''
+        };
+        
+    });
     $scope.stepid = $stateParams.stepid;
     $scope.codeid = $stateParams.codeid;
     if($scope.stepid != null){
@@ -27,6 +47,10 @@ function NewStepCtrl($scope,$stateParams,MyCodeService,ngDialog,$localStorage,$l
                 return
             }else{
                 $scope.newstep = data;
+                var check = $('#newstepimage option[value='+data.meta.image_id+']')
+                if(check != null){
+                    check.attr('selected',true)
+                }
                 for(var i =0;i<data.cmds.length;i++){
                     if(data.cmds[i].Is_replace == 2){
                         $scope.cmd.is_replace = i;

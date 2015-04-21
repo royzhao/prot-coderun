@@ -61,6 +61,39 @@
     float: left;
     width: 50%;
 }
+.post_content{
+    padding: 10px 10px 10px 10px;
+}
+
+@media only screen and (min-height: 761px){
+    .CodeMirror  {
+        height : 760px !important;
+    }
+    .ace_editor{
+        height : 760px !important;
+    }
+}
+
+@media only screen and (min-height: 620px ) and (max-height: 760px){
+    .CodeMirror  {
+        height : 720px !important;
+    }
+    .ace_editor{
+        height : 720px !important;
+    }
+}
+@media only screen and (max-height: 619px){
+    .CodeMirror  {
+        height : 579px !important;
+    }
+    .ace_editor{
+        height : 579px !important;
+    }
+}
+/*.ace_editor  {*/
+    /*height : 600px;*/
+/*}*/
+
 /**
  * Hamburg Menu
  * When the class of 'hamburg' is applied to the body tag of the document,
@@ -554,9 +587,7 @@ ul.sidebar .sidebar-list .menu-icon {
     font-size: 28px;
     display: block;
 }
-.ace_editor  {
-    height : 500px;
-}
+
 
 /*
 add zpl sidebar

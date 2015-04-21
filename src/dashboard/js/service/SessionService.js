@@ -41,7 +41,7 @@ angular.module('RDash').
             login:function(){
                 $localStorage.token= "xxjjskldifu";
                 $localStorage.user = {
-                    userid:2,
+                    userid:1,
                     name : "培龙",
                     userimg : 'img/avatar.jpg'
                 };
