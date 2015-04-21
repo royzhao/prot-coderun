@@ -1,22 +1,7 @@
 /**
  * Created by zpl on 15-2-2.
  */
-angular.module('Image', ['angularTreeview','ui.bootstrap', 'ui.router', 'ngCookies','ngResource'])
-    //.factory('CImage', ['$resource',function($resource) {
-    //    return $resource('/dockerapi/image/create',{},{
-    //        'save': { isArray: false, method: 'POST' }
-    //    });
-    //}])
-    //.factory('EImage', ['$resource',function($resource) {
-    //    return $resource('/dockerapi/image/edit',{},{
-    //        'edit': { isArray: false, method: 'POST' }
-    //    });
-    //}])
-    //.factory('CommitImage', ['$resource',function($resource) {
-    //    return $resource('/dockerapi/image/commit',{},{
-    //        'commit': { isArray: false, method: 'POST' }
-    //    });
-    //}])
+angular.module('Image', ['angularTreeview','ui.bootstrap', 'ui.router', 'ngCookies','ngResource','permission'])
     .factory('Image', ['$resource',function($resource) {
         return $resource('/dockerapi/image/:action',{},{
             'save': { isArray: false, method: 'POST' },
@@ -31,10 +16,77 @@ angular.module('Image', ['angularTreeview','ui.bootstrap', 'ui.router', 'ngCooki
             'get': { isArray: false, method: 'GET' }
         });
     }])
+    .factory('User', ['$resource',function($resource) {
+        return $resource('/api/sso/:action',{},{
+            'login':{isArray:false,method:'POST'},
+            'logout':{isArray:false,method:'POST'}
+        })
+    }])
+    .factory('httpInterceptor',['$q','$cookies', function($q,$cookies){
+        var isNeedAuth=function(uri,method){
+            //check url is contain api
+            if(uri.indexOf('api')){
+                if(method == 'POST' || method== 'PUT' ||method=='DELETE'){
+                    return true;
+                }
+            }
+            return false;
+        };
+        var httpInterceptor = {
+            request: function(config) {
+                if (isNeedAuth(config.url,config.method)) {
+                    if(($cookies.token)==undefined) {
+                        return $q.reject(config);
+                    }
+                    config.headers['x-session-token'] = $cookies.token;
+                }
+                return config;
+            },
+            response : function(response) {
+                return response;
+            },
+            responseError : function(response) {
+                if (response.status == 401) {
+                    alert('must login');
+                    return $q.reject(response);
+                } else if (response.status === 404) {
+                    alert("404!");
+                    return $q.reject(response);
+                }
+            },
+            requestError : function(config){
+                return $q.reject(config);
+            }
+        };
+        return httpInterceptor;
+    }
+    ])
     .filter('trustAsResourceUrl', ['$sce', function($sce) {
         return function(val) {
             return $sce.trustAsResourceUrl(val);
         };
+    }])
+    .service('loginService',['User','$cookies','$window',function(User,$cookies,$window) {
+        var verifyData = {
+            App_id:1,
+	        App_key:"Ei1F4LeTIUmJeFdO1MfbdkGQpZMeQ0CUX3aQD4kMOMVsRz7IAbjeBpurD6LTvNoI",
+	        Token:null
+        }
+        return {
+            isLogin:function(){
+                if(($cookies.token)==undefined) {
+                    $window.location.href = "http://sso.peilong.me/html/baigoSSO/mypage/login.php?refer=http://image.peilong.me:9000";
+                }
+                verifyData.Token = $cookies.token;
+                User.login({action:'islogin'},verifyData,function(c){
+                    if(!c.is_login) {
+                        $window.location.href = "http://sso.peilong.me/html/baigoSSO/mypage/login.php?refer=http://image.peilong.me:9000";
+                    }
+                },function(err){
+                    $window.location.href = "http://sso.peilong.me/html/baigoSSO/mypage/login.php?refer=http://image.peilong.me:9000";
+                });
+            }
+        }
     }])
     .service('sharedProperties', function () {
         var image = {};

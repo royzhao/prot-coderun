@@ -6,27 +6,55 @@
 /**
  * Route configuration for the RDash module.
  */
-angular.module('Image').config(['$stateProvider', '$urlRouterProvider',
-    function($stateProvider, $urlRouterProvider) {
+angular.module('Image').config(['$stateProvider', '$urlRouterProvider','$httpProvider',
+    function($stateProvider, $urlRouterProvider,$httpProvider) {
 
-        // For unmatched routes
+        $httpProvider.defaults.timeout = 5000;
+        //interceptors
+        $httpProvider.interceptors.push('httpInterceptor');
+        //For unmatched routes
         $urlRouterProvider.otherwise('/');
 
         // Application routes
         $stateProvider
+            .state('login',{
+                templateUrl: function (){
+                    //TODO mock login
+                    //alert('mock 登陆页面,先重定向到百度去')
+                    window.location.href = 'http://sso.peilong.me/html/baigoSSO/mypage/login.php?refer=http://image.peilong.me:9000';
+                }
+            })
             .state('index', {
                 url: '/',
-                templateUrl: 'templates/image.html'
+                templateUrl: 'templates/image.html',
+                data: {
+                    permissions: {
+                        except: ['anonymous'],
+                        redirectTo: 'login'
+                    }
+                }
             })
             .state('edit', {
                 url: '/edit/:id',
                 templateUrl: 'templates/edit.html',
-                controller:'EditCtrl'
+                controller:'EditCtrl',
+                data: {
+                    permissions: {
+                        except: ['anonymous'],
+                        redirectTo: 'login'
+                    }
+                }
             })
             .state('term', {
                 url:'/term/:base',
                 templateUrl:'templates/terminal.html',
-                controller:'TerminalCtrl'
+                controller:'TerminalCtrl',
+                data: {
+                    permissions: {
+                        except: ['anonymous'],
+                        redirectTo: 'login'
+                    }
+                }
             });
     }
 ]);

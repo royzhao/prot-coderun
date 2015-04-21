@@ -3,11 +3,23 @@
  * 拦截器
  */
 angular.module('Editor').
-    factory('httpInterceptor',['SessionService','$q', '$injector', function(SessionService,$q, $injector){
+    factory('httpInterceptor',['$q','$cookies', function($q,$cookies){
+        var isNeedAuth=function(uri,method){
+            //check url is contain api
+            if(uri.indexOf('api')){
+                if(method == 'POST' || method== 'PUT' ||method=='DELETE'){
+                    return true;
+                }
+            }
+            return false;
+        };
         var httpInterceptor = {
             request: function(config) {
-                if (SessionService.isNeedAuth(config.url,config.method)) {
-                    config.headers['x-session-token'] = SessionService.getToken();
+                if (isNeedAuth(config.url,config.method)) {
+                    if(($cookies.token)==undefined) {
+                        return $q.reject(config);
+                    }
+                    config.headers['x-session-token'] = $cookies.token;
                 }
                 return config;
             },
