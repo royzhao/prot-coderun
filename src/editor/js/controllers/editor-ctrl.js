@@ -77,9 +77,12 @@ function EditorCtrl($timeout,$scope,$cookieStore,$stateParams,$localStorage,MyCo
         })
     }
     var retry_times=0;
+    var query_failed = false;
+    var commit_ok = false;
     $scope.queryRunRes = function(){
-        if(retry_times >3){
+        if(retry_times >3 || query_failed){
             $scope.writeConsole("run failed!pls try again");
+            query_failed = true;
             return;
         }
         retry_times++;
@@ -89,9 +92,9 @@ function EditorCtrl($timeout,$scope,$cookieStore,$stateParams,$localStorage,MyCo
                     $scope.writeConsole("some error happen");
                 }else{
                     $scope.run_res.data = data;
-                    if(data && data.status == 2){
+                    if(data && data.status == 5){
                         //successful
-                        $scope.writeConsole(data.res);
+                        $scope.parse_res(data.res);
                     }else{
                         setTimeout($scope.queryRunRes,3000);
                     }
@@ -99,11 +102,19 @@ function EditorCtrl($timeout,$scope,$cookieStore,$stateParams,$localStorage,MyCo
             })
         },3000);
     }
-    $scope.writeConsole = function(s){
-        var header = '> '
-        $scope.page.term.writeln(header+s);
+    $scope.parse_res = function(result){
+        var lines = result.split('\r\n')
+        for(var i=0;i<lines.length;i++){
+            $scope.writeConsole(lines[i])
+        }
     }
-    $scope.coderun = function(){
+    $scope.coderun_func = function(){
+        if(retry_times >3  || commit_ok){
+            $scope.writeConsole("run failed!pls try again");
+            commit_ok = false
+            return;
+        }
+        retry_times++;
         if($scope.page.term){
             console.log($scope.step)
             $scope.writeConsole("running");
@@ -112,16 +123,39 @@ function EditorCtrl($timeout,$scope,$cookieStore,$stateParams,$localStorage,MyCo
                 if(err == null){
                     $scope.run_res = {};
                     $scope.run_res.run_id = data.run_id;
-                    $scope.writeConsole(data.res);
+                    $scope.parse_res(data.res);
                     retry_times = 0;
-                    $scope.queryRunRes();
-
+                    if(data.status ==3){
+                        retry_times = 0;
+                        commit_ok = true;
+                        query_failed = false;
+                        $scope.queryRunRes();
+                    }else if(data.status ==5){
+                        commit_ok = true;
+                        query_failed = true;
+                        $scope.writeConsole("Task finished!");
+                    }else if(data.status == 6) {
+                        $scope.writeConsole(data.res);
+                        commit_ok = true;
+                    }else{
+                        $scope.writeConsole("Will retry after 3s....!");
+                        setTimeout($scope.coderun_func,3000);
+                    }
                 }else{
                     $scope.writeConsole("failed commit!")
                 }
             })
 
         }
+    }
+    $scope.writeConsole = function(s){
+        var header = '> '
+        $scope.page.term.writeln(header+s);
+    }
+    $scope.coderun = function(){
+        commit_ok = false
+        retry_times = 0
+        $scope.coderun_func()
     }
     $scope.switchIt = function(){
         $scope.toggleSidebar()
