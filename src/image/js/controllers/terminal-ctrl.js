@@ -19,6 +19,7 @@ function TerminalCtrl($scope,$cookieStore,$stateParams,$location,sharedPropertie
     }
     $scope.commit = function() {
         var image = {};
+        //document.getElementById("console").style.display="none";
         var dialog = ngDialog.open({template:'templates/dialog/loading.html'});
         if(sharedProperties.isEdit()) {
             image = sharedProperties.getImage();
@@ -68,7 +69,10 @@ function TerminalCtrl($scope,$cookieStore,$stateParams,$location,sharedPropertie
             alert("failure");
             return false;
         });
-
+    }
+    $scope.reload = function() {
+        var iframe = document.getElementById("console");
+        iframe.window.location().reload();
     }
 
 }
