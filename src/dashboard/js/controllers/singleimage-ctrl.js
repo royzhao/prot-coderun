@@ -3,9 +3,9 @@
  */
 angular
     .module('RDash')
-    .controller('MySingleImageCtrl', ['$scope', '$stateParams','Images','$location', 'Star', 'Fork', 'Image', '$cookieStore',  MySingleImageCtrl]);
+    .controller('MySingleImageCtrl', ['$scope', '$stateParams','Images','$location', 'Star', 'Fork', 'Image', '$cookies',  MySingleImageCtrl]);
 
-function MySingleImageCtrl($scope,$stateParams,Images,$location,Star, Fork, Image, $cookieStore) {
+function MySingleImageCtrl($scope,$stateParams,Images,$location,Star, Fork, Image, $cookies) {
     //var myimagelist = [
     //    {
     //        'imageid':1,
@@ -72,8 +72,8 @@ function MySingleImageCtrl($scope,$stateParams,Images,$location,Star, Fork, Imag
     //alert($stateParams.imageid);
     var star;
     var fork;
-    var currentuid = 1;
-    var currentname="dylan";
+    var currentuid = parseInt($cookies.u_id);
+    var currentname = $cookies.u_name;
     Star.query({id:$stateParams.imageid,uid:currentuid}).$promise.then(function(data){
         star = parseInt(data.ID);
         if(data.ID > 0) {
@@ -86,8 +86,7 @@ function MySingleImageCtrl($scope,$stateParams,Images,$location,Star, Fork, Imag
         fork = data.Forked;
         if(fork) {
             $scope.forkcolor = "#808080";
-        } else {
-            $scope.forkcolor = "";
+            document.getElementById("imageFork").isDisabled=true;
         }
     });
     //console.log(starbool);
@@ -104,6 +103,9 @@ function MySingleImageCtrl($scope,$stateParams,Images,$location,Star, Fork, Imag
     Images.get({id: $stateParams.imageid, action: 'log'}).$promise.then(function(data){
         //$scope.image = data;
         myimage = data;
+        if(data.UserId  == currentuid){
+            $scope.forkcolor = "#808080";
+        }
         $scope.image = {
             imagename : data.ImageName,
             star : data.Star,
@@ -124,7 +126,11 @@ function MySingleImageCtrl($scope,$stateParams,Images,$location,Star, Fork, Imag
     $scope.starImage = function () {
         //$scope.image.star += 1;
         //myimage.Star += 1;
-        Image.star({action:'star'},myimage).$promise.then(function(c){
+        var postData = {
+            uid:currentuid,
+            image:myimage
+        }
+        Image.star({action:'star'},postData).$promise.then(function(c){
             Star.query({id:$stateParams.imageid,uid:currentuid}).$promise.then(function(data){
                 star = parseInt(data.ID);
                 if(star > 0) {
@@ -144,6 +150,9 @@ function MySingleImageCtrl($scope,$stateParams,Images,$location,Star, Fork, Imag
         });
     }
     $scope.forkImage = function () {
+        if(currentuid==myimage.UserId ||  ($scope.forkcolor == "#808080")) {
+            return;
+        }
         var postData = {
             uid:currentuid,
             uname:currentname,
@@ -154,8 +163,6 @@ function MySingleImageCtrl($scope,$stateParams,Images,$location,Star, Fork, Imag
                 fork = data.Forked;
                 if(fork) {
                     $scope.forkcolor = "#808080";
-                } else {
-                    $scope.forkcolor = "";
                 }
             });
             Images.get({id: $stateParams.imageid, action: 'log'}).$promise.then(function(data){
