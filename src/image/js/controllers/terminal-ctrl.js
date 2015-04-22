@@ -6,8 +6,8 @@ angular.module('Image')
 
 
 function TerminalCtrl($scope,$cookies,$stateParams,$location,sharedProperties,Image,$window,ngDialog) {
-    $scope.apiUrl = "http://127.0.0.1:8080/user/";
-    //$scope.apiUrl = "http://vpn.peilong.me:8080/user/";
+    //$scope.apiUrl = "http://127.0.0.1:8080/user/";
+    $scope.apiUrl = "http://vpn.peilong.me:8080/user/";
     //alert($scope.apiUrl);
     $scope.uid = parseInt($cookies.u_id);
     $scope.baseimage = $stateParams.base;
@@ -71,8 +71,8 @@ function TerminalCtrl($scope,$cookies,$stateParams,$location,sharedProperties,Im
         }, function(err){
             //$scope.hideLoader();
             //$scope.error = err.data;
-            console.log(err);
-            alert("failure");
+            document.getElementById("text").innerHTML = "创建失败！";
+            $window.location.href = "http://" + $location.host()+":9000/dashboard.html#/myimage";
             return false;
         });
     }
