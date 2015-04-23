@@ -56,13 +56,25 @@ function EditorCtrl($timeout,$scope,$cookieStore,$stateParams,$localStorage,MyCo
         {title:$scope.step.meta.code_name,content:"templates/ace_editor.html",active:true},
         {title:"运行代码",content:"templates/run.html",active:false}
     ]
-    $scope.editor = {};
+    ;
+    $scope.redactorOptions = {
+        buttons:['formatting', 'bold', 'italic', 'deleted',
+            'unorderedlist', 'orderedlist', 'outdent', 'indent',
+            'image', 'file', 'link', 'alignment', 'horizontalrule'],
+        lang:"zh_cn",
+        minHeight:450
+    };
+
+    // Called when the editor is completely ready.
 
     //func
     $scope.getPostContent = function(){
         var content = "";
-        if($scope.editor && $scope.editor.instance && $scope.editor.instance.codemirror){
-            content = $scope.editor.instance.codemirror.getValue();
+        //if($scope.editor && $scope.editor.instance && $scope.editor.instance.codemirror){
+        //    content = $scope.editor.instance.codemirror.getValue();
+        //}
+        if($scope.editor){
+            content = $scope.editor.redactor('code.get').val();
         }
         return content;
 
@@ -166,7 +178,6 @@ function EditorCtrl($timeout,$scope,$cookieStore,$stateParams,$localStorage,MyCo
             alert("请填写内容")
             return;
         }
-
         var post = {
             id:$scope.step.meta.id,
             code_content:$scope.step.code.code_content,
@@ -192,8 +203,22 @@ function EditorCtrl($timeout,$scope,$cookieStore,$stateParams,$localStorage,MyCo
     $scope.getWidth = function() {
         return window.innerWidth;
     };
-
+    $scope.getHeight = function(){
+        return window.innerHeight;
+    }
+    $scope.$watch($scope.getHeight,function(newValue,oldValue){
+        //$(".CodeMirror").attr("height",(newValue-40)+"px !important")
+        console.log($(".redactor_editor"))
+        if(newValue <450){
+            $(".redactor_editor").attr("style","height:450px !important")
+        }else{
+            $(".redactor_editor").attr("style","height:"+(newValue-156)+"px !important")
+            $(".ace_editor").css("height",(newValue-156)+"px !important")
+            //$(".redactor_editor").css("max-height",(newValue-40)+"px !important")
+        }
+    })
     $scope.$watch($scope.getWidth, function(newValue, oldValue) {
+
         if (newValue >= mobileView) {
                 $scope.page.toggle = true;
         } else {

@@ -25,12 +25,12 @@ angular.module('Editor').config(['$httpProvider','$stateProvider', '$urlRouterPr
             .state('editor',{
                 url:"/editor/:codeid/:stepid",
                 templateUrl:'templates/editor.html',
-                data: {
-                    permissions: {
-                        except: ['anonymous'],
-                        redirectTo: 'login'
-                    }
-                }
+                //data: {
+                //    permissions: {
+                //        except: ['anonymous'],
+                //        redirectTo: 'login'
+                //    }
+                //}
             })
             .state('show', {
                 url: '/show/:codeid/:stepid',
