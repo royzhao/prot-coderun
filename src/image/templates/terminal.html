@@ -72,10 +72,19 @@
                 <div class="col-lg-12">
                     <rd-widget>
                         <rd-widget-header icon="fa-tasks" title="新建镜像">
+                            <button type="button" class="btn btn-primary" data-ng-click="reload()">刷新</button>
                             <button type="submit" class="btn btn-primary" data-ng-click="commit()">提交</button>
                         </rd-widget-header>
                         <rd-widget-body>
-                            <iframe ng-src="{{apiUrl + uid +  '/' + baseimage + '/' + tag | trustAsResourceUrl}}" style="width:100%;height:550px"></iframe>
+                            <div id="loading" style="height: 200px;display: none;text-align:center;">
+                                <h1 id="text">创建中...</h1>
+                                <div class="bubblingG" style="margin-left: auto;margin-right: auto;margin-top: 20px;">
+                                    <span id="bubblingG_1"></span>
+                                    <span id="bubblingG_2"></span>
+                                    <span id="bubblingG_3"></span>
+                                </div>
+                            </div>
+                            <iframe id="console" ng-src="{{apiUrl + uid +  '/' + baseimage + '/' + tag | trustAsResourceUrl}}" style="width:100%;height:550px"></iframe>
                         </rd-widget-body>
                     </rd-widget>
                 </div>
@@ -83,3 +92,138 @@
         </div>
     </div>
 </div>
+<style>
+    .bubblingG {
+        text-align: center;
+        width:80px;
+        height:50px;
+    }
+
+    .bubblingG span {
+        display: inline-block;
+        vertical-align: middle;
+        width: 10px;
+        height: 10px;
+        margin: 25px auto;
+        background: #113D87;
+        -moz-border-radius: 50px;
+        -moz-animation: bubblingG 1.3s infinite alternate;
+        -webkit-border-radius: 50px;
+        -webkit-animation: bubblingG 1.3s infinite alternate;
+        -ms-border-radius: 50px;
+        -ms-animation: bubblingG 1.3s infinite alternate;
+        -o-border-radius: 50px;
+        -o-animation: bubblingG 1.3s infinite alternate;
+        border-radius: 50px;
+        animation: bubblingG 1.3s infinite alternate;
+    }
+
+    #bubblingG_1 {
+        -moz-animation-delay: 0s;
+        -webkit-animation-delay: 0s;
+        -ms-animation-delay: 0s;
+        -o-animation-delay: 0s;
+        animation-delay: 0s;
+    }
+
+    #bubblingG_2 {
+        -moz-animation-delay: 0.39s;
+        -webkit-animation-delay: 0.39s;
+        -ms-animation-delay: 0.39s;
+        -o-animation-delay: 0.39s;
+        animation-delay: 0.39s;
+    }
+
+    #bubblingG_3 {
+        -moz-animation-delay: 0.78s;
+        -webkit-animation-delay: 0.78s;
+        -ms-animation-delay: 0.78s;
+        -o-animation-delay: 0.78s;
+        animation-delay: 0.78s;
+    }
+
+    @-moz-keyframes bubblingG {
+        0% {
+            width: 10px;
+            height: 10px;
+            background-color:#113D87;
+            -moz-transform: translateY(0);
+        }
+
+        100% {
+            width: 24px;
+            height: 24px;
+            background-color:#FFFFFF;
+            -moz-transform: translateY(-21px);
+        }
+
+    }
+
+    @-webkit-keyframes bubblingG {
+        0% {
+            width: 10px;
+            height: 10px;
+            background-color:#113D87;
+            -webkit-transform: translateY(0);
+        }
+
+        100% {
+            width: 24px;
+            height: 24px;
+            background-color:#FFFFFF;
+            -webkit-transform: translateY(-21px);
+        }
+
+    }
+
+    @-ms-keyframes bubblingG {
+        0% {
+            width: 10px;
+            height: 10px;
+            background-color:#113D87;
+            -ms-transform: translateY(0);
+        }
+
+        100% {
+            width: 24px;
+            height: 24px;
+            background-color:#FFFFFF;
+            -ms-transform: translateY(-21px);
+        }
+
+    }
+
+    @-o-keyframes bubblingG {
+        0% {
+            width: 10px;
+            height: 10px;
+            background-color:#113D87;
+            -o-transform: translateY(0);
+        }
+
+        100% {
+            width: 24px;
+            height: 24px;
+            background-color:#FFFFFF;
+            -o-transform: translateY(-21px);
+        }
+
+    }
+
+    @keyframes bubblingG {
+        0% {
+            width: 10px;
+            height: 10px;
+            background-color:#113D87;
+            transform: translateY(0);
+        }
+
+        100% {
+            width: 24px;
+            height: 24px;
+            background-color:#FFFFFF;
+            transform: translateY(-21px);
+        }
+
+    }
+</style>

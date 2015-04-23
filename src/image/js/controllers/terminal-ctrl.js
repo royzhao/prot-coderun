@@ -6,8 +6,8 @@ angular.module('Image')
 
 
 function TerminalCtrl($scope,$cookies,$stateParams,$location,sharedProperties,Image,$window,ngDialog) {
-    $scope.apiUrl = "http://127.0.0.1:8080/user/";
-    //$scope.apiUrl = "http://vpn.peilong.me:8080/user/";
+    //$scope.apiUrl = "http://127.0.0.1:8080/user/";
+    $scope.apiUrl = "http://vpn.peilong.me:8080/user/";
     //alert($scope.apiUrl);
     $scope.uid = parseInt($cookies.u_id);
     $scope.baseimage = $stateParams.base;
@@ -21,7 +21,9 @@ function TerminalCtrl($scope,$cookies,$stateParams,$location,sharedProperties,Im
     }
     $scope.commit = function() {
         var image = {};
-        var dialog = ngDialog.open({template:'templates/dialog/loading.html'});
+        document.getElementById("console").style.display="none";
+        document.getElementById("loading").style.display="block";
+        //var dialog = ngDialog.open({template:'templates/dialog/loading.html'});
         if(sharedProperties.isEdit()) {
             image = sharedProperties.getImage();
             image.Tag += 1;
@@ -55,22 +57,28 @@ function TerminalCtrl($scope,$cookies,$stateParams,$location,sharedProperties,Im
         Image.commit({action:'commit'},image).$promise.then(function(c){
             //$location.path("/term/"+ $scope.basic.ImageName);
             Image.push({action:'push'},image).$promise.then(function(c) {
-                alert("创建成功！");
-                dialog.close();
-                //$window.location.href = "http://" + $location.host()+":9000/dashboard.html#/myimage";
+                document.getElementById("text").innerHTML = "创建成功！";
+                //alert("创建成功！");
+                //dialog.close();
+                $window.location.href = "http://" + $location.host()+":9000/dashboard.html#/myimage";
             }, function(err) {
                 //console.log(err);
                 //alert("failure");
+                document.getElementById("text").innerHTML = "创建失败！";
+                $window.location.href = "http://" + $location.host()+":9000/dashboard.html#/myimage";
                 return false;
             });
         }, function(err){
             //$scope.hideLoader();
             //$scope.error = err.data;
-            console.log(err);
-            alert("failure");
+            document.getElementById("text").innerHTML = "创建失败！";
+            $window.location.href = "http://" + $location.host()+":9000/dashboard.html#/myimage";
             return false;
         });
-
+    }
+    $scope.reload = function() {
+        var src = document.getElementById("console").src;
+        document.getElementById("console").src = src;
     }
 
 }
