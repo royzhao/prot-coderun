@@ -52,6 +52,21 @@ function EditorCtrl($timeout,$scope,$cookieStore,$stateParams,$localStorage,MyCo
         post_content:"",
         id:null
     };
+    if($scope.codeid != undefined &&$scope.stepid != undefined ){
+        MyCodeService.getMyCodeAllInfo($scope.codeid,$scope.stepid,function(data){
+            if(data == null){
+
+            }else{
+                $scope.page.show = true;
+                $scope.step = data;
+                if($scope.editor){
+                    $scope.editor.setCode($scope.step.code.post_content)
+                }
+            }
+        })
+    }
+    //init
+
     $scope.panes = [
         {title:$scope.step.meta.code_name,content:"templates/ace_editor.html",active:true},
         {title:"运行代码",content:"templates/run.html",active:false}
@@ -74,7 +89,7 @@ function EditorCtrl($timeout,$scope,$cookieStore,$stateParams,$localStorage,MyCo
         //    content = $scope.editor.instance.codemirror.getValue();
         //}
         if($scope.editor){
-            content = $scope.editor.redactor('code.get').val();
+            content = $scope.editor.getCode()
         }
         return content;
 
@@ -136,7 +151,6 @@ function EditorCtrl($timeout,$scope,$cookieStore,$stateParams,$localStorage,MyCo
                     $scope.run_res = {};
                     $scope.run_res.run_id = data.run_id;
                     $scope.parse_res(data.res);
-                    retry_times = 0;
                     if(data.status ==3){
                         retry_times = 0;
                         commit_ok = true;
@@ -208,11 +222,10 @@ function EditorCtrl($timeout,$scope,$cookieStore,$stateParams,$localStorage,MyCo
     }
     $scope.$watch($scope.getHeight,function(newValue,oldValue){
         //$(".CodeMirror").attr("height",(newValue-40)+"px !important")
-        console.log($(".redactor_editor"))
-        if(newValue <450){
-            $(".redactor_editor").attr("style","height:450px !important")
+        if((newValue-156) <450){
+            $(".redactor_editor").attr("style","max-height:450px !important")
         }else{
-            $(".redactor_editor").attr("style","height:"+(newValue-156)+"px !important")
+            $(".redactor_editor").attr("style","max-height:"+(newValue-156)+"px !important")
             $(".ace_editor").css("height",(newValue-156)+"px !important")
             //$(".redactor_editor").css("max-height",(newValue-40)+"px !important")
         }

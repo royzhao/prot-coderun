@@ -51,14 +51,14 @@
         </div>
     </div>
     <!-- End Header Bar -->
-    <div id="page-wrapper3"  ng-if="page.show" ng-class="{'open': page.toggle}" ng-cloak>
+    <div id="page-wrapper3"  ng-show="page.show" ng-class="{'open': page.toggle}" ng-cloak>
 
         <div class="editor-left" style="background: #e2f1a7">
             <div>
                 <button class="ttt glyphicon glyphicon-arrow-left" ng-click="switchIt()"></button>
             </div>
             <div class="CodeMirror editor-left-main post_content">
-                <div btf-markdown="step.code.post_content">
+                <div data-ng-bind-html="show.post_content" id="show_content" style="max-height:100%;overflow: auto;">
                 </div>
             </div>
 
@@ -81,7 +81,7 @@
         </div>
 
     </div><!-- End Page Wrapper -->
-    <div id="page-wrapper3" class="CodeMirror open" ng-if="!page.show">
+    <div id="page-wrapper3" class="CodeMirror open" ng-show="!page.show">
         <div class="col-lg-4 col-lg-offset-5">
             <div style="height: 200px;">
                 <h1>正在准备中。。。</h1>

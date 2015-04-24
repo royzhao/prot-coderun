@@ -147,7 +147,12 @@ angular.module('Editor').
                 })
             },
             runCode:function(image,obj,cb){
-                CodeAPIService.coderun(image,obj).then(function(data){
+                var data = {
+                    code :obj.code.code_content,
+                    meta: obj.meta,
+                    cmds:obj.cmds
+                }
+                CodeAPIService.coderun(image,data).then(function(data){
                     cb(null,data);
                 },function(error){
                     cb(error,null)
