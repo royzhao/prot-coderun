@@ -55,12 +55,12 @@ function ShowCtrl($timeout,$scope,$cookieStore,$stateParams,$localStorage,MyCode
 
         }else{
             var newValue = $scope.getHeight()
-            if((newValue-110)<450){
+            if((newValue-173)<450){
                 $(".CodeMirror").attr("style","height:450px !important")
-                $(".ace_editor").css("height",(newValue-110)+"px !important")
+                $(".ace_editor").css("height",(newValue-173)+"px !important")
             }else{
-                $(".CodeMirror").attr("style","height:"+(newValue-110)+"px !important")
-                $(".ace_editor").css("height",(newValue-110)+"px !important")
+                $(".CodeMirror").attr("style","height:"+(newValue-172)+"px !important")
+                $(".ace_editor").css("height",(newValue-172)+"px !important")
             }
             $scope.page.show = true;
             $scope.step = data;
@@ -174,12 +174,12 @@ function ShowCtrl($timeout,$scope,$cookieStore,$stateParams,$localStorage,MyCode
     }
     $scope.$watch($scope.getHeight,function(newValue,oldValue){
         //$(".CodeMirror").attr("height",(newValue-40)+"px !important")
-        if((newValue-110) <450){
+        if((newValue-173) <450){
             $(".CodeMirror").attr("style","height:450px !important")
-            $(".ace_editor").css("height",(newValue-110)+"px !important")
+            $(".ace_editor").css("height",(newValue-173)+"px !important")
         }else{
-            $(".CodeMirror").attr("style","height:"+(newValue-110)+"px !important")
-            $(".ace_editor").css("height",(newValue-110)+"px !important")
+            $(".CodeMirror").attr("style","height:"+(newValue-173)+"px !important")
+            $(".ace_editor").css("height",(newValue-173)+"px !important")
             //$(".redactor_editor").css("max-height",(newValue-40)+"px !important")
         }
     })

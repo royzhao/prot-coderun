@@ -62,6 +62,15 @@ function EditorCtrl($timeout,$scope,$cookieStore,$stateParams,$localStorage,MyCo
                 if($scope.editor){
                     $scope.editor.setCode($scope.step.code.post_content)
                 }
+                //add a button
+                var newValue = $scope.getHeight()
+                if((newValue-156) <450){
+                    $(".redactor_editor").attr("style","max-height:450px !important")
+                }else{
+                    $(".redactor_editor").attr("style","max-height:"+(newValue-156)+"px !important")
+                    $(".ace_editor").css("height",(newValue-156)+"px !important")
+                    //$(".redactor_editor").css("max-height",(newValue-40)+"px !important")
+                }
             }
         })
     }
@@ -73,9 +82,9 @@ function EditorCtrl($timeout,$scope,$cookieStore,$stateParams,$localStorage,MyCo
     ]
     ;
     $scope.redactorOptions = {
-        buttons:['formatting', 'bold', 'italic', 'deleted',
+        buttons:['html', 'formatting', 'bold', 'italic', 'deleted',
             'unorderedlist', 'orderedlist', 'outdent', 'indent',
-            'image', 'file', 'link', 'alignment', 'horizontalrule'],
+            'image', 'quote', 'link', 'alignment', 'horizontalrule'],
         lang:"zh_cn",
         minHeight:450
     };

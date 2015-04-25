@@ -19,7 +19,7 @@ angular.module('Editor').config(['$httpProvider','$stateProvider', '$urlRouterPr
             .state('login',{
                 templateUrl: function (){
                     //TODO mock login
-                    window.location.href = 'http://sso.peilong.me/html/baigoSSO/mypage/login.php?refer=http://image.peilong.me:9000';
+                    window.location.href = 'http://sso.peilong.me/html/baigoSSO/mypage/login.php?refer='+window.location.href;
                 }
             })
             .state('editor',{

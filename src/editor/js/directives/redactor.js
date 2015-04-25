@@ -106,22 +106,26 @@ angular
             angular.extend(options, scope.redactorOptions, additionalOptions);
             // prevent collision with the constant values on ChangeCallback
             RedactorPlugins = {};
-            RedactorPlugins.back = function()
+
+            RedactorPlugins.advanced = function()
             {
                 return {
                     init: function()
                     {
-                        var button = this.button.add('back', 'Back');
+                        var button = this.button.add('advanced', 'Advanced');
 
                         // make your added button as Font Awesome's icon
-                        this.button.setAwesome('back', 'glyphicon-arrow-left');
+                        this.button.setAwesome('advanced', 'fa-tasks');
 
-                        this.button.addCallback(button, scope.toggleSidebar);
+                        this.button.addCallback(button, this.advanced.testButton);
+                    },
+                    testButton: function(buttonName)
+                    {
+                        alert(buttonName);
                     }
                 };
             };
-            options.plugins = [];
-            options.plugins.push('back');
+            options.plugins = ['advanced'];
 
             var changeCallback = additionalOptions.changeCallback || scope.redactorOptions.changeCallback;
             if (changeCallback) {

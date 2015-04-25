@@ -29,7 +29,7 @@ angular.module('RDash').
             responseError : function(response) {
                 if (response.status == 401) {
                     alert('must login');
-                    window.location.href = 'http://sso.peilong.me/html/baigoSSO/mypage/login.php?refer=http://image.peilong.me:9000';
+                    window.location.href = 'http://sso.peilong.me/html/baigoSSO/mypage/login.php?refer='+window.location.href;
                     return $q.reject(response);
                 } else if (response.status === 404) {
                     alert("404!");
