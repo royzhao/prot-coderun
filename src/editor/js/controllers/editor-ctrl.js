@@ -65,9 +65,9 @@ function EditorCtrl($timeout,$scope,$cookieStore,$stateParams,$localStorage,MyCo
                 //add a button
                 var newValue = $scope.getHeight()
                 if((newValue-156) <450){
-                    $(".redactor_editor").attr("style","max-height:450px !important")
+                    $(".redactor_editor").attr("style","height:450px !important")
                 }else{
-                    $(".redactor_editor").attr("style","max-height:"+(newValue-156)+"px !important")
+                    $(".redactor_editor").attr("style","height:"+(newValue-156)+"px !important")
                     $(".ace_editor").css("height",(newValue-156)+"px !important")
                     //$(".redactor_editor").css("max-height",(newValue-40)+"px !important")
                 }
@@ -232,9 +232,9 @@ function EditorCtrl($timeout,$scope,$cookieStore,$stateParams,$localStorage,MyCo
     $scope.$watch($scope.getHeight,function(newValue,oldValue){
         //$(".CodeMirror").attr("height",(newValue-40)+"px !important")
         if((newValue-156) <450){
-            $(".redactor_editor").attr("style","max-height:450px !important")
+            $(".redactor_editor").attr("style","height:450px !important")
         }else{
-            $(".redactor_editor").attr("style","max-height:"+(newValue-156)+"px !important")
+            $(".redactor_editor").attr("style","height:"+(newValue-156)+"px !important")
             $(".ace_editor").css("height",(newValue-156)+"px !important")
             //$(".redactor_editor").css("max-height",(newValue-40)+"px !important")
         }

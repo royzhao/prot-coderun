@@ -5,9 +5,9 @@
 
 angular
     .module('RDash')
-    .controller('MySingleCodeCtrl', ['$scope', '$stateParams','MyCodeService',MySingleCodeCtrl]);
+    .controller('MySingleCodeCtrl', ['$scope', '$stateParams','MyCodeService','$localStorage',MySingleCodeCtrl]);
 
-function MySingleCodeCtrl($scope,$stateParams,MyCodeService) {
+function MySingleCodeCtrl($scope,$stateParams,MyCodeService,$localStorage) {
     //var mycodelist = [
     //    {
     //        'codeid':1,

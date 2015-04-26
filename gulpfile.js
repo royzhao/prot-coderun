@@ -251,6 +251,10 @@ var debug = false;
  * Gulp tasks
  */
 gulp.task('build', ['usemin', 'build-assets', 'build-custom','build-custom-editor','build-custom-image']);
+gulp.task('zpl',['build', 'webserver', 'livereload', 'watch'],function(){
+   	dist ="/home/zpl/workspace/code_web/src/mashangpao_code_web/public";
+	 debug = debug || false;
+});
 gulp.task('default', ['build', 'webserver', 'livereload', 'watch'],function(){
     debug = debug || false;
 });

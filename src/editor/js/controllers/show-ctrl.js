@@ -11,8 +11,56 @@ function ShowCtrl($timeout,$scope,$cookieStore,$stateParams,$localStorage,MyCode
     $scope.page.toggle = true;
     $scope.page.show = false;
     $scope.page.status = 1;
+    $scope.page.pre = -1;
+    $scope.page.pre = {
+        index:-1,
+        data:null,
+    }
+    $scope.page.next = {
+        index:-1,
+        data:null,
+    };
     console.log($scope.codeid);
     console.log($scope.stepid);
+    if($localStorage.codes[$scope.codeid] == null){
+            MyCodeService.getMyOneCodeFromBack($scope.codeid,function(data){
+                if(data){
+                    MyCodeService.getMyCodeStep($scope.codeid,function(data2){
+                        if(data2){
+                            $scope.info = $localStorage.codes[$scope.codeid]
+                            for (var i = $scope.info.steps.length - 1; i >= 0; i--) {
+                                if($scope.stepid ==$scope.info.steps[i].id){
+                                    if(i+1 <$scope.info.steps.length ){
+                                        $scope.page.next.index  = i+1
+                                        $scope.page.next.data = $scope.info.steps[i+1]
+                                    }
+                                    if(i-1 >= 0){
+                                        $scope.page.pre.index = i-1;
+                                         $scope.page.pre.data = $scope.info.steps[i-1]
+                                    }
+                                    break;
+                                }
+                            };
+                        }
+                    })
+                }
+            })
+    }else{
+            $scope.info = $localStorage.codes[$scope.codeid]
+            for (var i = $scope.info.steps.length - 1; i >= 0; i--) {
+                        if($scope.stepid ==$scope.info.steps[i].id){
+                            if(i+1 <$scope.info.steps.length ){
+                                $scope.page.next.index  = i+1
+                                $scope.page.next.data = $scope.info.steps[i+1]
+                            }
+                            if(i-1 >= 0){
+                                $scope.page.pre.index = i-1;
+                                 $scope.page.pre.data = $scope.info.steps[i-1]
+                            }
+                            break;
+                        }
+            };
+    }
     if($localStorage.addstepobj == null){
         $scope.step = {
             meta:{
