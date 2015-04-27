@@ -20,7 +20,7 @@ angular.module('Image').config(['$stateProvider', '$urlRouterProvider','$httpPro
             .state('login',{
                 templateUrl: function (){
                     //TODO mock login
-                    window.location.href = 'http://sso.peilong.me/html/baigoSSO/mypage/login.php?refer='+window.location.href;
+                    window.location.href =ssoUrl+window.location.href;
                 }
             })
             .state('index', {

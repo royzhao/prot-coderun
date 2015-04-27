@@ -39,7 +39,7 @@ angular.module('RDash').
 
                 if(($cookies.token)==undefined) {
                     alert('请先登陆')
-                    $window.location.href = "http://sso.peilong.me/html/baigoSSO/mypage/login.php?refer="+window.location.href;
+                    $window.location.href = ssoUrl+window.location.href;
                 }
             },
             logout:function(){

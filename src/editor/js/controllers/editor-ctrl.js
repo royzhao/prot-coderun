@@ -2,9 +2,9 @@
  * Created by zpl on 15-2-2.
  */
 angular.module('Editor')
-    .controller('EditorCtrl', ['$timeout','$scope', '$cookieStore','$stateParams','$localStorage', 'MyCodeService','ngDialog',EditorCtrl]);
+    .controller('EditorCtrl', ['$timeout','$scope', '$cookieStore','$stateParams','$localStorage', 'MyCodeService','ngDialog','Images',EditorCtrl]);
 
-function EditorCtrl($timeout,$scope,$cookieStore,$stateParams,$localStorage,MyCodeService,ngDialog) {
+function EditorCtrl($timeout,$scope,$cookieStore,$stateParams,$localStorage,MyCodeService,ngDialog,Images) {
     $scope.codeid = $stateParams.codeid;
     $scope.stepid = $stateParams.stepid;
     $scope.page={};
@@ -13,18 +13,8 @@ function EditorCtrl($timeout,$scope,$cookieStore,$stateParams,$localStorage,MyCo
     $scope.page.status = 1;
     console.log($scope.codeid);
     console.log($scope.stepid);
-    if($localStorage.myImages == null){
-        $scope.page.status = 2;
-        return
-    }
-    $scope.getImageNameByID = function(id){
-        for (var i = $localStorage.myImages.length - 1; i >= 0; i--) {
-            if($localStorage.myImages[i].ImageId == id){
-                return $localStorage.myImages[i].ImageName+":"+$localStorage.myImages[i].Tag
-            }
-        };
-        return null
-    }
+
+
     if($localStorage.addstepobj == null){
         $scope.step = {
             meta:{
@@ -57,7 +47,7 @@ function EditorCtrl($timeout,$scope,$cookieStore,$stateParams,$localStorage,MyCo
             if(data == null){
 
             }else{
-                $scope.page.show = true;
+
                 $scope.step = data;
                 if($scope.editor){
                     $scope.editor.setCode($scope.step.code.post_content)
@@ -71,10 +61,20 @@ function EditorCtrl($timeout,$scope,$cookieStore,$stateParams,$localStorage,MyCo
                     $(".ace_editor").css("height",(newValue-156)+"px !important")
                     //$(".redactor_editor").css("max-height",(newValue-40)+"px !important")
                 }
+                if($localStorage.myImages == null ||$localStorage.myImages == undefined){
+                    var user = SessionService.getUserinfo()
+                    Images.query({id: user.userid, action: 'list'}).$promise.then(function(data){
+                        $localStorage.myImages =data   
+                        $scope.page.show = true;
+                    });
+                }else{
+                            $scope.page.show = true;
+                }
             }
         })
     }
     //init
+
 
     $scope.panes = [
         {title:$scope.step.meta.code_name,content:"templates/ace_editor.html",active:true},
@@ -92,6 +92,14 @@ function EditorCtrl($timeout,$scope,$cookieStore,$stateParams,$localStorage,MyCo
     // Called when the editor is completely ready.
 
     //func
+    $scope.getImageNameByID = function(id){
+        for (var i = $localStorage.myImages.length - 1; i >= 0; i--) {
+            if($localStorage.myImages[i].ImageId == id){
+                return $localStorage.myImages[i].ImageName+":"+$localStorage.myImages[i].Tag
+            }
+        };
+        return null
+    }
     $scope.getPostContent = function(){
         var content = "";
         //if($scope.editor && $scope.editor.instance && $scope.editor.instance.codemirror){

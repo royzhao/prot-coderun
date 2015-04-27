@@ -7,7 +7,7 @@ angular.module('RDash')
         isLogin:function(){
             console.log('login service!')
             if(($cookies.token)==undefined) {
-                $window.location.href = "http://sso.peilong.me/html/baigoSSO/mypage/login.php?refer="+window.location.href;
+                $window.location.href = ssoUrl+window.location.href;
             }
         }
     }

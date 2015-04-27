@@ -2,9 +2,9 @@
  * Created by zpl on 15-2-10.
  */
 angular.module('Editor')
-    .controller('ShowCtrl', ['$timeout','$scope', '$cookieStore','$stateParams','$localStorage', 'MyCodeService','ngDialog', '$sce',ShowCtrl]);
+    .controller('ShowCtrl', ['$timeout','$scope', '$cookieStore','$stateParams','$localStorage', 'MyCodeService','ngDialog', '$sce','Images','SessionService',ShowCtrl]);
 
-function ShowCtrl($timeout,$scope,$cookieStore,$stateParams,$localStorage,MyCodeService,ngDialog,$sce){
+function ShowCtrl($timeout,$scope,$cookieStore,$stateParams,$localStorage,MyCodeService,ngDialog,$sce,Images,SessionService){
     $scope.codeid = $stateParams.codeid;
     $scope.stepid = $stateParams.stepid;
     $scope.page={};
@@ -22,7 +22,9 @@ function ShowCtrl($timeout,$scope,$cookieStore,$stateParams,$localStorage,MyCode
     };
     console.log($scope.codeid);
     console.log($scope.stepid);
-    if($localStorage.codes[$scope.codeid] == null){
+
+
+    if($localStorage.codes == undefined || $localStorage.codes[$scope.codeid] == null){
             MyCodeService.getMyOneCodeFromBack($scope.codeid,function(data){
                 if(data){
                     MyCodeService.getMyCodeStep($scope.codeid,function(data2){
@@ -105,14 +107,23 @@ function ShowCtrl($timeout,$scope,$cookieStore,$stateParams,$localStorage,MyCode
             var newValue = $scope.getHeight()
             if((newValue-173)<450){
                 $(".CodeMirror").attr("style","height:450px !important")
-                $(".ace_editor").css("height",(newValue-173)+"px !important")
+                $("#ace_editor").css("height",(newValue-173)+"px !important")
             }else{
                 $(".CodeMirror").attr("style","height:"+(newValue-172)+"px !important")
-                $(".ace_editor").css("height",(newValue-172)+"px !important")
+                $("#ace_editor").css("height",(newValue-172)+"px !important")
             }
-            $scope.page.show = true;
+            
             $scope.step = data;
             $scope.show.post_content = $sce.trustAsHtml(data.code.post_content)
+            if($localStorage.myImages == null ||$localStorage.myImages == undefined ){
+                var user = SessionService.getUserinfo()
+                Images.query({id: user.userid, action: 'list'}).$promise.then(function(data){
+                    $localStorage.myImages =data   
+                    $scope.page.show = true;
+                });
+            }else{
+                $scope.page.show = true;
+            }            
 
         }
     })
@@ -211,7 +222,14 @@ function ShowCtrl($timeout,$scope,$cookieStore,$stateParams,$localStorage,MyCode
     $scope.switchIt = function(){
         $scope.toggleSidebar()
     }
-
+    $scope.getImageNameByID = function(id){
+        for (var i = $localStorage.myImages.length - 1; i >= 0; i--) {
+            if($localStorage.myImages[i].ImageId == id){
+                return $localStorage.myImages[i].ImageName+":"+$localStorage.myImages[i].Tag
+            }
+        };
+        return null
+    }
 
     /**
      * Sidebar Toggle & Cookie Control
@@ -224,10 +242,8 @@ function ShowCtrl($timeout,$scope,$cookieStore,$stateParams,$localStorage,MyCode
         //$(".CodeMirror").attr("height",(newValue-40)+"px !important")
         if((newValue-173) <450){
             $(".CodeMirror").attr("style","height:450px !important")
-            $(".ace_editor").css("height",(newValue-173)+"px !important")
         }else{
             $(".CodeMirror").attr("style","height:"+(newValue-173)+"px !important")
-            $(".ace_editor").css("height",(newValue-173)+"px !important")
             //$(".redactor_editor").css("max-height",(newValue-40)+"px !important")
         }
     })
