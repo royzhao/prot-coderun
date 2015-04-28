@@ -25,10 +25,20 @@ angular.module('Image')
         //}
         return {
             isLogin:function(){
-                console.log('login service!')
+                //console.log('login service!')
                 if(($cookies.token)==undefined) {
                     $window.location.href = "http://sso.peilong.me/html/baigoSSO/mypage/login.php?refer=http://image.peilong.me:9000";
                 }
+            },
+            login:function(){
+                verifyData.Token = $cookies.token;
+                User.login({action:'islogin'},verifyData,function(c){
+                    if(!c.is_login) {
+                        $window.location.href = "http://sso.peilong.me/html/baigoSSO/mypage/login.php?refer=http://image.peilong.me:9000";
+                    }
+                },function(err){
+                    $window.location.href = "http://sso.peilong.me/html/baigoSSO/mypage/login.php?refer=http://image.peilong.me:9000";
+                });
             }
         }
     }])

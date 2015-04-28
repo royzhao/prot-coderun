@@ -12,6 +12,7 @@ function ImageCtrl($scope,$cookies,$stateParams,Images,Image,$location,sharedPro
     //console.log('codeid:'+codeid);
     //mock data
     //loginService.isLogin();
+    loginService.login();
     var adminid = 1;
     var currentid = parseInt($cookies.u_id);
     var username = $cookies.u_name;

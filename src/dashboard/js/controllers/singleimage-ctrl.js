@@ -3,9 +3,9 @@
  */
 angular
     .module('RDash')
-    .controller('MySingleImageCtrl', ['$scope', '$stateParams','Images','$location', 'Star', 'Fork', 'Image', '$cookies',  MySingleImageCtrl]);
+    .controller('MySingleImageCtrl', ['$scope', '$stateParams','Images','$location', 'Star', 'Fork', 'Image', '$cookies','loginService',  MySingleImageCtrl]);
 
-function MySingleImageCtrl($scope,$stateParams,Images,$location,Star, Fork, Image, $cookies) {
+function MySingleImageCtrl($scope,$stateParams,Images,$location,Star, Fork, Image, $cookies,loginService) {
     //var myimagelist = [
     //    {
     //        'imageid':1,
@@ -70,6 +70,7 @@ function MySingleImageCtrl($scope,$stateParams,Images,$location,Star, Fork, Imag
     //];
     //$scope.image = [];
     //alert($stateParams.imageid);
+    loginService.login();
     var star;
     var fork;
     var currentuid = parseInt($cookies.u_id);

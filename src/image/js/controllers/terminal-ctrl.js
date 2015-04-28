@@ -2,11 +2,12 @@
  * Created by Administrator on 2015/3/26.
  */
 angular.module('Image')
-    .controller('TerminalCtrl', ['$scope', '$cookies','$stateParams', '$location','sharedProperties','Image','$window','ngDialog', TerminalCtrl]);
+    .controller('TerminalCtrl', ['$scope', '$cookies','$stateParams', '$location','sharedProperties','Image','$window','ngDialog','loginService', TerminalCtrl]);
 
 
-function TerminalCtrl($scope,$cookies,$stateParams,$location,sharedProperties,Image,$window,ngDialog) {
+function TerminalCtrl($scope,$cookies,$stateParams,$location,sharedProperties,Image,$window,ngDialog,loginService) {
     //$scope.apiUrl = "http://127.0.0.1:8080/user/";
+    loginService.login();
     $scope.apiUrl = "http://vpn.peilong.me:8080/user/";
     //alert($scope.apiUrl);
     $scope.uid = parseInt($cookies.u_id);
