@@ -67,28 +67,30 @@
                     <button class="btn btn-sm btn-info" ng-click="newDiscuss()">新建一个讨论</button>
                 </rd-widget-header>
                 <rd-widget-body classes="medium no-padding">
-                    <div class="table-responsive">
-                        <table class="table">
-                            <tbody>
-                            <tr><td><a href="" class="fa fa-bug">楼主你傻逼了</a> </td></tr>
-                            <tr><td><a href="" class="fa fa-bug">楼主拟傻逼了2次</a> </td></tr>
-                            <tr><td><a href="" class="fa fa-bug">一百块都不给我</a> </td></tr>
-                            </tbody>
-                        </table>
-                    </div>
+                    <!--<div class="table-responsive">-->
+                        <!--<table class="table">-->
+                            <!--<tbody>-->
+                            <!--<tr><td><a href="" class="fa fa-bug">楼主你傻逼了</a> </td></tr>-->
+                            <!--<tr><td><a href="" class="fa fa-bug">楼主拟傻逼了2次</a> </td></tr>-->
+                            <!--<tr><td><a href="" class="fa fa-bug">一百块都不给我</a> </td></tr>-->
+                            <!--</tbody>-->
+                        <!--</table>-->
+                    <div id="SOHUCS"></div>
+                    <script>
+                        (function(){
+                            var appid = 'cyrKhhVXM',
+                                    conf = 'prod_eb451e80bb1c2bc3983be32d4521f31a';
+                            var doc = document,
+                                    s = doc.createElement('script'),
+                                    h = doc.getElementsByTagName('head')[0] || doc.head || doc.documentElement;
+                            s.type = 'text/javascript';
+                            s.charset = 'utf-8';
+                            s.src =  'http://assets.changyan.sohu.com/upload/changyan.js?conf='+ conf +'&appid=' + appid;
+                            h.insertBefore(s,h.firstChild);
+                            window.SCS_NO_IFRAME = true;
+                        })()
+                    </script>
                 </rd-widget-body>
-                <rd-widget-footer>
-                    <ul class="pagination pagination-sm pull-right">
-                        <li><a href="#">&laquo;</a></li>
-                        <li><a href="#">1</a></li>
-                        <li><a href="#">2</a></li>
-                        <li><a href="#">3</a></li>
-                        <li><a href="#">4</a></li>
-                        <li><a href="#">5</a></li>
-                        <li><a href="#">&raquo;</a></li>
-                    </ul>
-                    <div class="clearfix"></div>
-                </rd-widget-footer>
             </rd-widget>
         </div>
     </div>
