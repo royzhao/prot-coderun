@@ -33,7 +33,9 @@ var paths = {
 
     index: 'src/index.html',
     bower_fonts: 'src/components/**/*.{ttf,woff,eof,svg}',
-    ace_plugin_js: 'src/components/ace-builds/src-noconflict/**/*.*'
+    ace_plugin_js: 'src/components/ace-builds/src-noconflict/**/*.*',
+    lib_css :'lib/css/*.*',
+    lib_js :'lib/js/*.*'
 };
 
 var dist = "D:\\workspace\\go\\src\\code_run_server\\public";
@@ -54,7 +56,7 @@ gulp.task('usemin', function() {
 /**
  * Copy assets
  */
-gulp.task('build-assets', ['copy-bower_fonts','copy-ace_plugin']);
+gulp.task('build-assets', ['copy-bower_fonts','copy-ace_plugin','copy-lib_js','copy-lib_js']);
 
 gulp.task('copy-bower_fonts', function() {
     return gulp.src(paths.bower_fonts)
@@ -65,6 +67,16 @@ gulp.task('copy-bower_fonts', function() {
         .pipe(gulp.dest(dist+'/lib/css'))
         .pipe(gulp.dest(dist));
 });
+
+gulp.task('copy-lib_js',function(){
+    return gulp.src(paths.lib_js)
+        .pipe(gulp.dest(dist+'/lib/js'))
+})
+
+gulp.task('copy-lib_css',function(){
+    return gulp.src(paths.lib_css)
+        .pipe(gulp.dest(dist+'/lib/css'))
+})
 
 gulp.task('copy-ace_plugin',function(){
     return gulp.src(paths.ace_plugin_js)
@@ -239,6 +251,10 @@ var debug = false;
  * Gulp tasks
  */
 gulp.task('build', ['usemin', 'build-assets', 'build-custom','build-custom-editor','build-custom-image']);
+gulp.task('zpl',['build', 'webserver', 'livereload', 'watch'],function(){
+   	dist ="/home/zpl/workspace/code_web/src/mashangpao_code_web/public";
+	 debug = debug || false;
+});
 gulp.task('default', ['build', 'webserver', 'livereload', 'watch'],function(){
     debug = debug || false;
 });

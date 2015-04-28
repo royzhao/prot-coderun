@@ -51,13 +51,21 @@
         </div>
     </div>
     <!-- End Header Bar -->
-    <div ng-if="page.show" id="page-wrapper3"  ng-class="{'open': page.toggle}" ng-cloak>
+    <div ng-show="page.show" id="page-wrapper3"  ng-class="{'open': page.toggle}" ng-cloak>
 
         <div class="editor-left">
+            <div>
+                <button class="ttt glyphicon glyphicon-arrow-left" ng-click="switchIt()" style="width: 24px;
+  z-index: 999;
+  height: 32px;
+  border-bottom: 1px solid #bbb;
+  background: linear-gradient(to bottom,#f1f1f1 0,#e2e2e2 100%);"></button>
+            </div>
             <div class="editor-left-main">
-                <mdeditor>
-                    <textarea id="md-text-editor"></textarea>
-                </mdeditor>
+                <!--<mdeditor>-->
+                    <!--<textarea id="md-text-editor"></textarea>-->
+                <!--</mdeditor>-->
+                <textarea ng-model="step.code.post_content" redactor></textarea>
             </div>
         </div>
         <div class="editor-right">
@@ -78,7 +86,7 @@
         </div>
 
     </div><!-- End Page Wrapper -->
-    <div ng-if="!page.show" id="page-wrapper3" class="CodeMirror open">
+    <div ng-show="!page.show" id="page-wrapper3" class="CodeMirror open">
         <div ng-if="page.status ==1">
             <div style="height: 200px;" class="col-lg-4 col-lg-offset-5">
                 <h1>正在创建中。。。</h1>

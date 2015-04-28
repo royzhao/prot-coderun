@@ -107,6 +107,9 @@ function MySingleImageCtrl($scope,$stateParams,Images,$location,Star, Fork, Imag
         if(data.UserId  == currentuid){
             $scope.forkcolor = "#808080";
         }
+        if(data.UserId == currentuid) {
+            document.getElementById("editButton").style.display = "block";
+        }
         $scope.image = {
             imagename : data.ImageName,
             star : data.Star,

@@ -12,7 +12,7 @@ angular.module('Editor')
             isLogin:function(){
                 console.log('login service!')
                 if(($cookies.token)==undefined) {
-                    $window.location.href = "http://sso.peilong.me/html/baigoSSO/mypage/login.php?refer=http://image.peilong.me:9000";
+                    $window.location.href = ssoUrl+window.location.href;
                 }
             },
             login:function(){

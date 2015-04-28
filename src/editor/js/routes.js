@@ -19,18 +19,18 @@ angular.module('Editor').config(['$httpProvider','$stateProvider', '$urlRouterPr
             .state('login',{
                 templateUrl: function (){
                     //TODO mock login
-                    window.location.href = 'http://sso.peilong.me/html/baigoSSO/mypage/login.php?refer=http://image.peilong.me:9000';
+                    window.location.href = ssoUrl+window.location.href;
                 }
             })
             .state('editor',{
                 url:"/editor/:codeid/:stepid",
                 templateUrl:'templates/editor.html',
-                data: {
-                    permissions: {
-                        except: ['anonymous'],
-                        redirectTo: 'login'
-                    }
-                }
+                //data: {
+                //    permissions: {
+                //        except: ['anonymous'],
+                //        redirectTo: 'login'
+                //    }
+                //}
             })
             .state('show', {
                 url: '/show/:codeid/:stepid',

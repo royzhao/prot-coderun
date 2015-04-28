@@ -2,7 +2,7 @@
  * Created by zpl on 15-3-18.
  */
 angular.module('RDash').
-    factory('MyCodeService',['CodeAPIService','SessionService',function(CodeAPIService,SessionService){
+    factory('MyCodeService',['CodeAPIService','SessionService','$localStorage',function(CodeAPIService,SessionService,$localStorage){
         return {
             userid:null,
             mycode:null,
@@ -22,47 +22,44 @@ angular.module('RDash').
                 this.checkUser();
               CodeAPIService.getCodesByUser(this.userid).
                   then(function(data){
-                      this.mycode = data;
-                      callback(this.mycode);
+                            if(data instanceof Array){
+                                for (var i = data.length - 1; i >= 0; i--) {
+                                    $localStorage.codes[data[i].id] = data[i]
+                                };
+
+                            }else{
+                                $localStorage.codes[data.id] = data
+                            }
+                            callback(data);
                   },function(error){
                       this.mycode = null;
                       callback(null);
                   })
-
             },
             getMyOneCodeFromBack : function(codeid,callback){
-                CodeAPIService.getCodeById(codeid).
-                    then(function(data){
-                        this.mycode = data;
-                        callback(this.mycode);
-                    },function(error){
-                        console.log(error);
-                        this.mycode = null;
-                        callback(null);
-                    })
+                if($localStorage.codes[codeid] == null){
+                    CodeAPIService.getCodeById(codeid).
+                        then(function(data){
+                            $localStorage.codes[codeid] = data
+                            callback(data);
+                        },function(error){
+                            console.log(error);
+                            this.mycode = null;
+                            callback(null);
+                        })
+                    }else{
+                        callback($localStorage.codes[codeid])
+                    }
             },
             getMyCodeFromCache : function(){
                 return this.mycode;
             },
             getMyCode : function(callback){
-                if(this.mycode == null){
                     this.getMyCodeFromBack(callback);
-                }else{
-                    callback(this.getMyCodeFromCache);
-                }
             },
             getCodeInfoById:function(codeid,callback){
                 this.checkUser();
-                if(this.mycode == null){
-                    this.getMyOneCodeFromBack(codeid,callback);
-                }else{
-                    for(t in this.mycode){
-                        if(t.id == codeid){
-                            callback(t);
-                        }
-                    }
-                    callback(this.getMyCodeFromCache);
-                }
+                this.getMyOneCodeFromBack(codeid,callback);
             },
             getMyCodeOneStep:function(codeid,stepid,callback){
                 CodeAPIService.getCodeStepById(codeid,stepid).
@@ -77,6 +74,7 @@ angular.module('RDash').
                 CodeAPIService.getCodeSteps(codeid).
                     then(function(data){
                         this.mycode = data;
+                        $localStorage.codes[codeid].steps = data
                         callback(this.mycode);
                     },function(error){
                         console.log(error);

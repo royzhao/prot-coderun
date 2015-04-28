@@ -12,20 +12,20 @@
     <div class="row">
         <div class="col-lg-3 col-md-4 col-xs-12" ng-repeat="image in imagedata">
             <rd-widget>
-                <rd-widget-header icon="fa-tasks" title="{{image.imagename}}">
-                    <a href="#/image/{{image.Id}}" class="btn btn-sm btn-info">详情</a>
+                <rd-widget-header icon="fa-tasks" title="{{image.ImageName}}">
+                    <a href="#/image/{{image.ImageId}}" class="btn btn-sm btn-info">详情</a>
                 </rd-widget-header>
-                <!--<rd-widget-body>
-                    <div class="comment">{{image.description}}</div>
+                <rd-widget-body>
+                    <div class="comment">{{image.Descrip}}</div>
                 </rd-widget-body>
                 <rd-widget-footer>
                     <div class="pull-left">
-                        <i class="fa fa-thumbs-o-up">{{image.stars}}</i>
-                        <i class="fa fa-code-fork">{{image.forknum}}</i>
+                        <i class="fa fa-thumbs-o-up">{{image.Star}}</i>
+                        <i class="fa fa-code-fork">{{image.Fork}}</i>
                     </div>
                     <div class="pull-right">
-                        <i class="fa fa-calendar">{{image.date}}</i>
-                    </div>-->
+                        <i class="fa fa-calendar">{{image.Date}}</i>
+                    </div>
 
                     <div class="clearfix"></div>
                 </rd-widget-footer>

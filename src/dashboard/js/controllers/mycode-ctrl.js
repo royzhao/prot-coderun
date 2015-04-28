@@ -8,7 +8,8 @@ angular
 
 function MyCodeCtrl($scope,MyCodeService,$localStorage) {
     $scope.$storage = $localStorage.$default({
-        x: 42
+        x: 42,
+        codes:{},
     });
     //$scope.codedata = CodeAPIService.one('code',1).getList();
     $scope.codedata = [];
@@ -19,7 +20,6 @@ function MyCodeCtrl($scope,MyCodeService,$localStorage) {
         }else{
             $scope.codedata.push(data);
         }
-
     });
     console.log($scope.codedata)
     $scope.newCode = function(){

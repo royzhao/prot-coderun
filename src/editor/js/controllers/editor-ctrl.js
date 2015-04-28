@@ -2,9 +2,9 @@
  * Created by zpl on 15-2-2.
  */
 angular.module('Editor')
-    .controller('EditorCtrl', ['$timeout','$scope', '$cookieStore','$stateParams','$localStorage', 'MyCodeService','ngDialog',EditorCtrl]);
+    .controller('EditorCtrl', ['$timeout','$scope', '$cookieStore','$stateParams','$localStorage', 'MyCodeService','ngDialog','Images',EditorCtrl]);
 
-function EditorCtrl($timeout,$scope,$cookieStore,$stateParams,$localStorage,MyCodeService,ngDialog) {
+function EditorCtrl($timeout,$scope,$cookieStore,$stateParams,$localStorage,MyCodeService,ngDialog,Images) {
     $scope.codeid = $stateParams.codeid;
     $scope.stepid = $stateParams.stepid;
     $scope.page={};
@@ -13,18 +13,8 @@ function EditorCtrl($timeout,$scope,$cookieStore,$stateParams,$localStorage,MyCo
     $scope.page.status = 1;
     console.log($scope.codeid);
     console.log($scope.stepid);
-    if($localStorage.myImages == null){
-        $scope.page.status = 2;
-        return
-    }
-    $scope.getImageNameByID = function(id){
-        for (var i = $localStorage.myImages.length - 1; i >= 0; i--) {
-            if($localStorage.myImages[i].ImageId == id){
-                return $localStorage.myImages[i].ImageName+":"+$localStorage.myImages[i].Tag
-            }
-        };
-        return null
-    }
+
+
     if($localStorage.addstepobj == null){
         $scope.step = {
             meta:{
@@ -52,17 +42,71 @@ function EditorCtrl($timeout,$scope,$cookieStore,$stateParams,$localStorage,MyCo
         post_content:"",
         id:null
     };
+    if($scope.codeid != undefined &&$scope.stepid != undefined ){
+        MyCodeService.getMyCodeAllInfo($scope.codeid,$scope.stepid,function(data){
+            if(data == null){
+
+            }else{
+
+                $scope.step = data;
+                if($scope.editor){
+                    $scope.editor.setCode($scope.step.code.post_content)
+                }
+                //add a button
+                var newValue = $scope.getHeight()
+                if((newValue-156) <450){
+                    $(".redactor_editor").attr("style","height:450px !important")
+                }else{
+                    $(".redactor_editor").attr("style","height:"+(newValue-156)+"px !important")
+                    $(".ace_editor").css("height",(newValue-156)+"px !important")
+                    //$(".redactor_editor").css("max-height",(newValue-40)+"px !important")
+                }
+                if($localStorage.myImages == null ||$localStorage.myImages == undefined){
+                    var user = SessionService.getUserinfo()
+                    Images.query({id: user.userid, action: 'list'}).$promise.then(function(data){
+                        $localStorage.myImages =data   
+                        $scope.page.show = true;
+                    });
+                }else{
+                            $scope.page.show = true;
+                }
+            }
+        })
+    }
+    //init
+
+
     $scope.panes = [
         {title:$scope.step.meta.code_name,content:"templates/ace_editor.html",active:true},
         {title:"运行代码",content:"templates/run.html",active:false}
     ]
-    $scope.editor = {};
+    ;
+    $scope.redactorOptions = {
+        buttons:['html', 'formatting', 'bold', 'italic', 'deleted',
+            'unorderedlist', 'orderedlist', 'outdent', 'indent',
+            'image', 'quote', 'link', 'alignment', 'horizontalrule'],
+        lang:"zh_cn",
+        minHeight:450
+    };
+
+    // Called when the editor is completely ready.
 
     //func
+    $scope.getImageNameByID = function(id){
+        for (var i = $localStorage.myImages.length - 1; i >= 0; i--) {
+            if($localStorage.myImages[i].ImageId == id){
+                return $localStorage.myImages[i].ImageName+":"+$localStorage.myImages[i].Tag
+            }
+        };
+        return null
+    }
     $scope.getPostContent = function(){
         var content = "";
-        if($scope.editor && $scope.editor.instance && $scope.editor.instance.codemirror){
-            content = $scope.editor.instance.codemirror.getValue();
+        //if($scope.editor && $scope.editor.instance && $scope.editor.instance.codemirror){
+        //    content = $scope.editor.instance.codemirror.getValue();
+        //}
+        if($scope.editor){
+            content = $scope.editor.getCode()
         }
         return content;
 
@@ -124,7 +168,6 @@ function EditorCtrl($timeout,$scope,$cookieStore,$stateParams,$localStorage,MyCo
                     $scope.run_res = {};
                     $scope.run_res.run_id = data.run_id;
                     $scope.parse_res(data.res);
-                    retry_times = 0;
                     if(data.status ==3){
                         retry_times = 0;
                         commit_ok = true;
@@ -166,7 +209,6 @@ function EditorCtrl($timeout,$scope,$cookieStore,$stateParams,$localStorage,MyCo
             alert("请填写内容")
             return;
         }
-
         var post = {
             id:$scope.step.meta.id,
             code_content:$scope.step.code.code_content,
@@ -192,8 +234,21 @@ function EditorCtrl($timeout,$scope,$cookieStore,$stateParams,$localStorage,MyCo
     $scope.getWidth = function() {
         return window.innerWidth;
     };
-
+    $scope.getHeight = function(){
+        return window.innerHeight;
+    }
+    $scope.$watch($scope.getHeight,function(newValue,oldValue){
+        //$(".CodeMirror").attr("height",(newValue-40)+"px !important")
+        if((newValue-156) <450){
+            $(".redactor_editor").attr("style","height:450px !important")
+        }else{
+            $(".redactor_editor").attr("style","height:"+(newValue-156)+"px !important")
+            $(".ace_editor").css("height",(newValue-156)+"px !important")
+            //$(".redactor_editor").css("max-height",(newValue-40)+"px !important")
+        }
+    })
     $scope.$watch($scope.getWidth, function(newValue, oldValue) {
+
         if (newValue >= mobileView) {
                 $scope.page.toggle = true;
         } else {

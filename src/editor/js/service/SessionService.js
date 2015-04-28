@@ -33,7 +33,7 @@ angular.module('Editor').
                 console.log($cookies.token)
                 if(($cookies.token)==undefined) {
                     alert("请先登陆")
-                    $window.location.href = "http://sso.peilong.me/html/baigoSSO/mypage/login.php?refer=http://image.peilong.me:9000";
+                    $window.location.href = ssoUrl+window.location.href;
                 }
             },
             logout:function(){
