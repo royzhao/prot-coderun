@@ -8,6 +8,7 @@ var gulp = require('gulp'),
     concat = require('gulp-concat'),
     less = require('gulp-less'),
     rename = require('gulp-rename'),
+    fileinclude = require('gulp-file-include'),
     minifyHTML = require('gulp-minify-html');
 
 var paths = {
@@ -168,8 +169,20 @@ gulp.task('custom-editor-templates', function() {
  * Handle custom files home
  */
 gulp.task('build-custom-home', ['home-usemin','custom-home-images', 'custom-home-js', 'custom-home-less', 'custom-home-templates']);
+//gulp.task('fileinclude', function() {
+//    gulp.src(['home.html'])
+//        .pipe(fileinclude({
+//            prefix: '@@',
+//            basepath: '@file'
+//        }))
+//        .pipe(gulp.dest('./'));
+//});
 gulp.task('home-usemin', function() {
     return gulp.src(paths.home_index)
+        .pipe(fileinclude({
+            prefix: '@@',
+            basepath: '@file'
+        }))
         .pipe(usemin({
             js: ['concat'],
             css: ['concat']
@@ -185,7 +198,7 @@ gulp.task('custom-home-images', function() {
 gulp.task('custom-home-js', function() {
     return gulp.src(paths.home_scripts)
         //.pipe(minifyJs())
-        .pipe(concat('editor.min.js'))
+        .pipe(concat('home.min.js'))
         .pipe(gulp.dest(dist+'/js'));
 });
 
