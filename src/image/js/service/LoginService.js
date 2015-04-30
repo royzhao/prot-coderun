@@ -19,10 +19,10 @@ angular.module('Image')
                 verifyData.Token = $cookies.token;
                 User.login({action:'islogin'},verifyData,function(c){
                     if(!c.is_login) {
-                        $window.location.href = "http://sso.peilong.me/html/baigoSSO/mypage/login.php?refer=http://image.peilong.me:9000";
+                        window.location.href = ssoUrl+window.location.href;
                     }
                 },function(err){
-                    $window.location.href = "http://sso.peilong.me/html/baigoSSO/mypage/login.php?refer=http://image.peilong.me:9000";
+                    window.location.href = ssoUrl+window.location.href;
                 });
             }
         }
