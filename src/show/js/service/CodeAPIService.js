@@ -1,7 +1,7 @@
 /**
  * Created by zpl on 15-3-16.
  */
-angular.module('RDash').
+angular.module('Show').
     factory('CodeAPIService',['$http','$q','RestfulService',function($http,$q,RestfulService){
         return {
             getCodesByUser: function(userid){
@@ -110,13 +110,6 @@ angular.module('RDash').
                     method:"GET"
                 });
 
-            },
-            updateCodeStar: function(userid,codeid){
-                return RestfulService.restfulOp({
-                    url:baseUrl+"/code/star/"+userid+"/"+codeid,
-                    method:"PUT",
-                    data:{userid:userid,codeid:codeid}
-                });
             }
 
         }

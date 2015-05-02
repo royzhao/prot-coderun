@@ -1,0 +1,52 @@
+<!-- Header Bar -->
+<div class="row header">
+    <div class="col-xs-12">
+        <div class="user pull-right">
+            <div class="item dropdown">
+                <a href="#" class="dropdown-toggle">
+                    <img src="{{user.userimg}}">
+                </a>
+                <ul class="dropdown-menu dropdown-menu-right">
+                    <li class="dropdown-header">
+                        {{user.name}}
+                    </li>
+                    <li class="divider"></li>
+                    <li class="link">
+                        <a href="#">
+                            我的资料
+                        </a>
+                    </li>
+                    <li class="divider"></li>
+                    <li class="link">
+                        <a href="#" ng-click="logout()">
+                            退出登陆
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="item dropdown">
+                <a href="#" class="dropdown-toggle">
+                    <i class="fa fa-bell-o"></i>
+                </a>
+                <ul class="dropdown-menu dropdown-menu-right">
+                    <li class="dropdown-header">
+                        通知
+                    </li>
+                    <li class="divider"></li>
+                    <li>
+                        <a href="#">你的镜像被xx fork啦!</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="meta">
+            <div class="page">
+                控制台
+            </div>
+            <div class="breadcrumb-links">
+                Home / Dashboard
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Header Bar -->

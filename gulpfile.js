@@ -18,6 +18,12 @@ var paths = {
     dash_templates: 'src/dashboard/templates/**/*.html',
     dash_index:'src/dashboard.html',
 
+    show_scripts: 'src/show/js/**/*.*',
+    show_styles: 'src/show/less/**/*.*',
+    show_images: 'src/show/img/**/*.*',
+    show_templates: 'src/show/templates/**/*.html',
+    show_index:'src/show.html',
+
     editor_scripts: 'src/editor/js/**/*.*',
     editor_styles: 'src/editor/less/**/*.*',
     editor_images: 'src/editor/img/**/*.*',
@@ -127,6 +133,46 @@ gulp.task('custom-dash-templates', function() {
         .pipe(gulp.dest(dist+'/templates'));
 });
 
+/**
+ * Handle custom files show
+ */
+gulp.task('build-custom-show', ['show-usemin','custom-show-images', 'custom-show-js', 'custom-show-less', 'custom-show-templates']);
+gulp.task('show-usemin', function() {
+    return gulp.src(paths.show_index)
+        .pipe(fileinclude({
+            prefix: '@@',
+            basepath: '@file'
+        }))
+        .pipe(usemin({
+            js: ['concat'],
+            css: [minifyCss({keepSpecialComments: 0}), 'concat']
+        }))
+        .pipe(gulp.dest(dist+'/'));
+});
+
+gulp.task('custom-show-images', function() {
+    return gulp.src(paths.show_images)
+        .pipe(gulp.dest(dist+'/img'));
+});
+
+gulp.task('custom-show-js', function() {
+    return gulp.src(paths.show_scripts)
+        //.pipe(minifyJs())
+        .pipe(concat('show.min.js'))
+        .pipe(gulp.dest(dist+'/js'));
+});
+
+gulp.task('custom-show-less', function() {
+    return gulp.src(paths.show_styles)
+        .pipe(less())
+        .pipe(gulp.dest(dist+'/css'));
+});
+
+gulp.task('custom-show-templates', function() {
+    return gulp.src(paths.show_templates)
+        .pipe(minifyHTML())
+        .pipe(gulp.dest(dist+'/templates'));
+});
 /**
  * Handle custom files editor
  */
@@ -270,6 +316,12 @@ gulp.task('watch', function() {
     gulp.watch([paths.dash_templates], ['custom-dash-templates']);
     gulp.watch([paths.dash_index], ['dash-usemin']);
 
+    gulp.watch([paths.show_images], ['custom-show-images']);
+    gulp.watch([paths.show_styles], ['custom-show-less']);
+    gulp.watch([paths.show_scripts], ['custom-show-js']);
+    gulp.watch([paths.show_templates], ['custom-show-templates']);
+    gulp.watch([paths.show_index], ['show-usemin']);
+
     gulp.watch([paths.editor_images], ['custom-editor-images']);
     gulp.watch([paths.editor_styles], ['custom-editor-less']);
     gulp.watch([paths.editor_scripts], ['custom-editor-js']);
@@ -313,7 +365,7 @@ var debug = false;
 /**
  * Gulp tasks
  */
-gulp.task('build', ['usemin', 'build-assets', 'build-custom','build-custom-editor','build-custom-image','build-custom-home']);
+gulp.task('build', ['usemin', 'build-assets', 'build-custom','build-custom-editor','build-custom-image','build-custom-home','build-custom-show']);
 gulp.task('zpl',['build', 'webserver', 'livereload', 'watch'],function(){
    	dist ="/home/zpl/workspace/code_web/src/mashangpao_code_web/public";
 	 debug = debug || false;

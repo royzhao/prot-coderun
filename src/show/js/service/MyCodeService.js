@@ -1,7 +1,7 @@
 /**
  * Created by zpl on 15-3-18.
  */
-angular.module('RDash').
+angular.module('Show').
     factory('MyCodeService',['CodeAPIService','SessionService','$localStorage',function(CodeAPIService,SessionService,$localStorage){
         return {
             userid:null,
@@ -162,13 +162,6 @@ angular.module('RDash').
             },
             queryRunRes:function(id,cb){
                 CodeAPIService.coderunRes(id).then(function(data){
-                    cb(null,data)
-                },function(err){
-                    cb(err,null)
-                })
-            },
-            updateCodeStar:function(userid,codeid,cb){
-                CodeAPIService.updateCodeStar(userid,codeid).then(function(data){
                     cb(null,data)
                 },function(err){
                     cb(err,null)

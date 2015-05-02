@@ -2,18 +2,14 @@
  * Created by zpl on 15-3-22.
  * 专门存储token
  */
-angular.module('RDash').
+angular.module('Show').
     factory('SessionService',['$localStorage','$cookies','User','$window', function($localStorage,$cookies,User,$window){
         return {
             getUserinfo: function(){
-                //this.login()
-                //var user ={
-                //    userid: $cookies.u_id,
-                //    name:$cookies.u_name
-                //}
-                var user={
-                    userid:1,
-                    name:'test'
+                this.login()
+                var user ={
+                    userid: $cookies.u_id,
+                    name:$cookies.u_name
                 }
                 //if(user == null){
                 //    //TODO need login,mock login
