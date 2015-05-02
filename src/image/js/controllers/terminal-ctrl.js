@@ -33,7 +33,7 @@ function TerminalCtrl($scope,$cookies,$stateParams,$location,sharedProperties,Im
             }, function(err){
                 //$scope.hideLoader();
                 //$scope.error = err.data;
-                alert("failure");
+                document.getElementById("text").innerHTML = "编辑失败！";
                 return false;
             });
             sharedProperties.imageEdited();

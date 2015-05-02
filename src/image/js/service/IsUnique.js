@@ -12,14 +12,6 @@ angular.module('Image')
                 scope.$watch(attrs.ngModel, function (viewValue) {
                     //elm.bind('blur',function (evt) {
                     name = scope.username + '-' + viewValue;
-                    //$http({
-                    //    method: 'GET',
-                    //    url: '/dockerapi/images/' + viewValue + '/verify'
-                    //}).success(function(data, status, headers, cfg) {
-                    //    ctrl.$setValidity('unique', data.IsUnique);
-                    //}).error(function(data, status, headers, cfg) {
-                    //    ctrl.$setValidity('unique', false);
-                    //});
                 });
                 elm.bind('blur',function(evt) {
                     $http({

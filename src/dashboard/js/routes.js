@@ -50,6 +50,9 @@ angular.module('RDash').config(['$httpProvider','$stateProvider', '$urlRouterPro
             }).state('imagehub', {
                 url: '/imagehub',
                 templateUrl: 'templates/imagehub_table.html'
+            }).state('imagehubpage', {
+                url: '/imagehub/:page',
+                templateUrl: 'templates/imagehub_table.html'
             }).state('code', {
                 url: '/code/:codeid',
                 templateUrl: 'templates/single_code.html'

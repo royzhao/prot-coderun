@@ -157,6 +157,8 @@ function MySingleImageCtrl($scope,$stateParams,Images,$location,Star, Fork, Imag
         if(currentuid==myimage.UserId ||  ($scope.forkcolor == "#808080")) {
             return;
         }
+        document.getElementById("imagePage").style.display = "none";
+        document.getElementById("loading").style.display = "block";
         var postData = {
             uid:currentuid,
             uname:currentname,
@@ -172,10 +174,14 @@ function MySingleImageCtrl($scope,$stateParams,Images,$location,Star, Fork, Imag
             Images.get({id: $stateParams.imageid, action: 'log'}).$promise.then(function(data){
                 $scope.image.fork = data.Fork;
             });
+            document.getElementById("text").innerHTML = "创建成功！";
+            $window.location.href = "http://" + $location.host()+":9000/dashboard.html#/myimage";
         }, function(err){
             //$scope.hideLoader();
             //$scope.error = err.data;
-            alert("failure");
+            document.getElementById("text").innerHTML = "创建失败！";
+            document.getElementById("loading").style.display = "none";
+            document.getElementById("imagePage").style.display = "block";
             return false;
         });
     }
