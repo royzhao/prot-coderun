@@ -166,6 +166,13 @@ angular.module('Show').
                 },function(err){
                     cb(err,null)
                 })
+            },
+            getHotCodes:function(cb){
+                CodeAPIService.getHotCodes().then(function(data){
+                    cb(null,data)
+                },function(err){
+                    cb(err,null)
+                })
             }
         }
     }])

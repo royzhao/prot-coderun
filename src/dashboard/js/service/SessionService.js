@@ -6,14 +6,10 @@ angular.module('RDash').
     factory('SessionService',['$localStorage','$cookies','User','$window', function($localStorage,$cookies,User,$window){
         return {
             getUserinfo: function(){
-                //this.login()
-                //var user ={
-                //    userid: $cookies.u_id,
-                //    name:$cookies.u_name
-                //}
-                var user={
-                    userid:1,
-                    name:'test'
+                this.login()
+                var user ={
+                    userid: $cookies.u_id,
+                    name:$cookies.u_name
                 }
                 //if(user == null){
                 //    //TODO need login,mock login
@@ -44,7 +40,9 @@ angular.module('RDash').
                 if(($cookies.token)==undefined) {
                     alert('请先登陆')
                     $window.location.href = ssoUrl+window.location.href;
+                    exit;
                 }
+
             },
             logout:function(){
                 //delete $cookies.token;

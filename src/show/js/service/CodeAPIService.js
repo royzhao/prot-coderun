@@ -110,6 +110,12 @@ angular.module('Show').
                     method:"GET"
                 });
 
+            },
+            getHotCodes: function(){
+                return RestfulService.restfulOp({
+                    url:baseUrl+"/code/",
+                    method:"GET"
+                });
             }
 
         }

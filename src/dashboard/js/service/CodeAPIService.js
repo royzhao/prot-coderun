@@ -117,6 +117,12 @@ angular.module('RDash').
                     method:"PUT",
                     data:{userid:userid,codeid:codeid}
                 });
+            },
+            getHotCodes: function(){
+                return RestfulService.restfulOp({
+                    url:baseUrl+"/code/",
+                    method:"GET"
+                });
             }
 
         }

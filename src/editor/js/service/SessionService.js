@@ -34,6 +34,7 @@ angular.module('Editor').
                 if(($cookies.token)==undefined) {
                     alert("请先登陆")
                     $window.location.href = ssoUrl+window.location.href;
+                    exit;
                 }
             },
             logout:function(){
