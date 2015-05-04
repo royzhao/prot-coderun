@@ -81,7 +81,8 @@ function MyImageHubCtrl($scope,$resource,Images,$stateParams) {
     });
 
     $scope.search = function() {
-        alert(document.getElementById("searchfield").value);
+        var key = document.getElementById("searchfield").value;
+        //alert(document.getElementById("searchfield").value);
     }
     //$scope.imagedata = myimagelist;
 }
