@@ -111,9 +111,18 @@ angular.module('Show').
                 });
 
             },
-            getHotCodes: function(){
+            getHotCodes: function(page,num,key){
+                if(page == undefined || page == null){
+                    page = 1;
+                }
+                if(num == undefined || num == null){
+                    num = 5;
+                }
+                if(key == undefined || key == null){
+                    key = "";
+                }
                 return RestfulService.restfulOp({
-                    url:baseUrl+"/code/",
+                    url:baseUrl+"/code?page="+page+"&num="+num+"&key="+key,
                     method:"GET"
                 });
             }

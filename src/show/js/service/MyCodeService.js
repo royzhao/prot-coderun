@@ -167,8 +167,8 @@ angular.module('Show').
                     cb(err,null)
                 })
             },
-            getHotCodes:function(cb){
-                CodeAPIService.getHotCodes().then(function(data){
+            getHotCodes:function(page,num,key,cb){
+                CodeAPIService.getHotCodes(page,num,key).then(function(data){
                     cb(null,data)
                 },function(err){
                     cb(err,null)
