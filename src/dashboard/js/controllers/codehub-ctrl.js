@@ -9,82 +9,50 @@ angular
 
 function MyCodeHubCtrl($scope,MyCodeService) {
     $scope.flag = {};
-    $scope.flag.is_show = true;
-    $scope.flag.msg = "正在加载。。。";
-    MyCodeService.getHotCodes(function(err,data){
-        if(data){
-            if(data.length == 0){
-                $scope.flag.msg = "暂时没有数据。。您可以创建";
-            }else{
-                $scope.codedata = data;
-                $scope.flag.is_show = false;
-            }
+    $scope.pagination =new Array()
+    $scope.page = {
+        total:0,
+        page:1,
+        num:5
+    };
+    $scope.flag.key= "";
 
-        }else{
-            $scope.flag.msg = "加载失败。。。！";
-        }
-    });
-    //var mycodelist = [
-    //    {
-    //        'codeid':1,
-    //        'codename':'测试专用',
-    //        'description':'代码描述',
-    //        'stars':50,
-    //        'forknum':50,
-    //        'runnum':100,
-    //        'type':1,
-    //        'typename':'本地程序',
-    //        'imageid':2,
-    //        'imagename':'go语言测试'
-    //    },
-    //    {
-    //        'codeid':1,
-    //        'codename':'测试专用',
-    //        'description':'代码描述',
-    //        'stars':50,
-    //        'forknum':50,
-    //        'runnum':100,
-    //        'type':1,
-    //        'imageid':2,
-    //        'typename':'本地程序',
-    //        'imagename':'go语言测试'
-    //    },
-    //    {
-    //        'codeid':1,
-    //        'codename':'测试专用2',
-    //        'type':1,
-    //        'description':'代码描述',
-    //        'stars':50,
-    //        'forknum':50,
-    //        'runnum':100,
-    //        'imageid':2,
-    //        'typename':'本地程序',
-    //        'imagename':'go语言测试'
-    //    },
-    //    {
-    //        'codeid':1,
-    //        'codename':'测试专用3',
-    //        'type':2,
-    //        'description':'代码描述',
-    //        'stars':50,
-    //        'forknum':50,
-    //        'runnum':100,
-    //        'imageid':2,
-    //        'typename':'网络程序',
-    //        'imagename':'go语言测试'
-    //    },
-    //    {
-    //        'codeid':1,
-    //        'codename':'测试专用4',
-    //        'type':1,
-    //        'description':'代码描述',
-    //        'stars':50,
-    //        'forknum':50,
-    //        'runnum':100,
-    //        'imageid':2,
-    //        'typename':'本地程序',
-    //        'imagename':'go语言测试'
-    //    },
-    //];
+    //func
+    $scope.flag.search = function(){
+        $scope.currentData(1);
+    }
+    $scope.currentData = function(index){
+        if(index <1)
+            return;
+        $scope.page.page = index;
+        $scope.flag.is_show = true;
+        $scope.flag.msg = "正在加载。。。";
+        MyCodeService.getHotCodes($scope.page.page,$scope.page.num,$scope.flag.key,function(err,data){
+            if(data){
+                if(data.length == 0){
+                    $scope.flag.msg = "暂时没有数据。。您可以创建";
+                }else{
+                    $scope.codedata = data.list;
+                    $scope.page.total = data.total;
+                    $scope.page.page = data.page;
+                    $scope.page.num = data.num;
+                    $scope.pagination =new Array()
+                    for(var i =1;i<=(data.total/data.num)+1;i++){
+                        var page = {
+                            is_active:(data.page==i?true:false),
+                            index :i
+                        }
+                        $scope.pagination.push(page);
+                    }
+                    $scope.flag.is_show = false;
+                }
+            }else{
+                $scope.flag.msg = "加载失败。。。！";
+            }
+        });
+    }
+
+    //init
+    $scope.currentData(1,"");
 
 }

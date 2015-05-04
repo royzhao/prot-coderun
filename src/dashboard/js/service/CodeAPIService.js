@@ -118,9 +118,9 @@ angular.module('RDash').
                     data:{userid:userid,codeid:codeid}
                 });
             },
-            getHotCodes: function(){
+            getHotCodes: function(page,num,key){
                 return RestfulService.restfulOp({
-                    url:baseUrl+"/code/",
+                    url:baseUrl+"/code?page="+page+"&num="+num+"&key="+key,
                     method:"GET"
                 });
             }
