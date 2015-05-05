@@ -14,8 +14,8 @@ function MyImageCtrl($scope,$resource,Images,$cookies) {
     //$cookieStore.put("token","aa");
     //alert($cookies.token);
 
-    var currentid = parseInt($cookies.u_id);
-    var currentname = $cookies.u_name;
+    var currentid = parseInt($cookies.get("u_id"));
+    var currentname = $cookies.get("u_name");
     $scope.imagenum = 0;
     $scope.forknum = 0;
     Images.query({id: currentid, action: 'list'}).$promise.then(function(data){

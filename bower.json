@@ -24,7 +24,6 @@
     "angular": "~1.3.15",
     "angular-route": "1.2.x",
     "angular-resource": "1.3.14",
-    "angular-cookies": "~1.2.21",
     "angular-bootstrap": "~0.11.0",
     "angular-ui-router": "^0.2.10",
     "bootstrap": "~3.2.0",
@@ -48,7 +47,8 @@
     "jquery.scrollTo": "~2.1.0",
     "stellar": "~0.6.2",
     "nivo-lightbox": "~1.2.0",
-    "jquery.appear": "*"
+    "jquery.appear": "*",
+    "angular-cookies": "https://github.com/angular/bower-angular-cookies.git#v1.4.0-build.3993+sha.1268b17"
   },
   "repository": {
     "type": "git",

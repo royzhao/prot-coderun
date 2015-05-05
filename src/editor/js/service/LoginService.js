@@ -11,12 +11,12 @@ angular.module('Editor')
         return {
             isLogin:function(){
                 console.log('login service!')
-                if(($cookies.token)==undefined) {
+                if(($cookies.get("token"))==undefined) {
                     $window.location.href = ssoUrl+window.location.href;
                 }
             },
             login:function(){
-                verifyData.Token = $cookies.token;
+                verifyData.Token = $cookies.get("token");
                 User.login({action:'islogin'},verifyData,function(c){
                     if(!c.is_login) {
                         $window.location.href = "http://sso.peilong.me/html/baigoSSO/mypage/login.php?refer=http://image.peilong.me:9000";

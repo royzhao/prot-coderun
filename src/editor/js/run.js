@@ -10,7 +10,7 @@ angular.module('Editor').run(['Permission','$cookies',function(Permission,$cooki
     // Define anonymous role
     Permission.defineRole('anonymous', function () {
         // If the returned value is *truthy* then the user has the role, otherwise they don't
-        if(($cookies.token)==undefined) {
+        if(($cookies.get("token"))==undefined) {
             return true;
         }
         return false;

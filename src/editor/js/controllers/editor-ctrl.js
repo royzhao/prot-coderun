@@ -2,9 +2,9 @@
  * Created by zpl on 15-2-2.
  */
 angular.module('Editor')
-    .controller('EditorCtrl', ['$timeout','$scope', '$cookieStore','$stateParams','$localStorage', 'MyCodeService','ngDialog','Images',EditorCtrl]);
+    .controller('EditorCtrl', ['$timeout','$scope', '$cookieStore','$stateParams','$localStorage', 'MyCodeService','ngDialog','Images','SessionService',EditorCtrl]);
 
-function EditorCtrl($timeout,$scope,$cookieStore,$stateParams,$localStorage,MyCodeService,ngDialog,Images) {
+function EditorCtrl($timeout,$scope,$cookieStore,$stateParams,$localStorage,MyCodeService,ngDialog,Images,SessionService) {
     $scope.codeid = $stateParams.codeid;
     $scope.stepid = $stateParams.stepid;
     $scope.page={};
@@ -13,7 +13,7 @@ function EditorCtrl($timeout,$scope,$cookieStore,$stateParams,$localStorage,MyCo
     $scope.page.status = 1;
     console.log($scope.codeid);
     console.log($scope.stepid);
-
+    $scope.user = SessionService.getUserinfo();
 
     if($localStorage.addstepobj == null){
         $scope.step = {
@@ -266,4 +266,11 @@ function EditorCtrl($timeout,$scope,$cookieStore,$stateParams,$localStorage,MyCo
         $scope.$apply();
     };
 
+    $scope.aceLoaded = function(_editor){
+        //option
+        _editor.setFontSize(20);
+    }
+    $scope.logout = function(){
+        SessionService.logout();
+    }
 }

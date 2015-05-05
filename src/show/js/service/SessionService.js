@@ -8,8 +8,8 @@ angular.module('Show').
             getUserinfo: function(){
                 this.login()
                 var user ={
-                    userid: $cookies.u_id,
-                    name:$cookies.u_name
+                    userid: $cookies.get("u_id"),
+                    name:$cookies.get("u_name")
                 }
                 //if(user == null){
                 //    //TODO need login,mock login
@@ -21,29 +21,35 @@ angular.module('Show').
                 //if($localStorage.token)
                 //    return true;
                 //return false;
-                if(($cookies.token)==undefined) {
+                if(($cookies.get("token"))==undefined) {
                     return false;
                 }
                 return true;
             },
             getToken:function(){
-                var token = $cookies.token;
+                var token = $cookies.get("token");
                 if(token == null){
                     //TODO need login,mock login
                     this.login();
-                    token = $cookies.token;
+                    token = $cookies.get("token");
                 }
                 return token;
             },
             login:function(){
 
-                if(($cookies.token)==undefined) {
+                if(($cookies.get("token"))==undefined) {
                     alert('请先登陆')
                     $window.location.href = ssoUrl+window.location.href;
                 }
             },
             logout:function(){
-                //delete $cookies.token;
+                $cookies.remove('token',{
+                    domain:'.learn4me.com'
+                });
+                $cookies.remove('u_id',{
+                    domain:'.learn4me.com'
+                });
+                $window.location.href = "/";
             }
         }
     }]);

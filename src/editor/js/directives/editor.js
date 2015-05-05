@@ -9,14 +9,14 @@ function md_editor(){
         restrict: 'EA',
         link : function(scope, element, attrs) {
             //element.wrapInner('<textarea class="md-text-editor">')
-            var tmps = document.getElementById('md-text-editor')
-            var editor = new Editor({
-                element:tmps,
+            var tmpssssss = document.getElementById('md-text-editor')
+            var editor2 = new Editor({
+                element:tmpssssss,
                 toolbar:[
                     {name: 'switchit',className: 'ttt glyphicon glyphicon-arrow-left',action:scope.switchIt}
                 ]
             })
-            scope.editor.instance = editor;
+            scope.editor.instance = editor2;
 
         }
     }

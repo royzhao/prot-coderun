@@ -18,9 +18,9 @@ angular.module('RDash').
                     this.userid = user.userid;
                 }
             },
-            getMyCodeFromBack : function(callback){
+            getMyCodeFromBack : function(page,num,key,callback){
                 this.checkUser();
-              CodeAPIService.getCodesByUser(this.userid).
+              CodeAPIService.getCodesByUser(this.userid,page,num,key).
                   then(function(data){
                             if(data instanceof Array){
                                 for (var i = data.length - 1; i >= 0; i--) {
@@ -30,16 +30,19 @@ angular.module('RDash').
                             }else{
                                 $localStorage.codes[data.id] = data
                             }
-                            callback(data);
+                            callback(null,data);
                   },function(error){
                       this.mycode = null;
-                      callback(null);
+                      callback(err,null);
                   })
             },
             getMyOneCodeFromBack : function(codeid,callback){
-                if($localStorage.codes[codeid] == null){
+                if($localStorage.codes == undefined || $localStorage.codes == null ||$localStorage.codes[codeid] == null){
                     CodeAPIService.getCodeById(codeid).
                         then(function(data){
+                            if($localStorage.codes == undefined || $localStorage.codes == null){
+                                $localStorage.codes ={};
+                            }
                             $localStorage.codes[codeid] = data
                             callback(data);
                         },function(error){
@@ -47,15 +50,15 @@ angular.module('RDash').
                             this.mycode = null;
                             callback(null);
                         })
-                    }else{
-                        callback($localStorage.codes[codeid])
-                    }
+                }else{
+                    callback($localStorage.codes[codeid])
+                }
             },
             getMyCodeFromCache : function(){
                 return this.mycode;
             },
-            getMyCode : function(callback){
-                    this.getMyCodeFromBack(callback);
+            getMyCode : function(page,num,key,callback){
+                    this.getMyCodeFromBack(page,num,key,callback);
             },
             getCodeInfoById:function(codeid,callback){
                 this.checkUser();
@@ -169,6 +172,7 @@ angular.module('RDash').
             },
             updateCodeStar:function(userid,codeid,cb){
                 CodeAPIService.updateCodeStar(userid,codeid).then(function(data){
+                    $localStorage.codes[codeid].star = data.star;
                     cb(null,data)
                 },function(err){
                     cb(err,null)

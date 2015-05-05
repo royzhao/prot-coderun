@@ -179,12 +179,18 @@ gulp.task('custom-show-templates', function() {
 gulp.task('build-custom-editor', ['editor-usemin','custom-editor-images', 'custom-editor-js', 'custom-editor-less', 'custom-editor-templates']);
 gulp.task('editor-usemin', function() {
     return gulp.src(paths.editor_index)
+        .pipe(fileinclude({
+            prefix: '@@',
+            basepath: '@file'
+        }))
         .pipe(usemin({
             js: [minifyJs(), 'concat'],
             css: [minifyCss({keepSpecialComments: 0}), 'concat'],
         }))
         .pipe(gulp.dest(dist+'/'));
 });
+
+
 
 gulp.task('custom-editor-images', function() {
     return gulp.src(paths.editor_images)
@@ -206,6 +212,10 @@ gulp.task('custom-editor-less', function() {
 
 gulp.task('custom-editor-templates', function() {
     return gulp.src(paths.editor_templates)
+        .pipe(fileinclude({
+            prefix: '@@',
+            basepath: '@file'
+        }))
         .pipe(minifyHTML())
         .pipe(gulp.dest(dist+'/templates'));
 });
@@ -280,7 +290,7 @@ gulp.task('custom-image-images', function() {
 
 gulp.task('custom-image-js', function() {
     return gulp.src(paths.image_scripts)
-        .pipe(minifyJs())
+        //.pipe(minifyJs())
         .pipe(concat('image.min.js'))
         .pipe(gulp.dest(dist+'/js'));
 });

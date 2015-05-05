@@ -2,11 +2,11 @@
  * Created by zpl on 15-3-22.
  * 专门存储token
  */
-angular.module('RDash').
-    factory('SessionService',['$localStorage','$cookies','User','$window',function($localStorage,$cookies,User,$window){
+angular.module('Image').
+    factory('SessionService',['$cookies','User','$window', function($cookies,User,$window){
         return {
             getUserinfo: function(){
-                this.login()
+                this.login();
                 var user ={
                     userid: $cookies.get("u_id"),
                     name:$cookies.get("u_name")
@@ -27,21 +27,14 @@ angular.module('RDash').
                 return true;
             },
             getToken:function(){
-                var token = $cookies.get("token");
-                if(token == null){
-                    //TODO need login,mock login
-                    this.login();
-                    token = $cookies.get("token");
-                }
-                return token;
+                return $cookies.get("token");
             },
             login:function(){
-                if(($cookies.get('token'))==undefined) {
-                    alert('请先登陆')
+                console.log($cookies.get("token"))
+                if(($cookies.get("token"))==undefined) {
+                    alert("请先登陆")
                     $window.location.href = ssoUrl+window.location.href;
-                    exit;
                 }
-
             },
             logout:function(){
                 $cookies.remove('token',{
@@ -51,8 +44,6 @@ angular.module('RDash').
                     domain:'.learn4me.com'
                 });
                 $window.location.href = "/";
-                //delete $cookies.token;
-                //delete $cookies.u_id;
             }
         }
     }]);

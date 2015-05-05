@@ -73,8 +73,8 @@ function MySingleImageCtrl($scope,$stateParams,Images,$location,Star, Fork, Imag
     loginService.login();
     var star;
     var fork;
-    var currentuid = parseInt($cookies.u_id);
-    var currentname = $cookies.u_name;
+    var currentuid = parseInt($cookies.get("u_id"));
+    var currentname = $cookies.get("u_name");
     Star.query({id:$stateParams.imageid,uid:currentuid}).$promise.then(function(data){
         star = parseInt(data.ID);
         if(data.ID > 0) {

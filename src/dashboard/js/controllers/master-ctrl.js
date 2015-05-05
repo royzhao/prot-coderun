@@ -8,7 +8,9 @@ angular.module('RDash')
 function MasterCtrl($scope, $cookieStore,SessionService) {
     //用户信息
     $scope.user = SessionService.getUserinfo();
-    $scope.logout = SessionService.logout();
+    $scope.logout = function(){
+        SessionService.logout();
+    }
     /**
      * Sidebar Toggle & Cookie Control
      */
