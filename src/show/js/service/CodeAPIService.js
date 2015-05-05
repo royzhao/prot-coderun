@@ -111,6 +111,13 @@ angular.module('Show').
                 });
 
             },
+            updateCodeStar: function(userid,codeid){
+                return RestfulService.restfulOp({
+                    url:baseUrl+"/code/star/"+userid+"/"+codeid,
+                    method:"PUT",
+                    data:{userid:userid,codeid:codeid}
+                });
+            },
             getHotCodes: function(page,num,key){
                 if(page == undefined || page == null){
                     page = 1;

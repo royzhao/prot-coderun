@@ -1,14 +1,21 @@
 <div  ng-model="step.code.code_content"
         ui-ace="{
-require: ['ace/ext/language_tools'],
-advanced: {
-enableSnippets: true,
-enableBasicAutocompletion: true,
-enableLiveAutocompletion: true,
-enableBasicAutocompletion: true
-},
-theme:'twilight'
+    onLoad:aceLoaded,
+    require: ['ace/ext/language_tools'],
+    advanced: {
+        enableSnippets: true,
+        enableBasicAutocompletion: true,
+        enableLiveAutocompletion: true
+    },
+    mode:'abap',
+    theme:'twilight'
 }"
 >
-
+    <!--require: ['ace/ext/language_tools'],-->
+    <!--advanced: {-->
+    <!--enableSnippets: true,-->
+    <!--enableBasicAutocompletion: true,-->
+    <!--enableLiveAutocompletion: true-->
+    <!--},-->
+    <!--theme:'twilight'-->
 </div>

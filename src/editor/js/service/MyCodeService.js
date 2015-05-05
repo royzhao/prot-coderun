@@ -36,10 +36,13 @@ angular.module('Editor').
                       callback(null);
                   })
             },
-          getMyOneCodeFromBack : function(codeid,callback){
-                if($localStorage.codes[codeid] == null){
+            getMyOneCodeFromBack : function(codeid,callback){
+                if($localStorage.codes == undefined || $localStorage.codes == null ||$localStorage.codes[codeid] == null){
                     CodeAPIService.getCodeById(codeid).
                         then(function(data){
+                            if($localStorage.codes == undefined || $localStorage.codes == null){
+                                $localStorage.codes ={};
+                            }
                             $localStorage.codes[codeid] = data
                             callback(data);
                         },function(error){
@@ -47,9 +50,9 @@ angular.module('Editor').
                             this.mycode = null;
                             callback(null);
                         })
-                    }else{
-                        callback($localStorage.codes[codeid])
-                    }
+                }else{
+                    callback($localStorage.codes[codeid])
+                }
             },
             getMyCodeFromCache : function(){
                 return this.mycode;

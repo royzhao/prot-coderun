@@ -9,7 +9,7 @@ function EditCtrl($scope,$cookieStore,$stateParams,Images,Image,$location,shared
      * Sidebar Toggle & Cookie Control
      */
     loginService.login();
-    var currentid = parseInt($cookies.u_id);
+    var currentid = parseInt($cookies.get("u_id"));
     $scope.treedata = [];
     Images.query({id: currentid, action: 'list'}).$promise.then(function (data) {
         var treedata = data;

@@ -4,9 +4,9 @@
 angular.module('RDash').
     factory('CodeAPIService',['$http','$q','RestfulService',function($http,$q,RestfulService){
         return {
-            getCodesByUser: function(userid){
+            getCodesByUser: function(userid,page,num,key){
                 return RestfulService.restfulOp({
-                    url:baseUrl+"/user/code/"+userid,
+                    url:baseUrl+"/user/code/"+userid+"?page="+page+"&num="+num+"&key="+key,
                     method:"GET"
                 });
             },
@@ -119,6 +119,15 @@ angular.module('RDash').
                 });
             },
             getHotCodes: function(page,num,key){
+                if(page == undefined || page == null){
+                    page = 1;
+                }
+                if(num == undefined || num == null){
+                    num = 5;
+                }
+                if(key == undefined || key == null){
+                    key = "";
+                }
                 return RestfulService.restfulOp({
                     url:baseUrl+"/code?page="+page+"&num="+num+"&key="+key,
                     method:"GET"

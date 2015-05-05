@@ -7,6 +7,7 @@ angular.module('Editor')
 function ShowCtrl($timeout,$scope,$cookieStore,$stateParams,$localStorage,MyCodeService,ngDialog,$sce,Images,SessionService){
     $scope.codeid = $stateParams.codeid;
     $scope.stepid = $stateParams.stepid;
+    $scope.flag = {};
     $scope.page={};
     $scope.page.toggle = true;
     $scope.page.show = false;
@@ -23,6 +24,11 @@ function ShowCtrl($timeout,$scope,$cookieStore,$stateParams,$localStorage,MyCode
     console.log($scope.codeid);
     console.log($scope.stepid);
 
+    if(SessionService.isLogin() == true){
+        $scope.flag.loged = true;
+    }else{
+        $scope.flag.loged = false;
+    }
 
     if($localStorage.codes == undefined || $localStorage.codes[$scope.codeid] == null){
             MyCodeService.getMyOneCodeFromBack($scope.codeid,function(data){
@@ -166,7 +172,7 @@ function ShowCtrl($timeout,$scope,$cookieStore,$stateParams,$localStorage,MyCode
         },3000);
     }
     $scope.parse_res = function(result){
-        var lines = result.split('\r\n')
+        var lines = result.split('\n')
         for(var i=0;i<lines.length;i++){
             $scope.writeConsole(lines[i])
         }
@@ -268,4 +274,11 @@ function ShowCtrl($timeout,$scope,$cookieStore,$stateParams,$localStorage,MyCode
     window.onresize = function() {
         $scope.$apply();
     };
+    $scope.aceLoaded = function(_editor){
+        //option
+        _editor.setFontSize(20);
+    }
+    $scope.logout = function(){
+        SessionService.logout();
+    }
 }

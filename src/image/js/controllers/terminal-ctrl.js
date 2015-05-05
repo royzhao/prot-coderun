@@ -10,7 +10,7 @@ function TerminalCtrl($scope,$cookies,$stateParams,$location,sharedProperties,Im
     loginService.login();
     $scope.apiUrl = "http://vpn.peilong.me:8080/user/";
     //alert($scope.apiUrl);
-    $scope.uid = parseInt($cookies.u_id);
+    $scope.uid = parseInt($cookies.get("u_id"));
     $scope.baseimage = $stateParams.base;
     if(sharedProperties.isEdit()) {
         image = sharedProperties.getImage();

@@ -37,16 +37,19 @@ angular.module('Show').
                   })
             },
             getMyOneCodeFromBack : function(codeid,callback){
-                if($localStorage.codes[codeid] == null){
-                    CodeAPIService.getCodeById(codeid).
-                        then(function(data){
-                            $localStorage.codes[codeid] = data
-                            callback(data);
-                        },function(error){
-                            console.log(error);
-                            this.mycode = null;
-                            callback(null);
-                        })
+                    if($localStorage.codes == undefined || $localStorage.codes == null ||$localStorage.codes[codeid] == null){
+                        CodeAPIService.getCodeById(codeid).
+                            then(function(data){
+                                if($localStorage.codes == undefined || $localStorage.codes == null){
+                                    $localStorage.codes ={};
+                                }
+                                $localStorage.codes[codeid] = data
+                                callback(data);
+                            },function(error){
+                                console.log(error);
+                                this.mycode = null;
+                                callback(null);
+                            })
                     }else{
                         callback($localStorage.codes[codeid])
                     }
@@ -162,6 +165,14 @@ angular.module('Show').
             },
             queryRunRes:function(id,cb){
                 CodeAPIService.coderunRes(id).then(function(data){
+                    cb(null,data)
+                },function(err){
+                    cb(err,null)
+                })
+            },
+            updateCodeStar:function(userid,codeid,cb){
+                CodeAPIService.updateCodeStar(userid,codeid).then(function(data){
+                    $localStorage.codes[codeid].star = data.star;
                     cb(null,data)
                 },function(err){
                     cb(err,null)

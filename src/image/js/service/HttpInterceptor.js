@@ -15,10 +15,10 @@ angular.module('Image')
         var httpInterceptor = {
             request: function(config) {
                 if (isNeedAuth(config.url,config.method)) {
-                    if(($cookies.token)==undefined) {
+                    if(($cookies.get("token"))==undefined) {
                         return $q.reject(config);
                     }
-                    config.headers['x-session-token'] = $cookies.token;
+                    config.headers['x-session-token'] = $cookies.get("token");
                 }
                 return config;
             },

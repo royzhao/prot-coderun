@@ -266,4 +266,11 @@ function EditorCtrl($timeout,$scope,$cookieStore,$stateParams,$localStorage,MyCo
         $scope.$apply();
     };
 
+    $scope.aceLoaded = function(_editor){
+        //option
+        _editor.setFontSize(20);
+    }
+    $scope.logout = function(){
+        SessionService.logout();
+    }
 }

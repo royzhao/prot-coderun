@@ -14,8 +14,8 @@ function ImageCtrl($scope,$cookies,$stateParams,Images,Image,$location,sharedPro
     //loginService.isLogin();
     loginService.login();
     var adminid = 1;
-    var currentid = parseInt($cookies.u_id);
-    var username = $cookies.u_name;
+    var currentid = parseInt($cookies.get("u_id"));
+    var username = $cookies.get("u_name");
     $scope.username = username;
     $scope.treedata = [];
     Images.query({id: currentid, action: 'list'}).$promise.then(function(data){

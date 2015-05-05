@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <title>码上跑</title>
+    <link rel="stylesheet" type="text/css" href="css/mine-dashboard.css">
     <!-- STYLES -->
     <!-- build:css lib/css/main-dashboard.min.css -->
     <link rel="stylesheet" type="text/css" href="components/bootstrap/dist/css/bootstrap.min.css">
@@ -104,7 +105,7 @@
                     <div class="user pull-right">
                         <div class="item dropdown">
                             <a href="#" class="dropdown-toggle">
-                                <img src="{{user.userimg}}">
+                                <img src="/img/avatar.jpg">
                             </a>
                             <ul class="dropdown-menu dropdown-menu-right">
                                 <li class="dropdown-header">
@@ -112,10 +113,15 @@
                                 </li>
                                 <li class="divider"></li>
                                 <li class="link">
-                                    <a href="#">
-                                        我的资料
+                                    <a href="/dashboard.html">
+                                        个人中心
                                     </a>
                                 </li>
+                                <!--<li class="link">-->
+                                    <!--<a href="#">-->
+                                        <!--我的资料-->
+                                    <!--</a>-->
+                                <!--</li>-->
                                 <li class="divider"></li>
                                 <li class="link">
                                     <a href="#" ng-click="logout()">
@@ -144,7 +150,7 @@
                             控制台
                         </div>
                         <div class="breadcrumb-links">
-                            Home / Dashboard
+                            <a href="home.html">Home</a> / <a href="dashboard.html"> Dashboard</a>
                         </div>
                     </div>
                 </div>
