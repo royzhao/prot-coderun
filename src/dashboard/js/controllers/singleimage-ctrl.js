@@ -3,9 +3,9 @@
  */
 angular
     .module('RDash')
-    .controller('MySingleImageCtrl', ['$scope', '$stateParams','Images','$location', 'Star', 'Fork', 'Image', '$cookies','loginService',  MySingleImageCtrl]);
+    .controller('MySingleImageCtrl', ['$scope', '$stateParams','Images','$location', 'Star', 'Fork', 'Image', '$cookies','loginService','$window',  MySingleImageCtrl]);
 
-function MySingleImageCtrl($scope,$stateParams,Images,$location,Star, Fork, Image, $cookies,loginService) {
+function MySingleImageCtrl($scope,$stateParams,Images,$location,Star, Fork, Image, $cookies,loginService,$window) {
     //var myimagelist = [
     //    {
     //        'imageid':1,
@@ -87,7 +87,7 @@ function MySingleImageCtrl($scope,$stateParams,Images,$location,Star, Fork, Imag
         fork = data.Forked;
         if(fork) {
             $scope.forkcolor = "#808080";
-            document.getElementById("imageFork").isDisabled=true;
+            document.getElementById("imageFork").style.disable = true;
         }
     });
     //console.log(starbool);

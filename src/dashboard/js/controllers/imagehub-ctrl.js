@@ -6,9 +6,9 @@
 
 angular
     .module('RDash')
-    .controller('MyImageHubCtrl', ['$scope', '$resource','Images','$stateParams', MyImageHubCtrl]);
+    .controller('MyImageHubCtrl', ['$scope', '$resource','Images','$stateParams','ImagehubService', MyImageHubCtrl]);
 
-function MyImageHubCtrl($scope,$resource,Images,$stateParams) {
+function MyImageHubCtrl($scope,$resource,Images,$stateParams,ImagehubService) {
     //var myimagelist = $resource('/dockerapi/images/json?all=0', {}, {}).query();
     //var myimagelist = [
     //    {
@@ -57,33 +57,79 @@ function MyImageHubCtrl($scope,$resource,Images,$stateParams) {
     //        'forknum':50
     //    },
     //];
-    var page = ($stateParams.page == undefined) ? 1 : $stateParams.page;
-    var num = 16;
-    Images.query({}).$promise.then(function(data){
-        var start = (page-1)*num;
-        var end = start + num;
-        console.log(start);
-        console.log(end);
-        if(end > data.length) {
-            $scope.imagedata = data.slice(start);
-        } else {
-            $scope.imagedata = data.slice(start,end);
-        }
-        $scope.pagenum = [];
-        var length = Math.ceil(data.length / num);
-        for(var i = 0;i < length;i++) {
-            $scope.pagenum.push(i+1);
-        }
-        //$scope.imagenum = $scope.imagedata.length;
-        //for (var i=0;i<$scope.imagedata.length;i++ ) {
-        //    $scope.forknum += $scope.imagedata[i].Fork;
-        //}
-    });
 
-    $scope.search = function() {
-        var key = document.getElementById("searchfield").value;
-        //alert(document.getElementById("searchfield").value);
+
+    //var page = ($stateParams.page == undefined) ? 1 : $stateParams.page;
+    //var num = 8;
+    //Images.query({}).$promise.then(function(data){
+    //    var start = (page-1)*num;
+    //    var end = start + num;
+    //    console.log(start);
+    //    console.log(end);
+    //    if(end > data.length) {
+    //        $scope.imagedata = data.slice(start);
+    //    } else {
+    //        $scope.imagedata = data.slice(start,end);
+    //    }
+    //    $scope.pagenum = [];
+    //    var length = Math.ceil(data.length / num);
+    //    for(var i = 0;i < length;i++) {
+    //        $scope.pagenum.push(i+1);
+    //    }
+    //});
+
+    $scope.flag = {};
+    $scope.pagination =new Array()
+    $scope.page = {
+        total:0,
+        page:1,
+        num:8
+    };
+    $scope.flag.key= "";
+
+    //func
+    $scope.flag.search = function(){
+        $scope.currentData(1);
     }
+    $scope.currentData = function(index){
+        if(index <1)
+            return;
+        $scope.page.page = index;
+        $scope.flag.is_show = true;
+        $scope.flag.msg = "正在加载...";
+        ImagehubService.getHotImages($scope.page.page,$scope.page.num,$scope.flag.key,function(err,data){
+            if(data){
+                if(data.length == 0){
+                    $scope.flag.msg = "暂时没有数据,您可以创建";
+                }else{
+                    $scope.imagedata = data.list;
+                    $scope.page.total = data.total;
+                    $scope.page.page = data.page;
+                    $scope.page.num = data.num;
+                    $scope.pagination =new Array()
+                    for(var i =1;i<=(data.total/data.num)+1;i++){
+                        var page = {
+                            is_active:(data.page==i?true:false),
+                            index :i
+                        }
+                        $scope.pagination.push(page);
+                    }
+                    $scope.flag.is_show = false;
+                }
+            }else{
+                $scope.flag.msg = "加载失败！";
+            }
+        });
+    }
+
+    //init
+    $scope.currentData(1,"");
+
+
+    //$scope.search = function() {
+    //    var key = document.getElementById("searchfield").value;
+    //    //alert(document.getElementById("searchfield").value);
+    //}
     //$scope.imagedata = myimagelist;
 }
 
