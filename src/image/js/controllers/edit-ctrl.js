@@ -2,13 +2,14 @@
  * Created by Administrator on 2015/3/18.
  */
 angular.module('Image')
-    .controller('EditCtrl', ['$scope', '$cookieStore','$stateParams','Images', 'Image', '$location', 'sharedProperties','$cookies','loginService', EditCtrl]);
+    .controller('EditCtrl', ['SessionService','$scope', '$cookieStore','$stateParams','Images', 'Image', '$location', 'sharedProperties','$cookies','loginService', EditCtrl]);
 
-function EditCtrl($scope,$cookieStore,$stateParams,Images,Image,$location,sharedProperties,$cookies,loginService) {
+function EditCtrl(SessionService,$scope,$cookieStore,$stateParams,Images,Image,$location,sharedProperties,$cookies,loginService) {
     /**
      * Sidebar Toggle & Cookie Control
      */
     loginService.login();
+    $scope.user = SessionService.getUserinfo();
     var currentid = parseInt($cookies.get("u_id"));
     $scope.treedata = [];
     Images.query({id: currentid, action: 'list'}).$promise.then(function (data) {

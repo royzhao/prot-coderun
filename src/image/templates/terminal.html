@@ -35,35 +35,47 @@
                     <div class="user pull-right">
                         <div class="item dropdown">
                             <a href="#" class="dropdown-toggle">
-                                <img src="img/avatar.jpg">
+                                <img src="/img/avatar.jpg">
                             </a>
                             <ul class="dropdown-menu dropdown-menu-right">
-                                <li class="dropdown-header">培龙</li>
-                                <li class="divider"></li>
-                                <li class="link">
-                                    <a href="#">我的资料</a>
+                                <li class="dropdown-header">
+                                    {{user.name}}
                                 </li>
                                 <li class="divider"></li>
                                 <li class="link">
-                                    <a href="#">退出登陆</a>
+                                    <a href="/dashboard.html">
+                                        个人中心
+                                    </a>
+                                </li>
+                                <li class="divider"></li>
+                                <li class="link">
+                                    <a href="#" ng-click="logout()">
+                                        退出登陆
+                                    </a>
                                 </li>
                             </ul>
                         </div>
                         <div class="item dropdown">
-                            <a href="#" class="dropdown-toggle"><i class="fa fa-bell-o"></i></a>
+                            <a href="#" class="dropdown-toggle">
+                                <i class="fa fa-bell-o"></i>
+                            </a>
                             <ul class="dropdown-menu dropdown-menu-right">
-                                <li class="dropdown-header">通知</li>
+                                <li class="dropdown-header">
+                                    通知
+                                </li>
                                 <li class="divider"></li>
-                                <li><a href="#">你的镜像被xx fork啦!</a></li>
+                                <li>
+                                    <a href="#">你的镜像被xx fork啦!</a>
+                                </li>
                             </ul>
                         </div>
                     </div>
                     <div class="meta">
                         <div class="page">
-                            控制台
+                            镜像编辑
                         </div>
                         <div class="breadcrumb-links">
-                            Home / Dashboard
+                            <a href="/home.html">Home</a>  / <a href="/dashboard.html">Dashboard</a>
                         </div>
                     </div>
                 </div>

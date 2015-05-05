@@ -26,6 +26,7 @@ function ShowCtrl($timeout,$scope,$cookieStore,$stateParams,$localStorage,MyCode
 
     if(SessionService.isLogin() == true){
         $scope.flag.loged = true;
+        $scope.user = SessionService.getUserinfo();
     }else{
         $scope.flag.loged = false;
     }

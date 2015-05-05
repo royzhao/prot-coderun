@@ -2,18 +2,19 @@
  * Created by Administrator on 2015/3/26.
  */
 angular.module('Image')
-    .controller('TerminalCtrl', ['$scope', '$cookies','$stateParams', '$location','sharedProperties','Image','$window','ngDialog','loginService', TerminalCtrl]);
+    .controller('TerminalCtrl', ['SessionService','$scope', '$cookies','$stateParams', '$location','sharedProperties','Image','$window','ngDialog','loginService', TerminalCtrl]);
 
 
-function TerminalCtrl($scope,$cookies,$stateParams,$location,sharedProperties,Image,$window,ngDialog,loginService) {
+function TerminalCtrl(SessionService,$scope,$cookies,$stateParams,$location,sharedProperties,Image,$window,ngDialog,loginService) {
     //$scope.apiUrl = "http://127.0.0.1:8080/user/";
     loginService.login();
+    $scope.user = SessionService.getUserinfo();
     $scope.apiUrl = "http://vpn.peilong.me:8080/user/";
     //alert($scope.apiUrl);
     $scope.uid = parseInt($cookies.get("u_id"));
     $scope.baseimage = $stateParams.base;
     if(sharedProperties.isEdit()) {
-        image = sharedProperties.getImage();
+        var image = sharedProperties.getImage();
         $scope.tag = image.Tag;
     } else if(sharedProperties.isCreate()) {
         $scope.tag = 'latest';

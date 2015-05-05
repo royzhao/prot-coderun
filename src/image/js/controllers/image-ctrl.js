@@ -2,9 +2,9 @@
  * Created by ZJY on 15-2-4.
  */
 angular.module('Image')
-    .controller('ImageCtrl', ['$scope', '$cookies','$stateParams','Images','Image', '$location','sharedProperties','loginService','$window', ImageCtrl]);
+    .controller('ImageCtrl', ['SessionService','$scope', '$cookies','$stateParams','Images','Image', '$location','sharedProperties','loginService','$window', ImageCtrl]);
 
-function ImageCtrl($scope,$cookies,$stateParams,Images,Image,$location,sharedProperties,loginService,$window) {
+function ImageCtrl(SessionService,$scope,$cookies,$stateParams,Images,Image,$location,sharedProperties,loginService,$window) {
     /**
      * Sidebar Toggle & Cookie Control
      */
@@ -13,6 +13,7 @@ function ImageCtrl($scope,$cookies,$stateParams,Images,Image,$location,sharedPro
     //mock data
     //loginService.isLogin();
     loginService.login();
+    $scope.user = SessionService.getUserinfo();
     var adminid = 1;
     var currentid = parseInt($cookies.get("u_id"));
     var username = $cookies.get("u_name");

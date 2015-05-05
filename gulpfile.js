@@ -51,8 +51,8 @@ var paths = {
     lib_js :'lib/js/*.*'
 };
 
-//var dist = "D:\\workspace\\go\\src\\code_run_server\\public";
-var dist = "/home/zpl/workspace/code_web/src/mashangpao_code_web/public"
+var dist = "D:\\workspace\\go\\src\\code_run_server\\public";
+//var dist = "/home/zpl/workspace/code_web/src/mashangpao_code_web/public"
 /**
  * Handle bower components from index
  */
@@ -290,7 +290,7 @@ gulp.task('custom-image-images', function() {
 
 gulp.task('custom-image-js', function() {
     return gulp.src(paths.image_scripts)
-        .pipe(minifyJs())
+        //.pipe(minifyJs())
         .pipe(concat('image.min.js'))
         .pipe(gulp.dest(dist+'/js'));
 });
