@@ -1,0 +1,194 @@
+<div class="singlecode-container" data-ng-controller="IssuesCtrl">
+    <div class="row">
+        <div class="col-lg-12">
+            <rd-widget>
+                <rd-widget-header icon="fa-code" title="{{flag.issue.issue.title}}">
+
+                </rd-widget-header>
+                    <div class="row">
+                        <table class="table">
+                            <tbody>
+                            <tr>
+                                <td class="pls">
+                                    <div class="pls favatar">
+                                        <div class="pi">
+                                            <div class="authi"><a href="" target="_blank" class="xw1">callofdutyops</a>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <div class="avatar">
+                                                <a href="http://bbs.uestc.edu.cn/home.php?mod=space&amp;uid=131536" class="avtm" target="_blank">
+                                                    <img src="http://bbs.uestc.edu.cn/uc_server/avatar.php?uid=131536&amp;size=middle">
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="plc">
+                                    <div class="pi">
+                                        <strong>
+                                            <a href="">
+                                                <em>楼主</em>
+                                                <sup>#</sup>
+                                            </a>
+                                        </strong>
+                                        <div class="pti">
+                                            <div class="pdbt">
+                                            </div>
+                                            <div class="authi">
+                                                <img class="authicn vm" id="authicon25707714" src="http://bbs.uestc.edu.cn/static/image/common/online_admin.gif">
+                                                <em>发表于 {{flag.issue.issue.create_date}}</em>
+                                                <span class="pipe">|</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="pct">
+                                        <div class="pcb">
+                                            <div class="t_fsz">
+                                                <table cellspacing="0" cellpadding="0">
+                                                    <tbody>
+                                                    <tr>
+                                                        <td class="t_f">
+                                                            {{flag.issue.issue.content}}
+                                                        </td>
+                                                    </tr>
+                                                    </tbody>
+                                                </table>
+
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="pls"></td>
+                                <td class="plc" style="overflow:visible;">
+                                    <div class="po hin">
+                                        <div class="pob cl">
+                                            <em>
+                                                <a class="fastre" href="">回复</a>
+                                            </em>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                <rd-widget>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-xs-12" >
+            <legend ng-hide="flag.issue.is_show">{{flag.issue.msg}}</legend>
+            <div ng-hide="flag.issue.is_show" class="bubblingG" style="
+margin-left: 144px;">
+                <span id="bubblingG_1"></span>
+                <span id="bubblingG_2"></span>
+                <span id="bubblingG_3"></span>
+            </div>
+            <div class="table-responsive" ng-hide="!flag.issue.is_show">
+                <div class="row" ng-repeat="obj in flag.issue.data">
+                    <table class="table">
+                        <tbody>
+                        <tr>
+                            <td class="pls">
+                                <div class="pls favatar">
+                                    <div class="pi">
+                                        <div class="authi"><a href="" target="_blank" class="xw1">callofdutyops</a>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div class="avatar">
+                                            <a href="http://bbs.uestc.edu.cn/home.php?mod=space&amp;uid=131536" class="avtm" target="_blank">
+                                                <img src="http://bbs.uestc.edu.cn/uc_server/avatar.php?uid=131536&amp;size=middle">
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="plc">
+                                <div class="pi">
+                                    <strong>
+                                        <a href="">
+                                            <em>{{$index+1}}</em>
+                                            <sup>#</sup>
+                                        </a>
+                                    </strong>
+                                    <div class="pti">
+                                        <div class="pdbt">
+                                        </div>
+                                        <div class="authi">
+                                            <img class="authicn vm" id="authicon25707714" src="http://bbs.uestc.edu.cn/static/image/common/online_admin.gif">
+                                            <em>发表于 {{obj.create_date}}</em>
+                                            <span class="pipe">|</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="pct">
+                                    <div class="pcb">
+                                        <div class="t_fsz">
+                                            <table cellspacing="0" cellpadding="0">
+                                                <tbody>
+                                                <tr>
+                                                    <td class="t_f">
+                                                        {{obj.content}}
+                                                    </td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="pls"></td>
+                            <td class="plc" style="overflow:visible;">
+                                <div class="po hin">
+                                    <div class="pob cl">
+                                        <em>
+                                            <a class="fastre" >回复</a>
+                                        </em>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <rd-widget>
+                <rd-widget-footer>
+                    <ul class="pagination pagination-sm pull-right">
+                        <li><a href="#" ng-click="currentData(1)">&laquo;</a></li>
+                        <li ng-repeat="page in pagination" ng-class="{active:page.is_active}">
+                            <a href="#" ng-click="currentData(page.index)">{{page.index}}</a>
+                        </li>
+                        <li><a href="#" ng-click="currentData(pagination.length)">&raquo;</a></li>
+                    </ul>
+                    <div class="clearfix"></div>
+                </rd-widget-footer>
+            </rd-widget>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <rd-widget>
+                <rd-widget-header icon="fa-code" title="{{code.name}}">
+                    <button class="btn btn-sm btn-info" ng-click="newDiscuss()">提交</button>
+                </rd-widget-header>
+                <rd-widget-body>
+                    <textarea>
+
+                    </textarea>
+                </rd-widget-body>
+                <rd-widget>
+        </div>
+    </div>
+
+</div>

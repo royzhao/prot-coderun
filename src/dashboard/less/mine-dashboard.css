@@ -131,3 +131,117 @@
     }
 
 }
+
+.pls {
+    width: 160px;
+    background: #e2eef7;
+    overflow: hidden;
+    border-right: 1px solid #C2D5E3;
+    vertical-align: top;
+}
+
+.plc {
+    padding: 0 20px;
+    background: #E8F1F8;
+    vertical-align: top;
+}
+
+.pi {
+    margin-bottom: 10px;
+    padding: 10px 0 30px;
+    height: 16px;
+    border-bottom: 1px dashed #CDCDCD;
+}
+.pi strong a {
+    padding: 2px 6px;
+    border-color: #E8F1F8;
+}
+.pi strong a {
+    float: right;
+    margin-top: -6px;
+    padding: 4px 6px;
+    border: 1px solid #F2FFFF;
+    font-weight: 400;
+}
+
+.pls .pi {
+    padding-left: 15px;
+}
+
+.pti {
+}
+.pdbt {
+    float: right;
+    margin: -5px 10px 0 0;
+}
+.authicn {
+    cursor: pointer;
+    width: 16px;
+}
+.pipe {
+    margin: 0 5px;
+    color: #CCC;
+}
+.pct {
+    padding-bottom: 1em;
+}
+.pcb {
+    margin-right: 0;
+}
+.t_fsz {
+    min-height: 100px;
+}
+
+.pl table {
+    table-layout: fixed;
+    width: 100%;
+}
+
+.t_f, .t_f td {
+    font-size: 14px;
+}
+
+.po {
+    border-top: 1px dashed #CDCDCD;
+}
+
+/*.hin {*/
+    /*opacity: 0.2;*/
+/*}*/
+
+.pob {
+    line-height: 36px;
+}
+
+.cl {
+    zoom: 1;
+}
+.cl:after {
+    content: ".";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden;
+}
+.pob em a {
+    padding: 5px 10px 5px 25px;
+}
+
+.fastre {
+    background: url(http://bbs.uestc.edu.cn/template/qshpan/image/fastreply.gif) no-repeat 0 50%;
+}
+
+
+.pls .favatar {
+    background: transparent;
+    height: auto;
+    border-width: 0px;
+    overflow: visible;
+}
+
+.xw1 {
+    font-weight: 700;
+}
+.pls .avatar {
+    margin: 10px 15px;
+}

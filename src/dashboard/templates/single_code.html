@@ -79,16 +79,35 @@ margin-left: 144px;">
                     <button class="btn btn-sm btn-info" ng-click="newDiscuss()">新建一个讨论</button>
                 </rd-widget-header>
                 <rd-widget-body classes="medium no-padding">
-                    <div class="table-responsive">
+                    <legend ng-hide="flag.issue.is_show">{{flag.issue.msg}}</legend>
+                    <div ng-hide="flag.issue.is_show" class="bubblingG" style="
+margin-left: 144px;">
+                        <span id="bubblingG_1"></span>
+                        <span id="bubblingG_2"></span>
+                        <span id="bubblingG_3"></span>
+                    </div>
+                    <div class="table-responsive" ng-hide="!flag.issue.is_show">
                         <table class="table">
 
                             <tbody>
-                            <tr><td><a href="" class="fa fa-bug">楼主你傻逼了</a> </td></tr>
-                            <tr><td><a href="" class="fa fa-bug">楼主拟傻逼了2次</a> </td></tr>
-                            <tr><td><a href="" class="fa fa-bug">一百块都不给我</a> </td></tr>
+                            <tr ng-repeat="obj in flag.issue.data">
+                                <td>
+                                    <a href="dashboard.html#/code/{{code.id}}/issue/{{obj.id}}" class="fa fa-bug">{{obj.title}}</a>
+                                </td>
+                            </tr>
                             </tbody>
                         </table>
                 </rd-widget-body>
+                <rd-widget-footer>
+                    <ul class="pagination pagination-sm pull-right">
+                        <li><a href="#" ng-click="currentData(1)">&laquo;</a></li>
+                        <li ng-repeat="page in pagination" ng-class="{active:page.is_active}">
+                            <a href="#" ng-click="currentData(page.index)">{{page.index}}</a>
+                        </li>
+                        <li><a href="#" ng-click="currentData(pagination.length)">&raquo;</a></li>
+                    </ul>
+                    <div class="clearfix"></div>
+                </rd-widget-footer>
             </rd-widget>
         </div>
     </div>
