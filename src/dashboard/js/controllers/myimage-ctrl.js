@@ -5,9 +5,9 @@
 
 angular
     .module('RDash')
-    .controller('MyImageCtrl', ['$scope','$resource','Images', '$cookies', MyImageCtrl]);
+    .controller('MyImageCtrl', ['$scope','$resource','Images', '$cookies','Message', MyImageCtrl]);
 
-function MyImageCtrl($scope,$resource,Images,$cookies) {
+function MyImageCtrl($scope,$resource,Images,$cookies,Message) {
     //var imagequery = $resource('/dockerapi/images/:id/:action', {id: '@id',action:'list' }, {});
     //$scope.imagedata = imagequery.query({id:1}, function() {
     //});
@@ -24,6 +24,14 @@ function MyImageCtrl($scope,$resource,Images,$cookies) {
         for (var i=0;i<$scope.imagedata.length;i++ ) {
             $scope.forknum += $scope.imagedata[i].Fork;
         }
+    });
+    //Message.add({action:'add'},{'ReplyTo':currentid,'Author':1,'Content':"test2",'Level':1}).$promise.then(function(data){
+    //
+    //},function(err){
+    //    console.log(err);
+    //})
+    Message.query({action:'query',id:currentid}).$promise.then(function(data){
+        $scope.messages = data;
     });
     //var myimagelist = [
     //    {
