@@ -245,3 +245,19 @@
 .pls .avatar {
     margin: 10px 15px;
 }
+
+#quote {
+    padding-bottom: 5px;
+    border: 1px solid #DADADA;
+    background: #F9F9F9 url(http://bbs.uestc.edu.cn/template/qshpan/image/icon_quote_s.gif) no-repeat 20px 6px !important;
+}
+
+#quote blockquote {
+    display: inline-block;
+    margin: 0;
+    padding: 0 65px 5px 21px;
+    background: url(http://bbs.uestc.edu.cn/template/qshpan/image/icon_quote_e.gif) no-repeat 100% 100% !important;
+    line-height: 1.6;
+    zoom: 1;
+}
+

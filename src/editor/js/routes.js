@@ -24,7 +24,7 @@ angular.module('Editor').config(['$httpProvider','$stateProvider', '$urlRouterPr
             })
             .state('editor',{
                 url:"/editor/:codeid/:stepid",
-                templateUrl:'templates/editor.html',
+                templateUrl:'templates/editor.html'
                 //data: {
                 //    permissions: {
                 //        except: ['anonymous'],

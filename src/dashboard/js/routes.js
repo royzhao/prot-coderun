@@ -28,6 +28,10 @@ angular.module('RDash').config(['$httpProvider','$stateProvider', '$urlRouterPro
                     window.location.href = ssoUrl+window.location.href;
                 }
             })
+            .state('newissue',{
+                url:'/code/:codeid/newissue',
+                templateUrl: 'templates/newissue.html'
+            })
             .state('issue',{
                 url:'/code/:codeid/issue/:issueid',
                 templateUrl: 'templates/issue.html'

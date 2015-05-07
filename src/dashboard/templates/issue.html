@@ -48,8 +48,8 @@
                                                 <table cellspacing="0" cellpadding="0">
                                                     <tbody>
                                                     <tr>
-                                                        <td class="t_f">
-                                                            {{flag.issue.issue.content}}
+                                                        <td class="t_f" data-ng-bind-html="flag.issue.issue.content">
+
                                                         </td>
                                                     </tr>
                                                     </tbody>
@@ -67,7 +67,7 @@
                                     <div class="po hin">
                                         <div class="pob cl">
                                             <em>
-                                                <a class="fastre" href="">回复</a>
+                                                <a class="fastre" href="" ng-click="replay_to_user(flag.issue.issue)">回复</a>
                                             </em>
                                         </div>
                                     </div>
@@ -133,8 +133,7 @@ margin-left: 144px;">
                                             <table cellspacing="0" cellpadding="0">
                                                 <tbody>
                                                 <tr>
-                                                    <td class="t_f">
-                                                        {{obj.content}}
+                                                    <td class="t_f" data-ng-bind-html="obj.content">
                                                     </td>
                                                 </tr>
                                                 </tbody>
@@ -152,7 +151,7 @@ margin-left: 144px;">
                                 <div class="po hin">
                                     <div class="pob cl">
                                         <em>
-                                            <a class="fastre" >回复</a>
+                                            <a class="fastre" ng-click="replay_to_user(obj)">回复</a>
                                         </em>
                                     </div>
                                 </div>
@@ -179,14 +178,15 @@ margin-left: 144px;">
     <div class="row">
         <div class="col-lg-12">
             <rd-widget>
-                <rd-widget-header icon="fa-code" title="{{code.name}}">
-                    <button class="btn btn-sm btn-info" ng-click="newDiscuss()">提交</button>
-                </rd-widget-header>
                 <rd-widget-body>
-                    <textarea>
+                    <!--<textarea ng-model="newcomment.content" redactor></textarea>-->
+                    <div class="ueditor"  ready="ready" ng-model="content" style="width:100%;height:200px;">
 
-                    </textarea>
+                    </div>
                 </rd-widget-body>
+                <rd-widget-footer>
+                    <button class="btn btn-sm btn-info" ng-click="newDiscuss()">提交</button>
+                </rd-widget-footer>
                 <rd-widget>
         </div>
     </div>
