@@ -3,9 +3,9 @@
  */
 
 angular.module('RDash')
-    .controller('MasterCtrl', ['$sce','$scope', '$cookieStore','SessionService','Message', MasterCtrl]);
+    .controller('MasterCtrl', ['$sce','$scope', '$cookieStore','SessionService','Message', 'ImagehubService','Images',MasterCtrl]);
 
-function MasterCtrl($sce,$scope, $cookieStore,SessionService,Message) {
+function MasterCtrl($sce,$scope, $cookieStore,SessionService,Message,ImagehubService,Images) {
     //用户信息
     $scope.user = SessionService.getUserinfo();
 
@@ -17,8 +17,32 @@ function MasterCtrl($sce,$scope, $cookieStore,SessionService,Message) {
         $scope.messages = data;
     });
 
+    Images.query({id: $scope.user.userid, action: 'list'}).$promise.then(function(data){
+        $scope.imagedata = data;
+        $scope.imagenum = $scope.imagedata.length;
+        for (var i=0;i<$scope.imagedata.length;i++ ) {
+            $scope.forknum += $scope.imagedata[i].Fork;
+        }
+    });
+
+    ImagehubService.getHotImages(1,5,"",function(err,data){
+        if(data){
+            if(data.length == 0){
+                $scope.flag.msg = "暂时没有数据,您可以创建";
+            }else{
+                $scope.imagelist = data.list;
+            }
+        }else{
+            $scope.flag.msg = "加载失败！";
+        }
+    });
+
     $scope.logout = function(){
         SessionService.logout();
+    }
+
+    $scope.read = function(i) {
+        //alert(i);
     }
     /**
      * Sidebar Toggle & Cookie Control

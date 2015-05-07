@@ -22,8 +22,8 @@
 				<div class="widget-icon red pull-left">
 					<i class="fa fa-tasks"></i>
 				</div>
-				<div class="title">16</div>
-				<div class="comment">总共有16个镜像</div>
+				<div class="title">{{imagenum}}</div>
+				<div class="comment">总共有{{imagenum}}个镜像</div>
 			</rd-widget-body>
 		</rd-widget>
 	</div>
@@ -59,6 +59,7 @@
             <rd-widget-body>
                 <div class="message" ng-repeat="m in messages">
                     <span data-ng-bind-html="m.Content"></span>
+                    <!--<a href=" " ng-click="test($index)">test</a>-->
                     <hr ng-hide="$index==(messages.length-1)"/>
                 </div>
                 <!--<div class="message">-->
@@ -80,7 +81,7 @@
     <div class="col-lg-4">
         <rd-widget>
             <rd-widget-header icon="fa-tasks fa-fire" title="热门镜像">
-                <a href="#">更多</a>
+                <a href="/dashboard.html#/imagehub">更多</a>
             </rd-widget-header>
             <rd-widget-body classes="medium no-padding">
                 <div class="table-responsive">
@@ -89,12 +90,20 @@
                         <tr><th class="text-center">镜像名称</th><th>解释</th><th>状态</th></tr>
                         </thead>
                         <tbody>
-                        <tr><td>C运行环境</td><td>解释说明</td><td><span class="text-success"><i class="fa fa-check"></i></span></td></tr>
-                        <tr><td>Go运行环境</td><td>解释说明</td><td><span class="text-success"><i class="fa fa-check"></i></span></td></tr>
-                        <tr><td>LAMP运行环境</td><td>解释说明</td><td><span tooltip="没有实例运行!" class="text-danger"><i class="fa fa-warning"></i></span></td></tr>
-                        <tr><td>ruby运行环境</td><td>解释说明</td><td><span class="text-success"><i class="fa fa-check"></i></span></td></tr>
-                        <tr><td>spring运行环境</td><td>解释说明</td><td><span class="text-success"><i class="fa fa-check"></i></span></td></tr>
-                        <tr><td>rust运行环境</td><td>解释说明</td><td><span class="text-success"><i class="fa fa-check"></i></span></td></tr>
+                            <tr ng-repeat="image in imagelist">
+                                <td><a href="#/image/{{image.ImageId}}">{{image.ImageName}}</a></td>
+                                <td>{{image.Descrip}}</td>
+                                <td>
+                                    <span class="text-success" ng-if="image.Status == 1"><i class="fa fa-check"></i></span>
+                                    <span tooltip="没有实例运行!" class="text-danger" ng-if="image.Status == 0"><i class="fa fa-warning"></i></span>
+                                </td>
+                            </tr>
+                        <!--<tr><td>C运行环境</td><td>解释说明</td><td><span class="text-success"><i class="fa fa-check"></i></span></td></tr>-->
+                        <!--<tr><td>Go运行环境</td><td>解释说明</td><td><span class="text-success"><i class="fa fa-check"></i></span></td></tr>-->
+                        <!--<tr><td>LAMP运行环境</td><td>解释说明</td><td><span tooltip="没有实例运行!" class="text-danger"><i class="fa fa-warning"></i></span></td></tr>-->
+                        <!--<tr><td>ruby运行环境</td><td>解释说明</td><td><span class="text-success"><i class="fa fa-check"></i></span></td></tr>-->
+                        <!--<tr><td>spring运行环境</td><td>解释说明</td><td><span class="text-success"><i class="fa fa-check"></i></span></td></tr>-->
+                        <!--<tr><td>rust运行环境</td><td>解释说明</td><td><span class="text-success"><i class="fa fa-check"></i></span></td></tr>-->
                         </tbody>
                     </table>
                 </div>
@@ -122,28 +131,30 @@
                     </table>
                 </div>
             </rd-widget-body>
-            <rd-widget>
+        </rd-widget>
     </div>
 </div>
 <div class="row">
 	<div class="col-lg-6">
 		<rd-widget>
       		<rd-widget-header icon="fa-tasks" title="我的镜像">
-				<a href="#">更多</a>
+				<a href="/dashboard.html#/myimage">更多</a>
       		</rd-widget-header>
       		<rd-widget-body classes="medium no-padding">
 				<div class="table-responsive">
 					<table class="table">
                         <thead>
-                            <tr><th class="text-center">镜像名称</th><th>解释</th><th>状态</th></tr>
+                            <tr><th class="text-left">镜像名称</th><th>解释</th><th>状态</th></tr>
                         </thead>
 						<tbody>
-							<tr><td>C运行环境</td><td>解释说明</td><td><span class="text-success"><i class="fa fa-check"></i></span></td></tr>
-							<tr><td>Go运行环境</td><td>解释说明</td><td><span class="text-success"><i class="fa fa-check"></i></span></td></tr>
-							<tr><td>LAMP运行环境</td><td>解释说明</td><td><span tooltip="没有实例运行!" class="text-danger"><i class="fa fa-warning"></i></span></td></tr>
-							<tr><td>ruby运行环境</td><td>解释说明</td><td><span class="text-success"><i class="fa fa-check"></i></span></td></tr>
-							<tr><td>spring运行环境</td><td>解释说明</td><td><span class="text-success"><i class="fa fa-check"></i></span></td></tr>
-							<tr><td>rust运行环境</td><td>解释说明</td><td><span class="text-success"><i class="fa fa-check"></i></span></td></tr>
+                            <tr ng-repeat="image in imagedata">
+                                <td><a href="#/image/{{image.ImageId}}">{{image.ImageName}}</a></td>
+                                <td>{{image.Descrip}}</td>
+                                <td>
+                                    <span class="text-success" ng-if="image.Status == 1"><i class="fa fa-check"></i></span>
+                                    <span tooltip="没有实例运行!" class="text-danger" ng-if="image.Status == 0"><i class="fa fa-warning"></i></span>
+                                </td>
+                            </tr>
 						</tbody>
 					</table>
 				</div>
@@ -170,7 +181,7 @@
 					</table>
         		</div>
 			</rd-widget-body>
-		<rd-widget>
+		</rd-widget>
 	</div>
 </div>
 
