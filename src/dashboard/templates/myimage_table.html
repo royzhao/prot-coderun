@@ -86,16 +86,16 @@
         <div class="col-lg-6">
             <rd-widget>
                 <rd-widget-header icon="fa-plus" title="消息">
-                    <button class="btn btn-sm btn-info">Button</button>
+                    <!--<button class="btn btn-sm btn-info">Button</button>-->
                 </rd-widget-header>
                 <rd-widget-body>
-                    <div class="message">
-                        xx对你的镜像yy提出了一个 <span class="error">问题!</span>
+                    <div class="message" ng-repeat="m in messages">
+                        <span>{{m.Content}}</span>
+                        <hr ng-hide="$index==(messages.length-1)"/>
                     </div>
-                    <hr />
-                    <div class="message">
-                        你的yy镜像被xxfork了
-                    </div>
+                    <!--<div class="message">-->
+                        <!--你的yy镜像被xxfork了-->
+                    <!--</div>-->
                 </rd-widget-body>
             </rd-widget>
         </div>
