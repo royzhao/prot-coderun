@@ -2,19 +2,19 @@
  * Created by zpl on 15-5-6.
  */
 angular
-    .module('RDash')
+    .module('Show')
     .controller('IssuesCtrl', ['$sce','SessionService','$scope', '$stateParams','MyCodeService','CodeAPIService', IssuesCtrl]);
 
 function IssuesCtrl($sce,SessionService,$scope,$stateParams,MyCodeService,CodeAPIService) {
     var codeid = $stateParams.codeid;
     var issueid =parseInt($stateParams.issueid);
-    if(issueid == NaN){
-        return;
-    }
     if(SessionService.isLogin() == true){
         $scope.is_login = true;
     }else{
         $scope.is_login = false;
+    }
+    if(issueid == NaN){
+        return;
     }
     $scope.flag = {};
     $scope.is_author = true;

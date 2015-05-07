@@ -36,6 +36,14 @@ angular.module('RDash').config(['$httpProvider','$stateProvider', '$urlRouterPro
                 url:'/code/:codeid/issue/:issueid',
                 templateUrl: 'templates/issue.html'
             })
+            .state('newimageissue',{
+                url:'/image/:imageid/newissue',
+                templateUrl: 'templates/newimageissue.html'
+            })
+            .state('imageissue',{
+                url:'/image/:imageid/issue/:issueid',
+                templateUrl: 'templates/imageissue.html'
+            })
             .state('mycode', {
                 url: '/mycode',
                 templateUrl: 'templates/mycode_table.html'

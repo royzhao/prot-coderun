@@ -1,20 +1,15 @@
 /**
- * Created by zpl on 15-5-6.
+ * Created by zpl on 15-5-7.
  */
 angular
     .module('RDash')
-    .controller('IssuesCtrl', ['$sce','SessionService','$scope', '$stateParams','MyCodeService','CodeAPIService', IssuesCtrl]);
+    .controller('ImageIssuesCtrl', ['$sce','SessionService','$scope', '$stateParams','MyCodeService','CodeAPIService', ImageIssuesCtrl]);
 
-function IssuesCtrl($sce,SessionService,$scope,$stateParams,MyCodeService,CodeAPIService) {
-    var codeid = $stateParams.codeid;
+function ImageIssuesCtrl($sce,SessionService,$scope,$stateParams,MyCodeService,CodeAPIService) {
+    var imageid = $stateParams.imageid;
     var issueid =parseInt($stateParams.issueid);
     if(issueid == NaN){
         return;
-    }
-    if(SessionService.isLogin() == true){
-        $scope.is_login = true;
-    }else{
-        $scope.is_login = false;
     }
     $scope.flag = {};
     $scope.is_author = true;
@@ -66,7 +61,7 @@ function IssuesCtrl($sce,SessionService,$scope,$stateParams,MyCodeService,CodeAP
         }
         $scope.newcomment.author = userid;
         $scope.newcomment.reply_to = $scope.flag.issue.issue.author;
-        CodeAPIService.addCodeIssueComment(user.userid,issueid,$scope.newcomment)
+        CodeAPIService.addImageIssueComment(user.userid,issueid,$scope.newcomment)
             .then(function(data){
                 console.log(data);
                 $scope.newcomment={
@@ -93,9 +88,9 @@ function IssuesCtrl($sce,SessionService,$scope,$stateParams,MyCodeService,CodeAP
         $scope.newcomment.content += '<div id="quote"><blockquote><font size="2"><a href="">' +
         '<font color="#999999">' +'test'+
         '发表于' +obj.create_date+
-    '</font></a></font>' +
-    '<br> ' +obj.content+
-    '</blockquote></div><br/>&nbsp;&nbsp;';
+        '</font></a></font>' +
+        '<br> ' +obj.content+
+        '</blockquote></div><br/>&nbsp;&nbsp;';
         var user = SessionService.getUserinfo();
         if(typeof(user.userid) == "string"){
             $scope.newcomment.author = parseInt(user.userid);
@@ -114,7 +109,7 @@ function IssuesCtrl($sce,SessionService,$scope,$stateParams,MyCodeService,CodeAP
         $scope.flag.issue.page.page = index;
         $scope.flag.issue.is_show = true;
         $scope.flag.issue.msg = "正在加载。。。";
-        CodeAPIService.getIssuesComments(issueid,$scope.flag.issue.page.page,$scope.flag.issue.page.num,$scope.flag.issue.key).
+        CodeAPIService.getImageIssuesComments(issueid,$scope.flag.issue.page.page,$scope.flag.issue.page.num,$scope.flag.issue.key).
             then(function(data){
                 $scope.flag.issue.page.total = data.total;
                 $scope.flag.issue.page.page = data.page;

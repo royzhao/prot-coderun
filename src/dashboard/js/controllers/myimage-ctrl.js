@@ -30,9 +30,12 @@ function MyImageCtrl($scope,$resource,Images,$cookies,Message) {
     //},function(err){
     //    console.log(err);
     //})
-    Message.query({action:'query',id:currentid}).$promise.then(function(data){
-        $scope.messages = data;
-    });
+    //Message.query({action:'query',id:currentid}).$promise.then(function(data){
+    //    for(var i=0;i<data.length;i++){
+    //        data[i].Content= $sce.trustAsHtml(data[i].Content);
+    //    }
+    //    $scope.messages = data;
+    //});
     //var myimagelist = [
     //    {
     //        'imageid':2,

@@ -27,29 +27,36 @@
     <div class="row">
         <div class="col-lg-12 col-md-12 col-xs-12" >
             <rd-widget>
-                <rd-widget-header icon="fa-stack-overflow" title="{{image.imagename}}讨论">
-                    <button class="btn btn-sm btn-info" ng-click="newDiscuss()">新建一个讨论</button>
+                <rd-widget-header icon="fa-stack-overflow" title="{{image.imagename}}条轮">
+                    <a class="btn btn-sm btn-info" href="#/code/{{image.id}}/newissue">新建一个讨论</a>
                 </rd-widget-header>
                 <rd-widget-body classes="medium no-padding">
-                    <div class="table-responsive">
+                    <legend ng-hide="flag.issue.is_show">{{flag.issue.msg}}</legend>
+                    <div ng-hide="flag.issue.is_show" class="bubblingG" style="
+margin-left: 144px;">
+                        <span id="bubblingG_1"></span>
+                        <span id="bubblingG_2"></span>
+                        <span id="bubblingG_3"></span>
+                    </div>
+                    <div class="table-responsive" ng-hide="!flag.issue.is_show">
                         <table class="table">
+
                             <tbody>
-                            <tr><td><a href="" class="fa fa-bug">你们不要老想搞个什么大新闻啊，然后把我批判一番</a> </td></tr>
-                            <tr><td><a href="" class="fa fa-bug">图样图森破</a> </td></tr>
-                            <tr><td><a href="" class="fa fa-bug">拿衣服</a> </td></tr>
+                            <tr ng-repeat="obj in flag.issue.data">
+                                <td>
+                                    <a href="dashboard.html#/image/{{image.id}}/issue/{{obj.id}}" class="fa fa-bug">{{obj.title}}</a>
+                                </td>
+                            </tr>
                             </tbody>
                         </table>
-                    </div>
                 </rd-widget-body>
                 <rd-widget-footer>
                     <ul class="pagination pagination-sm pull-right">
-                        <li><a href="#">&laquo;</a></li>
-                        <li><a href="#">1</a></li>
-                        <li><a href="#">2</a></li>
-                        <li><a href="#">3</a></li>
-                        <li><a href="#">4</a></li>
-                        <li><a href="#">5</a></li>
-                        <li><a href="#">&raquo;</a></li>
+                        <li><a href="#" ng-click="currentData(1)">&laquo;</a></li>
+                        <li ng-repeat="page in pagination" ng-class="{active:page.is_active}">
+                            <a href="#" ng-click="currentData(page.index)">{{page.index}}</a>
+                        </li>
+                        <li><a href="#" ng-click="currentData(pagination.length)">&raquo;</a></li>
                     </ul>
                     <div class="clearfix"></div>
                 </rd-widget-footer>

@@ -54,16 +54,16 @@
     <div class="col-lg-4">
         <rd-widget>
             <rd-widget-header icon="fa-plus" title="消息">
-                <button class="btn btn-sm btn-info">Button</button>
+                <!--<button class="btn btn-sm btn-info">Button</button>-->
             </rd-widget-header>
             <rd-widget-body>
-                <div class="message">
-                    这里放我们对用户的消息,也可以放 <span class="error">错误通知!</span>
+                <div class="message" ng-repeat="m in messages">
+                    <span data-ng-bind-html="m.Content"></span>
+                    <hr ng-hide="$index==(messages.length-1)"/>
                 </div>
-                <hr />
-                <div class="message">
-                    <a href="http://angular-ui.github.io/bootstrap/" target="_blank">UI Bootstrap</a> 可以点击这里 <a href="#" tooltip="I'm a tooltip!">tooltips</a> 使用bootstrap UI
-                </div>
+                <!--<div class="message">-->
+                <!--你的yy镜像被xxfork了-->
+                <!--</div>-->
             </rd-widget-body>
         </rd-widget>
     </div>

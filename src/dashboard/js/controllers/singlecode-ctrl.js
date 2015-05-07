@@ -11,6 +11,11 @@ function MySingleCodeCtrl(SessionService,$scope,$stateParams,MyCodeService,CodeA
     var codeid = $stateParams.codeid;
     $scope.flag = {};
     $scope.is_author = true;
+    if(SessionService.isLogin() == true){
+        $scope.is_login = true;
+    }else{
+        $scope.is_login = false;
+    }
     $scope.flag.is_show = true;
     $scope.pagination =new Array()
     $scope.flag.issue = {

@@ -202,6 +202,76 @@ angular.module('RDash').
                     url:baseUrl+"/issue/"+userid+"/"+issueid+"/comment/"+commentid,
                     method:"DELETE"
                 });
+            },
+            getImageIssues: function(imageid,page,num,key){
+                if(page == undefined || page == null){
+                    page = 1;
+                }
+                if(num == undefined || num == null){
+                    num = 5;
+                }
+                if(key == undefined || key == null){
+                    key = "";
+                }
+                return RestfulService.restfulOp({
+                    url:baseUrl+"/image/"+imageid+"/issues?page="+page+"&num="+num+"&key="+key,
+                    method:"GET"
+                });
+            },
+            addImageIssue: function(userid,imageid,obj){
+                return RestfulService.restfulOp({
+                    url:baseUrl+"/image/"+userid+"/"+imageid+"/issue",
+                    method:"POST",
+                    data:obj
+                });
+            },
+            updateImageIssue: function(userid,imageid,issueid,obj){
+                return RestfulService.restfulOp({
+                    url:baseUrl+"/image/"+userid+"/"+imageid+"/issue/"+issueid,
+                    method:"PUT",
+                    data:obj
+                });
+            },
+            deleteImageIssue: function(userid,imageid,issueid){
+                return RestfulService.restfulOp({
+                    url:baseUrl+"/image/"+userid+"/"+imageid+"/issue/"+issueid,
+                    method:"DELETE"
+                });
+            },
+            getImageIssuesComments: function(issueid,page,num,key){
+                if(page == undefined || page == null){
+                    page = 1;
+                }
+                if(num == undefined || num == null){
+                    num = 5;
+                }
+                if(key == undefined || key == null){
+                    key = "";
+                }
+                return RestfulService.restfulOp({
+                    url:baseUrl+"/image/issue/"+issueid+"/comments?page="+page+"&num="+num+"&key="+key,
+                    method:"GET"
+                });
+            },
+            addImageIssueComment: function(userid,issueid,obj){
+                return RestfulService.restfulOp({
+                    url:baseUrl+"/image/issue/"+userid+"/"+issueid+"/comment",
+                    method:"POST",
+                    data:obj
+                });
+            },
+            updateImageIssueComment: function(userid,issueid,commentid,obj){
+                return RestfulService.restfulOp({
+                    url:baseUrl+"/image/issue/"+userid+"/"+issueid+"/comment/"+commentid,
+                    method:"PUT",
+                    data:obj
+                });
+            },
+            deleteImageIssueComment: function(userid,issueid,commentid){
+                return RestfulService.restfulOp({
+                    url:baseUrl+"/image/issue/"+userid+"/"+issueid+"/comment/"+commentid,
+                    method:"DELETE"
+                });
             }
         }
     }])

@@ -3,11 +3,20 @@
  */
 
 angular.module('RDash')
-    .controller('MasterCtrl', ['$scope', '$cookieStore','SessionService', MasterCtrl]);
+    .controller('MasterCtrl', ['$sce','$scope', '$cookieStore','SessionService','Message', MasterCtrl]);
 
-function MasterCtrl($scope, $cookieStore,SessionService) {
+function MasterCtrl($sce,$scope, $cookieStore,SessionService,Message) {
     //用户信息
     $scope.user = SessionService.getUserinfo();
+
+
+    Message.query({action:'query',id:$scope.user.userid}).$promise.then(function(data){
+        for(var i=0;i<data.length;i++){
+            data[i].Content= $sce.trustAsHtml(data[i].Content);
+        }
+        $scope.messages = data;
+    });
+
     $scope.logout = function(){
         SessionService.logout();
     }
@@ -38,6 +47,8 @@ function MasterCtrl($scope, $cookieStore,SessionService) {
         $scope.toggle = !$scope.toggle;
         $cookieStore.put('toggle', $scope.toggle);
     };
+
+
 
     window.onresize = function() {
         $scope.$apply();

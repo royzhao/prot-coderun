@@ -3,74 +3,26 @@
  */
 angular
     .module('RDash')
-    .controller('MySingleImageCtrl', ['$scope', '$stateParams','Images','$location', 'Star', 'Fork', 'Image', '$cookies','loginService','$window',  MySingleImageCtrl]);
+    .controller('MySingleImageCtrl', ['$scope', '$stateParams','Images','$location', 'Star', 'Fork', 'Image', '$cookies','loginService','$window','CodeAPIService',  MySingleImageCtrl]);
 
-function MySingleImageCtrl($scope,$stateParams,Images,$location,Star, Fork, Image, $cookies,loginService,$window) {
-    //var myimagelist = [
-    //    {
-    //        'imageid':1,
-    //        'imagename':'c++',
-    //        'status':1,
-    //        'description':'镜像描述',
-    //        'stars':50,
-    //        'forknum':50,
-    //        'runnum':100,
-    //        'type':1,
-    //        'typename':'本地程序',
-    //        'date':'6月18'
-    //    },
-    //    {
-    //        'imageid':2,
-    //        'imagename':'golang',
-    //        'status':1,
-    //        'description':'镜像描述',
-    //        'stars':50,
-    //        'forknum':50,
-    //        'runnum':100,
-    //        'type':1,
-    //        'typename':'本地程序',
-    //        'date':'6月18'
-    //    },
-    //    {
-    //        'imageid':3,
-    //        'imagename':'python',
-    //        'status':1,
-    //        'type':1,
-    //        'description':'镜像描述',
-    //        'stars':50,
-    //        'forknum':50,
-    //        'runnum':100,
-    //        'typename':'本地程序',
-    //        'date':'6月18'
-    //    },
-    //    {
-    //        'imageid':4,
-    //        'imagename':'java',
-    //        'status':2,
-    //        'type':2,
-    //        'description':'镜像描述',
-    //        'stars':50,
-    //        'forknum':50,
-    //        'runnum':100,
-    //        'typename':'网络程序',
-    //        'date':'6月18'
-    //    },
-    //    {
-    //        'imageid':5,
-    //        'imagename':'web',
-    //        'status':2,
-    //        'type':1,
-    //        'description':'镜像描述',
-    //        'stars':50,
-    //        'forknum':50,
-    //        'runnum':100,
-    //        'typename':'本地程序',
-    //        'date':'6月18'
-    //    },
-    //];
-    //$scope.image = [];
-    //alert($stateParams.imageid);
+function MySingleImageCtrl($scope,$stateParams,Images,$location,Star, Fork, Image, $cookies,loginService,$window,CodeAPIService) {
     loginService.login();
+    $scope.flag = {};
+    $scope.is_author = true;
+    $scope.flag.is_show = true;
+    $scope.pagination =new Array()
+    $scope.flag.issue = {
+        is_show : false,
+        msg :"正在加载。。",
+        page : {
+            total:0,
+            page:1,
+            num:5
+        },
+        key:"",
+        data:[]
+    }
+    $scope.flag.msg = "正在加载。。。";
     var star;
     var fork;
     var currentuid = parseInt($cookies.get("u_id"));
@@ -118,6 +70,7 @@ function MySingleImageCtrl($scope,$stateParams,Images,$location,Star, Fork, Imag
             date : data.Date,
             id : data.ImageId
         };
+        $scope.currentData(1,"");
     });
     //$scope.image = myimagelist[$stateParams.imageid];
     //$scope.deleteImage = function() {
@@ -187,4 +140,33 @@ function MySingleImageCtrl($scope,$stateParams,Images,$location,Star, Fork, Imag
     }
     //$scope.editTerminal = function(){
     //}
+
+    $scope.flag.search = function(){
+        $scope.currentData(1);
+    }
+    $scope.currentData = function(index){
+        if(index <1)
+            return;
+        $scope.flag.issue.page.page = index;
+        $scope.flag.issue.is_show = true;
+        $scope.flag.issue.msg = "正在加载。。。";
+        CodeAPIService.getImageIssues($stateParams.imageid,$scope.flag.issue.page.page,$scope.flag.issue.page.num,$scope.flag.issue.key).
+            then(function(data){
+                $scope.flag.issue.page.total = data.total;
+                $scope.flag.issue.page.page = data.page;
+                $scope.flag.issue.page.num = data.num;
+                $scope.flag.issue.data = data.list;
+                $scope.flag.issue.is_show = true;
+                for(var i =1;i<=(data.total/data.num)+1;i++){
+                    var page = {
+                        is_active:(data.page==i?true:false),
+                        index :i
+                    }
+                    $scope.pagination.push(page);
+                }
+            },function(err){
+                $scope.flag.issue.is_show = false;
+                $scope.flag.issue.msg = err;
+            })
+    }
 }
