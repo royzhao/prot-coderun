@@ -56,12 +56,20 @@
             <rd-widget-header icon="fa-plus" title="消息">
                 <!--<button class="btn btn-sm btn-info">Button</button>-->
             </rd-widget-header>
-            <rd-widget-body>
-                <div class="message" ng-repeat="m in messages">
-                    <span data-ng-bind-html="m.Content"></span>
-                    <!--<a href=" " ng-click="test($index)">test</a>-->
-                    <hr ng-hide="$index==(messages.length-1)"/>
-                </div>
+            <rd-widget-body classes="medium no-padding">
+                <div class="table-responsive">
+                    <table class="table">
+                        <tr class="message" ng-repeat="m in messages">
+                            <td><span data-ng-bind-html="m.Content"></span>
+                                <!--<a href=" " ng-click="test($index)">test</a>-->
+                                <hr ng-hide="$index==(messages.length-1)"/></td>
+                        </tr>
+                    </table>
+                <!--<div class="message" ng-repeat="m in messages">-->
+                    <!--<span data-ng-bind-html="m.Content"></span>-->
+                    <!--&lt;!&ndash;<a href=" " ng-click="test($index)">test</a>&ndash;&gt;-->
+                    <!--<hr ng-hide="$index==(messages.length-1)"/>-->
+                <!--</div>-->
                 <!--<div class="message">-->
                 <!--你的yy镜像被xxfork了-->
                 <!--</div>-->

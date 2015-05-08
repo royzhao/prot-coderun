@@ -10,9 +10,13 @@ function MasterCtrl($sce,$scope, $cookieStore,SessionService,Message,ImagehubSer
     $scope.user = SessionService.getUserinfo();
 
 
+    $scope.alertData = [];
     Message.query({action:'query',id:$scope.user.userid}).$promise.then(function(data){
         for(var i=0;i<data.length;i++){
             data[i].Content= $sce.trustAsHtml(data[i].Content);
+            if(data[i].Level == 2) {
+                $scope.alertData.append(data[i]);
+            }
         }
         $scope.messages = data;
     });
@@ -43,6 +47,9 @@ function MasterCtrl($sce,$scope, $cookieStore,SessionService,Message,ImagehubSer
 
     $scope.read = function(i) {
         //alert(i);
+        Message.read({action:'read'},$scope.messages[i]).$promise.then(function(data){
+
+        })
     }
     /**
      * Sidebar Toggle & Cookie Control

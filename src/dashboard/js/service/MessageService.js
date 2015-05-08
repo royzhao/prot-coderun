@@ -5,6 +5,7 @@ angular.module('RDash')
     .factory('Message', ['$resource',function($resource) {
         return $resource('/api/message/:action/:id', {id: '@id' }, {
             'query': { isArray: true, method: 'GET' },
-            'add': { isArray: false, method: 'POST' }
+            'add': { isArray: false, method: 'POST' },
+            'read': { isArray: false, method: 'POST' }
         });
     }])
