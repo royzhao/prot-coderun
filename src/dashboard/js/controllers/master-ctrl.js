@@ -9,13 +9,14 @@ function MasterCtrl($sce,$scope, $cookieStore,SessionService,Message,ImagehubSer
     //用户信息
     $scope.user = SessionService.getUserinfo();
 
-
     $scope.alertData = [];
+    //$scope.list = [];
     Message.query({action:'query',id:$scope.user.userid}).$promise.then(function(data){
         for(var i=0;i<data.length;i++){
+            //$scope.list.push(data[i]);
             data[i].Content= $sce.trustAsHtml(data[i].Content);
             if(data[i].Level == 2) {
-                $scope.alertData.append(data[i]);
+                $scope.alertData.push(data[i]);
             }
         }
         $scope.messages = data;
@@ -47,9 +48,11 @@ function MasterCtrl($sce,$scope, $cookieStore,SessionService,Message,ImagehubSer
 
     $scope.read = function(i) {
         //alert(i);
-        Message.read({action:'read'},$scope.messages[i]).$promise.then(function(data){
-
+        //alert($scope.messages[i].Id);
+        Message.read({action:'read',id:$scope.messages[i].Id}).$promise.then(function(data){
+            //$scope.messages.splice(i,1);
         })
+        //$location.href = href;
     }
     /**
      * Sidebar Toggle & Cookie Control

@@ -8,6 +8,7 @@ angular.module('RDash').
             getUserinfo: function(){
                 this.login()
                 var user ={
+                    //userid:1,
                     userid: $cookies.get("u_id"),
                     name:$cookies.get("u_name")
                 }
@@ -21,6 +22,7 @@ angular.module('RDash').
                 //if($localStorage.token)
                 //    return true;
                 //return false;
+                //return true;
                 if(($cookies.get("token"))==undefined) {
                     return false;
                 }

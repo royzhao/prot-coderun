@@ -6,6 +6,7 @@ angular
     .controller('IssuesCtrl', ['$sce','SessionService','$scope', '$stateParams','MyCodeService','CodeAPIService', IssuesCtrl]);
 
 function IssuesCtrl($sce,SessionService,$scope,$stateParams,MyCodeService,CodeAPIService) {
+    alert("a");
     var codeid = $stateParams.codeid;
     var issueid =parseInt($stateParams.issueid);
     if(issueid == NaN){

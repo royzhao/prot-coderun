@@ -6,6 +6,7 @@ angular.module('RDash').
     factory('httpInterceptor',['$q','$cookies', function($q,$cookies){
         var isNeedAuth=function(uri,method){
             //check url is contain api
+            //return false;
             if(uri.indexOf('api')){
                 if(method == 'POST' || method== 'PUT' ||method=='DELETE'){
                     return true;

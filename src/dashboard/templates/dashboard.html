@@ -59,10 +59,12 @@
             <rd-widget-body classes="medium no-padding">
                 <div class="table-responsive">
                     <table class="table">
-                        <tr class="message" ng-repeat="m in messages">
-                            <td><span data-ng-bind-html="m.Content"></span>
+                        <tr class="message" ng-repeat="m in messages" ng-click="read($index)">
+                            <td>
+                                <span data-ng-bind-html="m.Content"></span>
                                 <!--<a href=" " ng-click="test($index)">test</a>-->
-                                <hr ng-hide="$index==(messages.length-1)"/></td>
+                                <!--<hr ng-hide="$index==(messages.length-1)"/>-->
+                            </td>
                         </tr>
                     </table>
                 <!--<div class="message" ng-repeat="m in messages">-->
@@ -99,7 +101,7 @@
                         </thead>
                         <tbody>
                             <tr ng-repeat="image in imagelist">
-                                <td><a href="#/image/{{image.ImageId}}">{{image.ImageName}}</a></td>
+                                <td><a href="#/image/{{image.ImageId}}" ng-click="read($index)">{{image.ImageName}}</a></td>
                                 <td>{{image.Descrip}}</td>
                                 <td>
                                     <span class="text-success" ng-if="image.Status == 1"><i class="fa fa-check"></i></span>

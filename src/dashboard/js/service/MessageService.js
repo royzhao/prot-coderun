@@ -6,6 +6,6 @@ angular.module('RDash')
         return $resource('/api/message/:action/:id', {id: '@id' }, {
             'query': { isArray: true, method: 'GET' },
             'add': { isArray: false, method: 'POST' },
-            'read': { isArray: false, method: 'POST' }
+            'read': { isArray: false, method: 'GET' }
         });
     }])
