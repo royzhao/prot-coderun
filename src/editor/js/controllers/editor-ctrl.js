@@ -7,9 +7,10 @@ angular.module('Editor')
 function EditorCtrl($timeout,$scope,$cookieStore,$stateParams,$localStorage,MyCodeService,ngDialog,Images,SessionService) {
     $scope.codeid = $stateParams.codeid;
     $scope.stepid = $stateParams.stepid;
+    $scope.imageinfo = null;
     $scope.page={};
     $scope.page.toggle = true;
-    $scope.page.show = true;
+    $scope.page.show = false;
     $scope.page.status = 1;
     console.log($scope.codeid);
     console.log($scope.stepid);
@@ -61,10 +62,10 @@ function EditorCtrl($timeout,$scope,$cookieStore,$stateParams,$localStorage,MyCo
                     $(".ace_editor").css("height",(newValue-156)+"px !important")
                     //$(".redactor_editor").css("max-height",(newValue-40)+"px !important")
                 }
-                if($localStorage.myImages == null ||$localStorage.myImages == undefined){
-                    var user = SessionService.getUserinfo()
-                    Images.query({id: user.userid, action: 'list'}).$promise.then(function(data){
-                        $localStorage.myImages =data   
+                if($scope.imageinfo == null){
+                    //var user = SessionService.getUserinfo()
+                    Images.get({id: $scope.step.meta.image_id, action: 'name'}).$promise.then(function(data){
+                        $scope.imageinfo =data
                         $scope.page.show = true;
                     });
                 }else{
@@ -93,11 +94,14 @@ function EditorCtrl($timeout,$scope,$cookieStore,$stateParams,$localStorage,MyCo
 
     //func
     $scope.getImageNameByID = function(id){
-        for (var i = $localStorage.myImages.length - 1; i >= 0; i--) {
-            if($localStorage.myImages[i].ImageId == id){
-                return $localStorage.myImages[i].ImageName+":"+$localStorage.myImages[i].Tag
-            }
-        };
+        //for (var i = $localStorage.myImages.length - 1; i >= 0; i--) {
+        //    if($localStorage.myImages[i].ImageId == id){
+        //        return $localStorage.myImages[i].ImageName+":"+$localStorage.myImages[i].Tag
+        //    }
+        //};
+        if($scope.imageinfo != null){
+            return $scope.imageinfo.ImageName +":"+$scope.imageinfo.Tag;
+        }
         return null
     }
     $scope.getPostContent = function(){
@@ -163,6 +167,10 @@ function EditorCtrl($timeout,$scope,$cookieStore,$stateParams,$localStorage,MyCo
             console.log($scope.step)
             $scope.writeConsole("running");
             var image = $scope.getImageNameByID($scope.step.meta.image_id)
+            if(image == null){
+                $scope.writeConsole("尚未准备好!请刷新重试");
+                return;
+            }
             MyCodeService.runCode(image,$scope.step,function(err,data){
                 if(err == null){
                     $scope.run_res = {};
