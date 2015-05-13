@@ -9,13 +9,14 @@ function ShowCtrl($timeout,$scope,$cookieStore,$stateParams,$localStorage,MyCode
     $scope.stepid = $stateParams.stepid;
     $scope.flag = {};
     $scope.page={};
+    $scope.imageinfo = null;
     $scope.page.toggle = true;
     $scope.page.show = false;
     $scope.page.status = 1;
     $scope.page.pre = -1;
     $scope.page.pre = {
         index:-1,
-        data:null,
+        data:null
     }
     $scope.page.next = {
         index:-1,
@@ -122,15 +123,15 @@ function ShowCtrl($timeout,$scope,$cookieStore,$stateParams,$localStorage,MyCode
             
             $scope.step = data;
             $scope.show.post_content = $sce.trustAsHtml(data.code.post_content)
-            if($localStorage.myImages == null ||$localStorage.myImages == undefined ){
-                var user = SessionService.getUserinfo()
-                Images.query({id: user.userid, action: 'list'}).$promise.then(function(data){
-                    $localStorage.myImages =data   
+            if($scope.imageinfo == null){
+                //var user = SessionService.getUserinfo()
+                Images.get({id: $scope.step.meta.image_id, action: 'name'}).$promise.then(function(data){
+                    $scope.imageinfo =data
                     $scope.page.show = true;
                 });
             }else{
                 $scope.page.show = true;
-            }            
+            }
 
         }
     })
@@ -188,7 +189,11 @@ function ShowCtrl($timeout,$scope,$cookieStore,$stateParams,$localStorage,MyCode
         if($scope.page.term){
             console.log($scope.step)
             $scope.writeConsole("running");
-            var image = $scope.getImageNameByID($scope.step.meta.image_id)
+            var image = $scope.getImageNameByID($scope.step.meta.image_id);
+            if(image == null){
+                $scope.writeConsole("尚未准备好!请刷新重试");
+                return;
+            }
             MyCodeService.runCode(image,$scope.step,function(err,data){
                 if(err == null){
                     $scope.run_res = {};
@@ -230,11 +235,14 @@ function ShowCtrl($timeout,$scope,$cookieStore,$stateParams,$localStorage,MyCode
         $scope.toggleSidebar()
     }
     $scope.getImageNameByID = function(id){
-        for (var i = $localStorage.myImages.length - 1; i >= 0; i--) {
-            if($localStorage.myImages[i].ImageId == id){
-                return $localStorage.myImages[i].ImageName+":"+$localStorage.myImages[i].Tag
-            }
-        };
+        //for (var i = $localStorage.myImages.length - 1; i >= 0; i--) {
+        //    if($localStorage.myImages[i].ImageId == id){
+        //        return $localStorage.myImages[i].ImageName+":"+$localStorage.myImages[i].Tag
+        //    }
+        //};
+        if($scope.imageinfo != null){
+            return $scope.imageinfo.ImageName +":"+$scope.imageinfo.Tag;
+        }
         return null
     }
 

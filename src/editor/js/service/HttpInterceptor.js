@@ -17,7 +17,7 @@ angular.module('Editor').
             request: function(config) {
                 if (isNeedAuth(config.url,config.method)) {
                     if(($cookies.get("token"))==undefined) {
-                        return $q.reject(config);
+                        return $q.reject({status:401,error:'请登陆'});
                     }
                     config.headers['x-session-token'] = $cookies.get("token");
                 }
