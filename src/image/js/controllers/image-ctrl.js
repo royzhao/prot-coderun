@@ -12,6 +12,13 @@ function ImageCtrl(SessionService,$scope,$cookies,$stateParams,Images,Image,$loc
     //console.log('codeid:'+codeid);
     //mock data
     //loginService.isLogin();
+    $scope.flag = {}
+    $scope.flag.loged = false;
+    if(SessionService.isLogin()== true) {
+        $scope.flag.loged = true;
+        $scope.user = SessionService.getUserinfo();
+    }
+
     loginService.login();
     $scope.user = SessionService.getUserinfo();
     var adminid = 1;

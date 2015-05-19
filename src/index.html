@@ -1,30 +1,334 @@
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+<!DOCTYPE html>
+<html lang="en" ng-app="Home">
 
-	<title>码上跑</title>
-  <!--&lt;!&ndash; STYLES &ndash;&gt;-->
-  <!--&lt;!&ndash; build:css lib/css/main.min.css &ndash;&gt;-->
-  <!--<link rel="stylesheet" type="text/css" href="components/bootstrap/dist/css/bootstrap.min.css">-->
-  <!--<link rel="stylesheet" type="text/css" href="components/font-awesome/css/font-awesome.min.css">-->
-  <!--<link rel="stylesheet" type="text/css" href="components/rdash-ui/dist/css/rdash.min.css">-->
-  <!--&lt;!&ndash; endbuild &ndash;&gt;-->
-  <!--&lt;!&ndash; SCRIPTS &ndash;&gt;-->
-  <!--&lt;!&ndash; build:js lib/js/main.min.js &ndash;&gt;-->
-  <!--<script type="text/javascript" src="components/angular/angular.min.js"></script>-->
-  <!--<script type="text/javascript" src="components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>-->
-  <!--<script type="text/javascript" src="components/angular-cookies/angular-cookies.min.js"></script>-->
-  <!--<script type="text/javascript" src="components/angular-ui-router/release/angular-ui-router.min.js"></script>-->
-  <!--&lt;!&ndash; endbuild &ndash;&gt;-->
-  <!--&lt;!&ndash; Custom Scripts &ndash;&gt;-->
-  <!--<script type="text/javascript" src="js/dashboard.min.js"></script>-->
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="最专业的IT交流平台">
+    <meta name="author" content="码上跑">
+
+    <title>码上跑-最专业的IT交流平台</title>
+    <!-- Bootstrap Core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css">
+
+    <link href="css/animate.css" rel="stylesheet" />
+    <link href="css/style.css" rel="stylesheet">
+    <link href="css/default.css" rel="stylesheet">
+
+    <!-- STYLES -->
+    <!-- build:css lib/css/main-home.min.css -->
+    <link rel="stylesheet" type="text/css" href="components/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="components/rdash-ui/dist/css/rdash.min.css">
+    <!-- endbuild -->
+    <!-- SCRIPTS -->
+    <!-- build:js lib/js/main-home.min.js -->
+    <script type="text/javascript" src="components/jquery/dist/jquery.js"></script>
+    <script type="text/javascript" src="components/angular/angular.js"></script>
+    <script type="text/javascript" src="components/angular-resource/angular-resource.js"></script>
+    <script type="text/javascript" src="components/angular-cookies/angular-cookies.js"></script>
+    <script type="text/javascript" src="components/angular-ui-router/release/angular-ui-router.js"></script>
+    <script type="text/javascript" src="components/ngstorage/ngStorage.js"></script>
+    <script type="text/javascript" src="components/angular-permission/dist/angular-permission.js"></script>
+    <!-- endbuild -->
+    <!-- Custom Scripts -->
+    <script type="text/javascript" src="js/home.min.js"></script>
+    <script type="text/javascript" charset="utf-8" src="ueditor/ueditor.config.js"></script>
+    <script type="text/javascript" charset="utf-8" src="ueditor/ueditor.all.js"> </script>
+    <style>
+        .validation-valid {
+            color: #0074D9;
+        }
+
+        .validation-invalid {
+            color: #FF4136;
+        }
+    </style>
+
 </head>
-<body ng-controller="MasterCtrl">
-    <p>欢迎来到码上跑</p>
-    <ul>
-        <li><a href="dashboard.html">个人后台</a> </li>
-    </ul>
+
+<body id="page-top" data-spy="scroll" data-target=".navbar-custom" >
+@@include('home/templates/header.html')
+@@include('home/templates/big_ad.html')
+
+
+<!--&lt;!&ndash; Section: about &ndash;&gt;-->
+<!--<section id="about" class="home-section text-center">-->
+    <!--<div class="heading-about">-->
+        <!--<div class="container">-->
+            <!--<div class="row">-->
+                <!--<div class="col-lg-8 col-lg-offset-2">-->
+                    <!--<div class="wow bounceInDown" data-wow-delay="0.4s">-->
+                        <!--<div class="section-heading">-->
+                            <!--<h2>About us</h2>-->
+                            <!--<i class="fa fa-2x fa-angle-down"></i>-->
+
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
+    <!--</div>-->
+    <!--<div class="container">-->
+
+        <!--<div class="row">-->
+            <!--<div class="col-lg-2 col-lg-offset-5">-->
+                <!--<hr class="marginbot-50">-->
+            <!--</div>-->
+        <!--</div>-->
+        <!--<div class="row">-->
+            <!--<div class="col-xs-6 col-sm-3 col-md-3">-->
+                <!--<div class="wow bounceInUp" data-wow-delay="0.2s">-->
+                    <!--<div class="team boxed-grey">-->
+                        <!--<div class="inner">-->
+                            <!--<h5>Anna Hanaceck</h5>-->
+                            <!--<p class="subtitle">Pixel Crafter</p>-->
+                            <!--<div class="avatar"><img src="img/team/1.jpg" alt="" class="img-responsive img-circle" /></div>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
+            <!--<div class="col-xs-6 col-sm-3 col-md-3">-->
+                <!--<div class="wow bounceInUp" data-wow-delay="0.5s">-->
+                    <!--<div class="team boxed-grey">-->
+                        <!--<div class="inner">-->
+                            <!--<h5>Maura Daniels</h5>-->
+                            <!--<p class="subtitle">Ruby on Rails</p>-->
+                            <!--<div class="avatar"><img src="img/team/2.jpg" alt="" class="img-responsive img-circle" /></div>-->
+
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
+            <!--<div class="col-xs-6 col-sm-3 col-md-3">-->
+                <!--<div class="wow bounceInUp" data-wow-delay="0.8s">-->
+                    <!--<div class="team boxed-grey">-->
+                        <!--<div class="inner">-->
+                            <!--<h5>Jack Briane</h5>-->
+                            <!--<p class="subtitle">jQuery Ninja</p>-->
+                            <!--<div class="avatar"><img src="img/team/3.jpg" alt="" class="img-responsive img-circle" /></div>-->
+
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
+            <!--<div class="col-xs-6 col-sm-3 col-md-3">-->
+                <!--<div class="wow bounceInUp" data-wow-delay="1s">-->
+                    <!--<div class="team boxed-grey">-->
+                        <!--<div class="inner">-->
+                            <!--<h5>Tom Petterson</h5>-->
+                            <!--<p class="subtitle">Typographer</p>-->
+                            <!--<div class="avatar"><img src="img/team/4.jpg" alt="" class="img-responsive img-circle" /></div>-->
+
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
+    <!--</div>-->
+<!--</section>-->
+<!--&lt;!&ndash; /Section: about &ndash;&gt;-->
+
+@@include('home/templates/index.html')
+<!--&lt;!&ndash; Section: services &ndash;&gt;-->
+<!--<section id="service" class="home-section text-center bg-gray">-->
+
+    <!--<div class="heading-about">-->
+        <!--<div class="container">-->
+            <!--<div class="row">-->
+                <!--<div class="col-lg-8 col-lg-offset-2">-->
+                    <!--<div class="wow bounceInDown" data-wow-delay="0.4s">-->
+                        <!--<div class="section-heading">-->
+                            <!--<h2>Our Services</h2>-->
+                            <!--<i class="fa fa-2x fa-angle-down"></i>-->
+
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
+    <!--</div>-->
+    <!--<div class="container">-->
+        <!--<div class="row">-->
+            <!--<div class="col-lg-2 col-lg-offset-5">-->
+                <!--<hr class="marginbot-50">-->
+            <!--</div>-->
+        <!--</div>-->
+        <!--<div class="row">-->
+            <!--<div class="col-sm-3 col-md-3">-->
+                <!--<div class="wow fadeInLeft" data-wow-delay="0.2s">-->
+                    <!--<div class="service-box">-->
+                        <!--<div class="service-icon">-->
+                            <!--<img src="img/icons/service-icon-1.png" alt="" />-->
+                        <!--</div>-->
+                        <!--<div class="service-desc">-->
+                            <!--<h5>Print</h5>-->
+                            <!--<p>Vestibulum tincidunt enim in pharetra malesuada. Duis semper magna metus electram accommodare.</p>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
+            <!--<div class="col-sm-3 col-md-3">-->
+                <!--<div class="wow fadeInUp" data-wow-delay="0.2s">-->
+                    <!--<div class="service-box">-->
+                        <!--<div class="service-icon">-->
+                            <!--<img src="img/icons/service-icon-2.png" alt="" />-->
+                        <!--</div>-->
+                        <!--<div class="service-desc">-->
+                            <!--<h5>Web Design</h5>-->
+                            <!--<p>Vestibulum tincidunt enim in pharetra malesuada. Duis semper magna metus electram accommodare.</p>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
+            <!--<div class="col-sm-3 col-md-3">-->
+                <!--<div class="wow fadeInUp" data-wow-delay="0.2s">-->
+                    <!--<div class="service-box">-->
+                        <!--<div class="service-icon">-->
+                            <!--<img src="img/icons/service-icon-3.png" alt="" />-->
+                        <!--</div>-->
+                        <!--<div class="service-desc">-->
+                            <!--<h5>Photography</h5>-->
+                            <!--<p>Vestibulum tincidunt enim in pharetra malesuada. Duis semper magna metus electram accommodare.</p>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
+            <!--<div class="col-sm-3 col-md-3">-->
+                <!--<div class="wow fadeInRight" data-wow-delay="0.2s">-->
+                    <!--<div class="service-box">-->
+                        <!--<div class="service-icon">-->
+                            <!--<img src="img/icons/service-icon-4.png" alt="" />-->
+                        <!--</div>-->
+                        <!--<div class="service-desc">-->
+                            <!--<h5>Cloud System</h5>-->
+                            <!--<p>Vestibulum tincidunt enim in pharetra malesuada. Duis semper magna metus electram accommodare.</p>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
+    <!--</div>-->
+<!--</section>-->
+<!--&lt;!&ndash; /Section: services &ndash;&gt;-->
+
+
+
+
+<!--&lt;!&ndash; Section: contact &ndash;&gt;-->
+<!--<section id="contact" class="home-section text-center">-->
+    <!--<div class="heading-contact">-->
+        <!--<div class="container">-->
+            <!--<div class="row">-->
+                <!--<div class="col-lg-8 col-lg-offset-2">-->
+                    <!--<div class="wow bounceInDown" data-wow-delay="0.4s">-->
+                        <!--<div class="section-heading">-->
+                            <!--<h2>Get in touch</h2>-->
+                            <!--<i class="fa fa-2x fa-angle-down"></i>-->
+
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
+    <!--</div>-->
+    <!--<div class="container">-->
+
+        <!--<div class="row">-->
+            <!--<div class="col-lg-2 col-lg-offset-5">-->
+                <!--<hr class="marginbot-50">-->
+            <!--</div>-->
+        <!--</div>-->
+        <!--<div class="row">-->
+            <!--<div class="col-lg-8">-->
+                <!--<div class="boxed-grey">-->
+                    <!--<form id="contact-form">-->
+                        <!--<div class="row">-->
+                            <!--<div class="col-md-6">-->
+                                <!--<div class="form-group">-->
+                                    <!--<label for="name">-->
+                                        <!--Name</label>-->
+                                    <!--<input type="text" class="form-control" id="name" placeholder="Enter name" required="required" />-->
+                                <!--</div>-->
+                                <!--<div class="form-group">-->
+                                    <!--<label for="email">-->
+                                        <!--Email Address</label>-->
+                                    <!--<div class="input-group">-->
+                                <!--<span class="input-group-addon"><span class="glyphicon glyphicon-envelope"></span>-->
+                                <!--</span>-->
+                                        <!--<input type="email" class="form-control" id="email" placeholder="Enter email" required="required" /></div>-->
+                                <!--</div>-->
+                                <!--<div class="form-group">-->
+                                    <!--<label for="subject">-->
+                                        <!--Subject</label>-->
+                                    <!--<select id="subject" name="subject" class="form-control" required="required">-->
+                                        <!--<option value="na" selected="">Choose One:</option>-->
+                                        <!--<option value="service">General Customer Service</option>-->
+                                        <!--<option value="suggestions">Suggestions</option>-->
+                                        <!--<option value="product">Product Support</option>-->
+                                    <!--</select>-->
+                                <!--</div>-->
+                            <!--</div>-->
+                            <!--<div class="col-md-6">-->
+                                <!--<div class="form-group">-->
+                                    <!--<label for="name">-->
+                                        <!--Message</label>-->
+                                    <!--<textarea name="message" id="message" class="form-control" rows="9" cols="25" required="required"-->
+                                              <!--placeholder="Message"></textarea>-->
+                                <!--</div>-->
+                            <!--</div>-->
+                            <!--<div class="col-md-12">-->
+                                <!--<button type="submit" class="btn btn-skin pull-right" id="btnContactUs">-->
+                                    <!--Send Message</button>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                    <!--</form>-->
+                <!--</div>-->
+            <!--</div>-->
+
+            <!--<div class="col-lg-4">-->
+                <!--<div class="widget-contact">-->
+                    <!--<h5>Main Office</h5>-->
+
+                    <!--<address>-->
+                        <!--<strong>Squas Design, Inc.</strong><br>-->
+                        <!--Tower 795 Folsom Ave, Beautiful Suite 600<br>-->
+                        <!--San Francisco, CA 94107<br>-->
+                        <!--<abbr title="Phone">P:</abbr> (123) 456-7890-->
+                    <!--</address>-->
+
+                    <!--<address>-->
+                        <!--<strong>Email</strong><br>-->
+                        <!--<a href="mailto:#">email.name@example.com</a>-->
+                    <!--</address>-->
+                    <!--<address>-->
+                        <!--<strong>We're on social networks</strong><br>-->
+                        <!--<ul class="company-social">-->
+                            <!--<li class="social-facebook"><a href="#" target="_blank"><i class="fa fa-facebook"></i></a></li>-->
+                            <!--<li class="social-twitter"><a href="#" target="_blank"><i class="fa fa-twitter"></i></a></li>-->
+                            <!--<li class="social-dribble"><a href="#" target="_blank"><i class="fa fa-dribbble"></i></a></li>-->
+                            <!--<li class="social-google"><a href="#" target="_blank"><i class="fa fa-google-plus"></i></a></li>-->
+                        <!--</ul>-->
+                    <!--</address>-->
+
+                <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
+
+    <!--</div>-->
+<!--</section>-->
+<!--&lt;!&ndash; /Section: contact &ndash;&gt;-->
+
+@@include('home/templates/footer.html')
+
+<!-- Core JavaScript Files -->
+<script src="lib/js/jquery.min.js"></script>
+<script src="lib/js/bootstrap.min.js"></script>
+<script src="lib/js/jquery.easing.min.js"></script>
+<script src="lib/js/jquery.scrollTo.js"></script>
+<script src="lib/js/wow.min.js"></script>
+<!-- Custom Theme JavaScript -->
+<script src="lib/js/custom.js"></script>
+
 </body>
+
 </html>

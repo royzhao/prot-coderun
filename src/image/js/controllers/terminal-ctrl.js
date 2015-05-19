@@ -6,6 +6,13 @@ angular.module('Image')
 
 
 function TerminalCtrl(SessionService,$scope,$cookies,$stateParams,$location,sharedProperties,Image,$window,ngDialog,loginService) {
+    $scope.flag = {}
+    $scope.flag.loged = false;
+    if(SessionService.isLogin()== true) {
+        $scope.flag.loged = true;
+        $scope.user = SessionService.getUserinfo();
+    }
+
     //$scope.apiUrl = "http://127.0.0.1:8080/user/";
     loginService.login();
     $scope.user = SessionService.getUserinfo();

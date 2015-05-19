@@ -18,7 +18,7 @@
                         <i class="fa fa-sitemap"></i>
                     </div>
                     <div class="title">{{page.total}}</div>
-                    <div class="comment">总共有{{page.total}}个代码</div>
+                    <div class="comment">总共有{{page.total}}个微教程</div>
                 </rd-widget-body>
             </rd-widget>
         </div>
@@ -43,7 +43,7 @@ margin-left: 144px;">
                         <div ng-hide="flag.is_show">
                         <table class="table">
                             <thead>
-                            <tr><th>代码名称</th><th>描述</th><th>创建时间</th></tr>
+                            <tr><th>微教程名称</th><th>描述</th><th>创建时间</th></tr>
                             </thead>
                             <tbody>
                             <!--<tr><td><a href="#">hello world</a></td><td>本地程序</td><td>C运行环境</td></tr>-->
@@ -73,33 +73,4 @@ margin-left: 144px;">
 
             </div>
     </div>
-    <div class="row">
-        <div class="col-lg-6">
-            <rd-widget>
-                <rd-widget-header icon="fa-plus" title="消息">
-
-                </rd-widget-header>
-                <rd-widget-body>
-                    <div class="message">
-                        xx对你的代码yy提出了一个 <span class="error">bug!</span>
-                    </div>
-                    <hr />
-                    <div class="message">
-                        你的yy代码被xxfork了
-                    </div>
-                </rd-widget-body>
-            </rd-widget>
-        </div>
-        <div class="col-lg-6">
-            <rd-widget>
-                <rd-widget-header icon="fa-cog fa-spin" title="代码统计">
-                    <a href="http://tobiasahlin.com/spinkit/" target="_blank">SpinKit</a>
-                </rd-widget-header>
-                <rd-widget-body>
-                    <rd-loading></rd-loading>
-                </rd-widget-body>
-            </rd-widget>
-        </div>
-    </div>
-
 </div>

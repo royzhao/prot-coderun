@@ -62,6 +62,7 @@ function MySingleCodeCtrl(SessionService,$scope,$stateParams,MyCodeService,CodeA
                 $scope.flag.issue.page.num = data.num;
                 $scope.flag.issue.data = data.list;
                 $scope.flag.issue.is_show = true;
+                $scope.pagination = new Array()
                 for(var i =1;i<=(data.total/data.num)+1;i++){
                     var page = {
                         is_active:(data.page==i?true:false),

@@ -1,40 +1,50 @@
-<!-- Navigation -->
-<div id="navigation">
-    <nav class="navbar navbar-custom" role="navigation">
+<!-- Preloader -->
+<div id="preloader">
+    <div id="load"></div>
+</div>
+    <nav data-ng-controller="HeaderCtrl" class="navbar navbar-custom navbar-fixed-top" role="navigation">
         <div class="container">
-            <div class="row">
-                <div class="col-md-2">
-                    <div class="site-logo">
-                        <a href="index.html" class="brand">码上跑</a>
-                    </div>
-                </div>
-
-
-                <div class="col-md-10">
-
-                    <!-- Brand and toggle get grouped for better mobile display -->
-                    <div class="navbar-header">
-                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#menu">
-                            <i class="fa fa-bars"></i>
-                        </button>
-                    </div>
-                    <!-- Collect the nav links, forms, and other content for toggling -->
-                    <div class="collapse navbar-collapse" id="menu">
-                        <ul class="nav navbar-nav navbar-right">
-                            <!--<li class="active"><a href="#intro">首页</a></li>-->
-                            <li><a href="http://sso.learn4me.com/login.php">登陆</a></li>
-                            <li><a href="http://sso.learn4me.com/register.php">注册</a></li>
-                            <!--<li><a href="#works">Works</a></li>-->
-
-                            <!--<li><a href="#contact">Contact</a></li>-->
-                        </ul>
-                    </div>
-                    <!-- /.Navbar-collapse -->
-
-                </div>
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse">
+                    <i class="fa fa-bars"></i>
+                </button>
+                <a class="navbar-brand" href="index.html">
+                    <h1>码上跑</h1>
+                </a>
             </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse navbar-right navbar-main-collapse">
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="/show.html">微课程</a></li>
+                    <li><a href="#about">问答</a></li>
+                    <!--<li><a href="#service">Service</a></li>-->
+                    <!--<li><a href="#contact">Contact</a></li>-->
+                    <li ng-show="!flag.loged"><a href="http://sso.learn4me.com/login.php">登陆</a></li>
+                    <li ng-show="!flag.loged"><a href="http://sso.learn4me.com/register.php">注册</a></li>
+                    <li class="dropdown" ng-show="flag.loged">
+                        <a style="height: 40px;" href="#" class="dropdown-toggle" data-toggle="dropdown"><img id="item_img" src="/img/avatar.jpg"> <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li class="dropdown-header">
+                                {{user.name}}
+                            </li>
+                            <li class="divider"></li>
+                            <li class="link">
+                                <a href="/dashboard.html">
+                                    个人中心
+                                </a>
+                            </li>
+                            <li class="divider"></li>
+                            <li class="link">
+                                <a href="#" ng-click="logout()">
+                                    退出登陆
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
         </div>
         <!-- /.container -->
     </nav>
-</div>
-<!-- /Navigation -->

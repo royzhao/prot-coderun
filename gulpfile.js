@@ -59,6 +59,10 @@ var dist = "/home/zpl/workspace/code_web/src/mashangpao_code_web/public"
  */
 gulp.task('usemin', function() {
     return gulp.src(paths.index)
+        .pipe(fileinclude({
+            prefix: '@@',
+            basepath: '@file'
+        }))
         .pipe(usemin({
             js: [minifyJs(), 'concat'],
             css: [minifyCss({keepSpecialComments: 0}), 'concat'],
@@ -130,6 +134,10 @@ gulp.task('custom-dash-less', function() {
 
 gulp.task('custom-dash-templates', function() {
     return gulp.src(paths.dash_templates)
+        .pipe(fileinclude({
+            prefix: '@@',
+            basepath: '@file'
+        }))
         .pipe(minifyHTML())
         .pipe(gulp.dest(dist+'/templates'));
 });
@@ -171,6 +179,10 @@ gulp.task('custom-show-less', function() {
 
 gulp.task('custom-show-templates', function() {
     return gulp.src(paths.show_templates)
+        .pipe(fileinclude({
+            prefix: '@@',
+            basepath: '@file'
+        }))
         .pipe(minifyHTML())
         .pipe(gulp.dest(dist+'/templates'));
 });
@@ -267,6 +279,10 @@ gulp.task('custom-home-less', function() {
 
 gulp.task('custom-home-templates', function() {
     return gulp.src(paths.home_templates)
+        .pipe(fileinclude({
+            prefix: '@@',
+            basepath: '@file'
+        }))
         .pipe(minifyHTML())
         .pipe(gulp.dest(dist+'/templates'));
 });
@@ -304,6 +320,10 @@ gulp.task('custom-image-less', function() {
 
 gulp.task('custom-image-templates', function() {
     return gulp.src(paths.image_templates)
+        .pipe(fileinclude({
+            prefix: '@@',
+            basepath: '@file'
+        }))
         .pipe(minifyHTML())
         .pipe(gulp.dest(dist+'/templates'));
 });
