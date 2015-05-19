@@ -7,7 +7,6 @@ angular.module('Show').
     factory('RestfulService',['$http','$q',function($http,$q){
         return {
             restfulOp:function(config){
-                config.timeout = 800;
                 return $http(
                     config
                 ).then(function(response) {
