@@ -6,7 +6,7 @@ angular
     .controller('MySingleImageCtrl', ['$scope', '$stateParams','Images','$location', 'Star', 'Fork', 'Image', '$cookies','loginService','$window','CodeAPIService',  MySingleImageCtrl]);
 
 function MySingleImageCtrl($scope,$stateParams,Images,$location,Star, Fork, Image, $cookies,loginService,$window,CodeAPIService) {
-    loginService.login();
+    //loginService.login();
     $scope.flag = {};
     $scope.is_author = true;
     $scope.flag.is_show = true;

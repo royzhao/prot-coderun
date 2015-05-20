@@ -12,7 +12,14 @@ function ImageCtrl(SessionService,$scope,$cookies,$stateParams,Images,Image,$loc
     //console.log('codeid:'+codeid);
     //mock data
     //loginService.isLogin();
-    loginService.login();
+    $scope.flag = {}
+    $scope.flag.loged = false;
+    if(SessionService.isLogin()== true) {
+        $scope.flag.loged = true;
+        $scope.user = SessionService.getUserinfo();
+    }
+
+    //loginService.login();
     $scope.user = SessionService.getUserinfo();
     var adminid = 1;
     var currentid = parseInt($cookies.get("u_id"));
@@ -68,7 +75,7 @@ function ImageCtrl(SessionService,$scope,$cookies,$stateParams,Images,Image,$loc
         //alert($scope.formData.imageName);
         //alert($scope.formData.description);
         //var c.Bimage = "ubuntu";
-        Image.save({action:'create'},newimage).$promise.then(function(c){
+        Image.save({action:'create',userid:currentid},newimage).$promise.then(function(c){
             //$location.path("/");
             //var c={Bimage:"ubuntu"};
             $location.path("/term/"+ c.Bimage);

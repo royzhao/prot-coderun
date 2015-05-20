@@ -6,9 +6,14 @@
 
 angular
     .module('RDash')
-    .controller('MyImageHubCtrl', ['$scope', '$resource','$stateParams','ImagehubService', MyImageHubCtrl]);
+    .controller('MyImageHubCtrl', ['$scope', '$resource','$stateParams','ImagehubService','Info', MyImageHubCtrl]);
 
-function MyImageHubCtrl($scope,$resource,$stateParams,ImagehubService) {
+function MyImageHubCtrl($scope,$resource,$stateParams,ImagehubService,Info) {
+    alert("a");
+    var test = {"Id":0,"UserId":1,"Avatar":"aaaa","Discrip":"my discription"}
+    Info.update({action:'update'},test,function(data){
+
+    })
     //var myimagelist = $resource('/dockerapi/images/json?all=0', {}, {}).query();
     //var myimagelist = [
     //    {

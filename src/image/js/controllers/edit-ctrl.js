@@ -8,7 +8,14 @@ function EditCtrl(SessionService,$scope,$cookieStore,$stateParams,Images,Image,$
     /**
      * Sidebar Toggle & Cookie Control
      */
-    loginService.login();
+    $scope.flag = {}
+    $scope.flag.loged = false;
+    if(SessionService.isLogin()== true) {
+        $scope.flag.loged = true;
+        $scope.user = SessionService.getUserinfo();
+    }
+
+    //loginService.login();
     $scope.user = SessionService.getUserinfo();
     var currentid = parseInt($cookies.get("u_id"));
     $scope.treedata = [];

@@ -14,7 +14,7 @@ angular.module('Show').config(['$httpProvider','$stateProvider', '$urlRouterProv
         //RestangularProvider.setBaseUrl('http://localhost:8001/api')
 
         // For unmatched routes
-        $urlRouterProvider.otherwise('/login');
+        $urlRouterProvider.otherwise('/codehub');
 
         // Application routes
         $stateProvider

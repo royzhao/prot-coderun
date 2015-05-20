@@ -3,7 +3,7 @@
  */
 angular.module('Image')
     .factory('Image', ['$resource',function($resource) {
-        return $resource('/dockerapi/image/:action',{},{
+        return $resource('/dockerapi/image/:action/:userid',{userid: '@userid'},{
             'save': { isArray: false, method: 'POST' },
             'edit': { isArray: false, method: 'POST' },
             'commit': { isArray: false, method: 'POST' },

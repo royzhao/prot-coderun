@@ -6,8 +6,15 @@ angular.module('Image')
 
 
 function TerminalCtrl(SessionService,$scope,$cookies,$stateParams,$location,sharedProperties,Image,$window,ngDialog,loginService) {
+    $scope.flag = {}
+    $scope.flag.loged = false;
+    if(SessionService.isLogin()== true) {
+        $scope.flag.loged = true;
+        $scope.user = SessionService.getUserinfo();
+    }
+
     //$scope.apiUrl = "http://127.0.0.1:8080/user/";
-    loginService.login();
+    //loginService.login();
     $scope.user = SessionService.getUserinfo();
     $scope.apiUrl = "http://vpn.peilong.me:8080/user/";
     //alert($scope.apiUrl);
@@ -29,7 +36,7 @@ function TerminalCtrl(SessionService,$scope,$cookies,$stateParams,$location,shar
         if(sharedProperties.isEdit()) {
             image = sharedProperties.getImage();
             image.Tag += 1;
-            Image.edit({action:'edit'},image).$promise.then(function(c){
+            Image.edit({action:'edit',userid:$scope.user.userid},image).$promise.then(function(c){
                 //$location.path("/term/"+ image.ImageName+"/"+image.basic.Tag);
             }, function(err){
                 //$scope.hideLoader();
@@ -56,9 +63,9 @@ function TerminalCtrl(SessionService,$scope,$cookies,$stateParams,$location,shar
         } else {
             $location.path("/");
         }
-        Image.commit({action:'commit'},image).$promise.then(function(c){
+        Image.commit({action:'commit',userid:$scope.user.userid},image).$promise.then(function(c){
             //$location.path("/term/"+ $scope.basic.ImageName);
-            Image.push({action:'push'},image).$promise.then(function(c) {
+            Image.push({action:'push',userid:$scope.user.userid},image).$promise.then(function(c) {
                 document.getElementById("text").innerHTML = "创建成功！";
                 //alert("创建成功！");
                 //dialog.close();

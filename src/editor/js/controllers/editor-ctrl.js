@@ -14,7 +14,13 @@ function EditorCtrl($timeout,$scope,$cookieStore,$stateParams,$localStorage,MyCo
     $scope.page.status = 1;
     console.log($scope.codeid);
     console.log($scope.stepid);
-    $scope.user = SessionService.getUserinfo();
+    $scope.flag = {}
+    $scope.flag.loged = false;
+    if(SessionService.isLogin()== true) {
+        $scope.flag.loged = true;
+        $scope.user = SessionService.getUserinfo();
+    }
+
 
     if($localStorage.addstepobj == null){
         $scope.step = {
@@ -63,7 +69,7 @@ function EditorCtrl($timeout,$scope,$cookieStore,$stateParams,$localStorage,MyCo
                     //$(".redactor_editor").css("max-height",(newValue-40)+"px !important")
                 }
                 if($scope.imageinfo == null){
-                    //var user = SessionService.getUserinfo()
+                    var user = SessionService.getUserinfo()
                     Images.get({id: $scope.step.meta.image_id, action: 'name'}).$promise.then(function(data){
                         $scope.imageinfo =data
                         $scope.page.show = true;

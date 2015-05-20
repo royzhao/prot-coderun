@@ -30,57 +30,7 @@
     </div>
     <div id="content-wrapper">
         <div class="page-content">
-            <div class="row header">
-                <div class="col-xs-12">
-                        <div class="user pull-right">
-                            <div class="item dropdown">
-                                <a href="#" class="dropdown-toggle">
-                                    <img src="/img/avatar.jpg">
-                                </a>
-                                <ul class="dropdown-menu dropdown-menu-right">
-                                    <li class="dropdown-header">
-                                        {{user.name}}
-                                    </li>
-                                    <li class="divider"></li>
-                                    <li class="link">
-                                        <a href="/dashboard.html">
-                                            个人中心
-                                        </a>
-                                    </li>
-                                    <li class="divider"></li>
-                                    <li class="link">
-                                        <a href="#" ng-click="logout()">
-                                            退出登陆
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="item dropdown">
-                                <a href="#" class="dropdown-toggle">
-                                    <i class="fa fa-bell-o"></i>
-                                </a>
-                                <ul class="dropdown-menu dropdown-menu-right">
-                                    <li class="dropdown-header">
-                                        通知
-                                    </li>
-                                    <li class="divider"></li>
-                                    <li>
-                                        <a href="#">你的镜像被xx fork啦!</a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="meta">
-                            <div class="page">
-                                镜像编辑
-                            </div>
-                            <div class="breadcrumb-links">
-                                <a href="/home.html">Home</a>  / <a href="/dashboard.html">Dashboard</a>
-                            </div>
-                        </div>
-                </div>
-            </div>
-            <div class="row">
+            @@include('../../show/templates/common/header.html')
                 <div class="col-lg-12">
                     <rd-widget>
                         <rd-widget-header icon="fa-tasks" title="新建镜像">

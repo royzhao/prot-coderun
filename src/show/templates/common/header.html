@@ -1,74 +1,45 @@
-<!-- Header Bar -->
-<div class="row header" >
-    <div class="col-xs-12">
-        <div ng-show="flag.loged">
-            <div class="user pull-right">
-                <div class="item dropdown">
-                    <a href="#" class="dropdown-toggle">
-                        <img src="/img/avatar.jpg">
-                    </a>
-                    <ul class="dropdown-menu dropdown-menu-right">
-                        <li class="dropdown-header">
-                            {{user.name}}
-                        </li>
-                        <li class="divider"></li>
-                        <li class="link">
-                            <a href="/dashboard.html">
-                                个人中心
-                            </a>
-                        </li>
-                        <li class="divider"></li>
-                        <li class="link">
-                            <a href="#" ng-click="logout()">
-                                退出登陆
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-                <div class="item dropdown">
-                    <a href="#" class="dropdown-toggle">
-                        <i class="fa fa-bell-o"></i>
-                    </a>
-                    <ul class="dropdown-menu dropdown-menu-right">
-                        <li class="dropdown-header">
-                            通知
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                            <a href="#">你的镜像被xx fork啦!</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            <div class="meta">
-                <div class="page">
-                    微教程展示
-                </div>
-                <div class="breadcrumb-links">
-                    <a href="/home.html">Home</a>  / <a href="/show.html">Show</a>
-                </div>
-            </div>
-        </div>
-        <div ng-show="!flag.loged">
-            <div class="user pull-right">
-                <div class="item dropdown">
-                    <a class="dropdown-toggle" href="http://sso.learn4me.com/login.php">登陆</a>
 
-                </div>
-                <div class="item dropdown">
-                    <a class="dropdown-toggle" href="http://sso.learn4me.com/register.php">注册</a>
-                </div>
+    <nav class="navbar navbar-custom top-nav-collapse" role="navigation">
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse">
+                    <i class="fa fa-bars"></i>
+                </button>
+                <a class="navbar-brand2" href="index.html">
+                    <h1>码上跑</h1>
+                </a>
             </div>
-            <div class="meta">
-                <div class="page">
-                    微教程展示
-                </div>
-                <div class="breadcrumb-links">
-                    <a href="/home.html">Home</a>  / <a href="/show.html">Show</a>
-                </div>
-            </div>
-        </div>
 
-    </div>
-</div>
-<!-- End Header Bar -->
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse navbar-right navbar-main-collapse">
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="/show.html">微课程</a></li>
+                    <li><a href="#about">问答</a></li>
+                    <!--<li><a href="#service">Service</a></li>-->
+                    <!--<li><a href="#contact">Contact</a></li>-->
+                    <li ng-show="!flag.loged"><a href="http://sso.learn4me.com/login.php">登陆</a></li>
+                    <li ng-show="!flag.loged"><a href="http://sso.learn4me.com/register.php">注册</a></li>
+                    <li class="dropdown" ng-show="flag.loged">
+                        <a style="height: 40px;" href="#" class="dropdown-toggle" data-toggle="dropdown"><img id="item_img" src="/img/avatar.jpg"> <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li class="dropdown-header">
+                                {{user.name}}
+                            </li>
+                            <li class="divider"></li>
+                            <li class="link">
+                                <a href="/dashboard.html">
+                                    个人中心
+                                </a>
+                            </li>
+                            <li class="divider"></li>
+                            <li class="link">
+                                <a href="#" ng-click="logout()">
+                                    退出登陆
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        <!-- /.container -->
+    </nav>

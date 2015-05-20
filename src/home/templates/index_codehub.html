@@ -1,0 +1,45 @@
+<div class="codehub-container" data-ng-controller="MyCodeHubCtrl">
+    <legend ng-hide="!flag.is_show">{{flag.msg}}</legend>
+    <div ng-hide="!flag.is_show" class="bubblingG" style="
+margin-left: 144px;">
+        <span id="bubblingG_1"></span>
+        <span id="bubblingG_2"></span>
+        <span id="bubblingG_3"></span>
+    </div>
+    <div ng-hide="flag.is_show">
+        <div class="row">
+            <div class="col-lg-3 col-md-4 col-xs-12" ng-repeat="code in codedata">
+                <rd-widget>
+                    <rd-widget-header icon="fa-code" title="{{code.name}}">
+                        <a href="#/code/{{code.id}}">详情</a><
+                    </rd-widget-header>
+                    <rd-widget-body>
+                        <div class="comment">{{code.description}}</div>
+                    </rd-widget-body>
+                    <rd-widget-footer>
+                        <div class="pull-left">
+                            <i class="fa fa-thumbs-o-up">{{code.star}}</i>
+                        </div>
+                        <div class="pull-right">
+                            <i class="fa fa-calendar">{{code.create_date}}</i>
+                        </div>
+
+                        <div class="clearfix"></div>
+                    </rd-widget-footer>
+                </rd-widget>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="page-scroll text-center">
+                    <a href="/show.html" class="btn-lg btn-skin btn-scroll"><i class="fa fa-angle-double-down animated">查看更多</i></a>
+                    <!--<a href="#service" class="btn btn-circle">-->
+                    <!--<i class="fa fa-angle-double-down animated"></i>-->
+                    <!--</a>-->
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
