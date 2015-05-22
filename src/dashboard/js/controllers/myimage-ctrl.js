@@ -13,8 +13,6 @@ function MyImageCtrl($scope,$resource,Images,$cookies,Message,SessionService) {
     //});
     //$cookieStore.put("token","aa");
     //alert($cookies.token);
-
-    alert("h")
     var currentid = parseInt(SessionService.getUserinfo().userid);
     var currentname = SessionService.getUserinfo().username;
     $scope.imagenum = 0;

@@ -70,7 +70,7 @@ function MySingleImageCtrl($scope,$stateParams,Images,$location,Star, Fork, Imag
     //];
     //$scope.image = [];
     //alert($stateParams.imageid);
-    loginService.login();
+    //loginService.login();
     var star;
     var fork;
     var currentuid = parseInt($cookies.u_id);
