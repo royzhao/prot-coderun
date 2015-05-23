@@ -16,7 +16,7 @@ function TerminalCtrl(SessionService,$scope,$cookies,$stateParams,$location,shar
     //$scope.apiUrl = "http://127.0.0.1:8080/user/";
     //loginService.login();
     $scope.user = SessionService.getUserinfo();
-    $scope.apiUrl = "http://vpn.peilong.me:8080/user/";
+    $scope.apiUrl = "http://proxy.learn4me.com/user/";
     //alert($scope.apiUrl);
     $scope.uid = parseInt($cookies.get("u_id"));
     $scope.baseimage = $stateParams.base;
