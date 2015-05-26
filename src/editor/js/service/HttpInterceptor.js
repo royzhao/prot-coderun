@@ -7,6 +7,9 @@ angular.module('Editor').
         var isNeedAuth=function(uri,method){
             //check url is contain api
             if(uri.indexOf('api')){
+                if(uri.indexOf('coderun')){
+                    return false;
+                }
                 if(method == 'POST' || method== 'PUT' ||method=='DELETE'){
                     return true;
                 }
