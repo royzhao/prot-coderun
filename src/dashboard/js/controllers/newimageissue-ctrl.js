@@ -7,7 +7,7 @@ angular
 
 function NewImageIssueCtrl(SessionService,$scope,$stateParams,CodeAPIService) {
     var imageid =parseInt($stateParams.imageid);
-    if(imageid == NaN){
+    if(isNaN(imageid)){
         return;
     }
     var user =SessionService.getUserinfo();

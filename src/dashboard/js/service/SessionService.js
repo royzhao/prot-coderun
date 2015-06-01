@@ -10,7 +10,8 @@ angular.module('RDash').
                 var user ={
                     //userid:1,
                     userid: $cookies.get("u_id"),
-                    name:$cookies.get("u_name")
+                    name:$cookies.get("u_name"),
+                    avatar:$cookies.get("u_avatar")
                 }
                 //if(user == null){
                 //    //TODO need login,mock login

@@ -3,11 +3,12 @@
  */
 
 angular.module('RDash')
-    .controller('MasterCtrl', ['$sce','$scope', '$cookieStore','SessionService','Message', 'ImagehubService','Images',MasterCtrl]);
+    .controller('MasterCtrl', ['PictureService','CodeAPIService','$sce','$scope', '$cookieStore','SessionService','Message', 'ImagehubService','Images',MasterCtrl]);
 
-function MasterCtrl($sce,$scope, $cookieStore,SessionService,Message,ImagehubService,Images) {
+function MasterCtrl(PictureService,CodeAPIService,$sce,$scope, $cookieStore,SessionService,Message,ImagehubService,Images) {
     //用户信息
     $scope.user = SessionService.getUserinfo();
+    $scope.user_pic = PictureService.ConvertKey2Src($scope.user.avatar,40,40);
 
     $scope.alertData = [];
     //$scope.list = [];

@@ -49,7 +49,8 @@
     "nivo-lightbox": "~1.2.0",
     "jquery.appear": "*",
     "angular-cookies": "https://github.com/angular/bower-angular-cookies.git#v1.4.0-build.3993+sha.1268b17",
-    "angular-ueditor": "*"
+    "angular-ueditor": "*",
+    "ng-flow": "https://github.com/flowjs/ng-flow.git#v2.6.1"
   },
   "repository": {
     "type": "git",

@@ -23,7 +23,7 @@
                     <li ng-show="!flag.loged"><a href="http://sso.learn4me.com/login.php">登陆</a></li>
                     <li ng-show="!flag.loged"><a href="http://sso.learn4me.com/register.php">注册</a></li>
                     <li class="dropdown" ng-show="flag.loged">
-                        <a style="height: 40px;" href="#" class="dropdown-toggle" data-toggle="dropdown"><img id="item_img" src="/img/avatar.jpg"> <b class="caret"></b></a>
+                        <a style="height: 40px;" href="#" class="dropdown-toggle" data-toggle="dropdown"><img id="item_img" src="{{user_avatar}}"> <b class="caret"></b></a>
                         <ul class="dropdown-menu">
                             <li class="dropdown-header">
                                 {{user.name}}

@@ -36,6 +36,8 @@
     <script type="text/javascript" src="components/angular-permission/dist/angular-permission.js"></script>
     <script type="text/javascript" src="components/jquery.steps/build/jquery.steps.min.js"></script>
     <script type="text/javascript" src="components/angular-ueditor/dist/angular-ueditor.js"></script>
+    <!--<script type="text/javascript" src="components/flow.js/dist/flow.js"></script>-->
+    <script type="text/javascript" src="components/ng-flow/dist/ng-flow-standalone.js"></script>
     <script type="text/javascript" src="models/model-data.js"></script>
     <!-- endbuild -->
     <!-- Custom Scripts -->
@@ -68,6 +70,9 @@
                 <a ui-sref="index">控制台 <span class="menu-icon fa fa-tachometer"></span></a>
             </li>
             <li class="sidebar-title"><span>个人中心</span></li>
+            <li class="sidebar-list">
+                <a href="dashboard.html#/user/{{user.userid}}/info">我的资料 <span class="menu-icon fa fa-code"></span></a>
+            </li>
             <li class="sidebar-list">
                 <a ui-sref="mycode">我的微教程 <span class="menu-icon fa fa-code"></span></a>
             </li>
@@ -111,7 +116,7 @@
                     <div class="user pull-right">
                         <div class="item dropdown">
                             <a href="#" class="dropdown-toggle">
-                                <img src="/img/avatar.jpg">
+                                <img src="{{user_pic}}">
                             </a>
                             <ul class="dropdown-menu dropdown-menu-right">
                                 <li class="dropdown-header">

@@ -3,8 +3,20 @@
 /**
  * Route configuration for the RDash module.
  */
-angular.module('RDash').config(['$httpProvider','$stateProvider', '$urlRouterProvider',
-    function($httpProvider,$stateProvider, $urlRouterProvider) {
+angular.module('RDash').config(['flowFactoryProvider','$httpProvider','$stateProvider', '$urlRouterProvider',
+    function(flowFactoryProvider,$httpProvider,$stateProvider, $urlRouterProvider) {
+
+        flowFactoryProvider.defaults = {
+            target: '/api/upload/pic',
+            permanentErrors: [401,404, 500, 501],
+            maxChunkRetries: 1,
+            chunkRetryInterval: 5000,
+            simultaneousUploads: 4,
+            singleFile: true
+        };
+        flowFactoryProvider.on('catchAll', function (event) {
+            console.log('catchAll', arguments);
+        });
 
         $httpProvider.defaults.timeout = 5000;
         //interceptors
@@ -27,6 +39,10 @@ angular.module('RDash').config(['$httpProvider','$stateProvider', '$urlRouterPro
                     //TODO mock login
                     window.location.href = ssoUrl+window.location.href;
                 }
+            })
+            .state('myinfo',{
+                url:'/user/:userid/info',
+                templateUrl: 'templates/info.html'
             })
             .state('newissue',{
                 url:'/code/:codeid/newissue',

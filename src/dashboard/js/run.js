@@ -17,3 +17,12 @@ angular.module('RDash').run(function(Permission,SessionService){
     });
 })
 ;
+angular.module('RDash').factory('FormDataObj',function(){
+    return function(data){
+        var fd = new FormData();
+        angular.forEach(data,function(v,k){
+            fd.append(k,v);
+        });
+        return fd;
+    }
+});

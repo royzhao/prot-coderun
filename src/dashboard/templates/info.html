@@ -1,0 +1,84 @@
+<style>
+    .thumbnail {
+        max-width: 200px; max-height: 150px; line-height: 20px; margin-bottom: 5px;
+    }
+</style>
+<div class="userinfo-container" data-ng-controller="UserInfoCtrl">
+    <div class="col-xs-12" ng-hide="!flag.is_show">
+        <h3>{{user.meta.name}}</h3>
+        <fieldset>
+            <legend>基本信息</legend>
+            <div class="form-group">
+            <label class="col-md-2 control-label">用户名</label>
+            <div class="col-md-10">
+                {{user.meta.name}}
+                <!--<input type="text"-->
+                       <!--ng-model="issue.title"-->
+                       <!--class="form-control"-->
+                       <!--id="name"-->
+                       <!--placeholder="请输入名称">-->
+                <!--<span><p class="validation-invalid">此处必填</p></span>-->
+            </div>
+            </div>
+        </fieldset>
+
+        <fieldset
+                flow-init
+                flow-file-added="!!{png:1,gif:1,jpg:1,jpeg:1}[$file.getExtension()]"
+                flow-files-submitted="uploadFile($flow)"
+                flow-file-success="filefinished( $file, $message, $flow )"
+                >
+            <legend>其他信息</legend>
+            <div class="form-group">
+            <label class="col-md-2 control-label">头像</label>
+            <div class="col-md-10"
+                    >
+                    <div class="thumbnail" ng-hide="$flow.files.length">
+                        <img src="{{user_pic}}" />                    </div>
+                    <div class="thumbnail" ng-show="$flow.files.length">
+                        <img flow-img="$flow.files[0]" style="height: 150px;width:200px"/>
+                    </div>
+                    <div>
+                        <span class="btn btn-primary" ng-hide="$flow.files.length" flow-btn flow-attrs="{accept:'image/*'}">上传头像</span>
+                        <span class="btn btn-primary" ng-show="$flow.files.length" flow-btn flow-attrs="{accept:'image/*'}">更改</span>
+                        <span class="btn btn-danger" ng-show="$flow.files.length"
+                           ng-click="$flow.cancel()">
+                            取消
+                        </span>
+                    </div>
+                    <p>
+                        只接受 PNG,GIF,JPG.
+                    </p>
+                <!--<input type="text"-->
+                <!--ng-model="issue.title"-->
+                <!--class="form-control"-->
+                <!--id="name"-->
+                <!--placeholder="请输入名称">-->
+                <!--<span><p class="validation-invalid">此处必填</p></span>-->
+            </div>
+            </div>
+            <div class="form-group">
+            <label for="des" class="col-md-2 control-label">自我介绍</label>
+            <div class="col-md-10">
+                <textarea
+                ng-model="user.info.Discrip"
+                class="form-control"
+                id="des"
+                placeholder="简单介绍下自己吧~">
+            </div>
+            </div>
+            <div class="col-xs-12" style="margin-top: 10px">
+                <button  ng-click="updateUserInfo()" class="btn btn-lg pull-right">提交</button>
+            </div>
+        </fieldset>
+    </div>
+    <div class="col-xs-12" ng-hide="flag.is_show">
+        <legend >{{flag.msg}}</legend>
+        <div class="bubblingG" style="
+margin-left: 144px;">
+            <span id="bubblingG_1"></span>
+            <span id="bubblingG_2"></span>
+            <span id="bubblingG_3"></span>
+        </div>
+    </div>
+</div>

@@ -7,7 +7,7 @@ angular
 
 function NewIssueCtrl(SessionService,$scope,$stateParams,CodeAPIService) {
     var codeid =parseInt($stateParams.codeid);
-    if(codeid == NaN){
+    if(isNaN(codeid)){
         return;
     }
     var user =SessionService.getUserinfo();

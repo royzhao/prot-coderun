@@ -48,7 +48,8 @@ var paths = {
     bower_fonts: 'src/components/**/*.{ttf,woff,eof,svg}',
     ace_plugin_js: 'src/components/ace-builds/src-noconflict/**/*.*',
     lib_css :'lib/css/*.*',
-    lib_js :'lib/js/*.*'
+    lib_js :'lib/js/*.*',
+    ueditor_plugin_js :'ueditor/**/*'
 };
 
 //var dist = "D:\\workspace\\go\\src\\code_run_server\\public";
@@ -75,7 +76,7 @@ gulp.task('usemin', function() {
 /**
  * Copy assets
  */
-gulp.task('build-assets', ['copy-bower_fonts','copy-ace_plugin','copy-lib_js','copy-lib_css']);
+gulp.task('build-assets', ['copy-ueditor_plugin','copy-bower_fonts','copy-ace_plugin','copy-lib_js','copy-lib_css']);
 
 gulp.task('copy-bower_fonts', function() {
     return gulp.src(paths.bower_fonts)
@@ -100,6 +101,11 @@ gulp.task('copy-lib_css',function(){
 gulp.task('copy-ace_plugin',function(){
     return gulp.src(paths.ace_plugin_js)
         .pipe(gulp.dest(dist))
+})
+
+gulp.task('copy-ueditor_plugin',function(){
+    return gulp.src(paths.ueditor_plugin_js)
+        .pipe(gulp.dest(dist+"/ueditor"))
 })
 
 /**

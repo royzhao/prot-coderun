@@ -272,6 +272,12 @@ angular.module('RDash').
                     url:baseUrl+"/image/issue/"+userid+"/"+issueid+"/comment/"+commentid,
                     method:"DELETE"
                 });
+            },
+            getUserInfoById: function(userid){
+                return RestfulService.restfulOp({
+                    url:baseUrl+"/user/info/get/"+userid,
+                    method:"GET"
+                })
             }
         }
     }])
