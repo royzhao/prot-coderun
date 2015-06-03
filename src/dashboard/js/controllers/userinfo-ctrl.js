@@ -4,9 +4,9 @@
  */
 angular
     .module('RDash')
-    .controller('UserInfoCtrl', ['PictureService','Info','SessionService','$scope', '$stateParams','CodeAPIService', UserInfoCtrl]);
+    .controller('UserInfoCtrl', ['$cookies','PictureService','Info','SessionService','$scope', '$stateParams','CodeAPIService', UserInfoCtrl]);
 
-function UserInfoCtrl(PictureService,Info,SessionService,$scope,$stateParams,CodeAPIService) {
+function UserInfoCtrl($cookies,PictureService,Info,SessionService,$scope,$stateParams,CodeAPIService) {
     $scope.flag={
         is_show:false,
         msg:'读取数据中。。'
@@ -53,6 +53,9 @@ function UserInfoCtrl(PictureService,Info,SessionService,$scope,$stateParams,Cod
                 is_show:true,
                 msg:'ok'
             }
+            $cookies.put('u_avatar',c.Avatar,{
+                domain:'.learn4me.com'
+            })
         }, function(err){
             $scope.flag={
                 is_show:false,

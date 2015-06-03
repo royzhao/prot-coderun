@@ -71,7 +71,8 @@ function ImageCtrl(SessionService,$scope,$cookies,$stateParams,Images,Image,$loc
             Tag:1,
             Descrip:$scope.formData.description
         };
-        sharedProperties.createImages(newimage);
+        console.log($scope.formData.bm)
+        sharedProperties.createImages(newimage,$scope.formData.bm.Tag);
         //alert($scope.formData.imageName);
         //alert($scope.formData.description);
         //var c.Bimage = "ubuntu";

@@ -6,10 +6,15 @@ angular.module('Image')
         var image = {};
         var create = false;
         var edit = false;
+        var tag = ""
         return {
-            createImages: function (value) {
+            createImages: function (value,argtag) {
                 create = true;
                 image = value;
+                tag = argtag;
+            },
+            getDepTag : function(){
+                return tag;
             },
             editImages: function (value) {
                 edit = true;

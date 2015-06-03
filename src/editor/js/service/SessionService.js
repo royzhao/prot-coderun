@@ -9,7 +9,8 @@ angular.module('Editor').
                 this.login();
                 var user ={
                     userid: $cookies.get("u_id"),
-                    name:$cookies.get("u_name")
+                    name:$cookies.get("u_name"),
+                    avatar:$cookies.get("u_avatar")
                 }
                 //if(user == null){
                 //    //TODO need login,mock login

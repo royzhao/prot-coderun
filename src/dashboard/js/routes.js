@@ -86,7 +86,7 @@ angular.module('RDash').config(['flowFactoryProvider','$httpProvider','$statePro
                 url: '/imagehub/:page',
                 templateUrl: 'templates/imagehub_table.html'
             }).state('code', {
-                url: '/code/:codeid',
+                url: '/code/:codeid/user/:userid',
                 templateUrl: 'templates/single_code.html'
             }).state('addstep',{
                 url:'/addstep/:codeid',

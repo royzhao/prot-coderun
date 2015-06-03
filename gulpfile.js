@@ -10,6 +10,8 @@ var gulp = require('gulp'),
     rename = require('gulp-rename'),
     fileinclude = require('gulp-file-include'),
     minifyHTML = require('gulp-minify-html');
+    //rev = require('gulp-rev'),
+    //revCollector = require('gulp-rev-collector');
 
 var paths = {
     dash_scripts: 'src/dashboard/js/**/*.*',
@@ -46,7 +48,7 @@ var paths = {
 
     index: 'src/index.html',
     bower_fonts: 'src/components/**/*.{ttf,woff,eof,svg}',
-    ace_plugin_js: 'src/components/ace-builds/src-noconflict/**/*.*',
+    ace_plugin_js: 'src/components/ace-builds/src-noconflict/**/*',
     lib_css :'lib/css/*.*',
     lib_js :'lib/js/*.*',
     ueditor_plugin_js :'ueditor/**/*'
@@ -56,6 +58,7 @@ var paths = {
 var dist = "/home/zpl/workspace/code_web/src/mashangpao_code_web/public"
 //var dist = "/home/dylan/workspace/go/gopath/src/coderun/code_run_server/public"
 
+var dist_rev= "/home/zpl/workspace/code_web/src/mashangpao_code_web/rev"
 /**
  * Handle bower components from index
  */
@@ -100,7 +103,7 @@ gulp.task('copy-lib_css',function(){
 
 gulp.task('copy-ace_plugin',function(){
     return gulp.src(paths.ace_plugin_js)
-        .pipe(gulp.dest(dist))
+        .pipe(gulp.dest(dist+"/ace_plugin"))
 })
 
 gulp.task('copy-ueditor_plugin',function(){

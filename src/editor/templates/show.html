@@ -29,9 +29,23 @@
                     </li>
                 </ul>
                 <div class="tab-content">
-                    <div ng-repeat="pane in panes" role="tabpanel"  ng-class="{'tab-pane fade in active': pane.active,'tab-pane fade':!pane.active}">
-                        <div ng-include="pane.content">
+                    <div class="tab-content" ng-show="code_show.show">
+                        <div ng-repeat="pane in panes" role="tabpanel"  ng-class="{'tab-pane fade in active': pane.active,'tab-pane fade':!pane.active}">
+                            <div ng-include="pane.content">
 
+                            </div>
+                        </div>
+                    </div>
+
+                    <div ng-show="!code_show.show">
+                        <div style="height: 200px;" class="col-lg-4 col-lg-offset-5">
+                            <h1>{{code_show.msg}}</h1>
+                            <div class="bubblingG" style="
+    margin-left: 144px;">
+                                <span id="bubblingG_1"></span>
+                                <span id="bubblingG_2"></span>
+                                <span id="bubblingG_3"></span>
+                            </div>
                         </div>
                     </div>
                 </div>

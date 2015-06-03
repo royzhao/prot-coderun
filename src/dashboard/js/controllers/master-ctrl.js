@@ -3,14 +3,16 @@
  */
 
 angular.module('RDash')
-    .controller('MasterCtrl', ['PictureService','CodeAPIService','$sce','$scope', '$cookieStore','SessionService','Message', 'ImagehubService','Images',MasterCtrl]);
+    .controller('MasterCtrl', ['MyCodeService','PictureService','CodeAPIService','$sce','$scope', '$cookieStore','SessionService','Message', 'ImagehubService','Images',MasterCtrl]);
 
-function MasterCtrl(PictureService,CodeAPIService,$sce,$scope, $cookieStore,SessionService,Message,ImagehubService,Images) {
+function MasterCtrl(MyCodeService,PictureService,CodeAPIService,$sce,$scope, $cookieStore,SessionService,Message,ImagehubService,Images) {
     //用户信息
     $scope.user = SessionService.getUserinfo();
     $scope.user_pic = PictureService.ConvertKey2Src($scope.user.avatar,40,40);
-
+    $scope.codenum = 0;
+    $scope.codedata = [];
     $scope.alertData = [];
+    $scope.flag = {}
     //$scope.list = [];
     Message.query({action:'query',id:$scope.user.userid}).$promise.then(function(data){
         for(var i=0;i<data.length;i++){
@@ -34,12 +36,69 @@ function MasterCtrl(PictureService,CodeAPIService,$sce,$scope, $cookieStore,Sess
     ImagehubService.getHotImages(1,5,"",function(err,data){
         if(data){
             if(data.length == 0){
-                $scope.flag.msg = "暂时没有数据,您可以创建";
+                $scope.flag.hotimages ={
+                    msg : "暂时没有数据,您可以创建",
+                    show:true
+                    };
             }else{
                 $scope.imagelist = data.list;
+                $scope.flag.hotimages ={
+                    msg : "加载完成",
+                    show:false
+                };
             }
         }else{
-            $scope.flag.msg = "加载失败！";
+            $scope.flag.hotimages ={
+                msg : "加载失败",
+                show:true
+            };
+        }
+    });
+
+
+    MyCodeService.getMyCode(1,5,"",function(err,data){
+        if(data){
+            if(data.length == 0){
+                $scope.flag.mycode ={
+                    msg : "暂时没有数据。。您可以创建",
+                    show:true
+                    };
+            }else{
+                $scope.codedata = data.list;
+                $scope.codenum = data.total;
+                $scope.flag.mycode ={
+                    msg : "加载完成",
+                    show:false
+                };
+            }
+        }else{
+            $scope.flag.mycode ={
+                msg : "加载失败",
+                show:true
+            };
+        }
+    });
+
+    MyCodeService.getHotCodes(1,5,"",function(err,data){
+        if(data){
+            if(data.length == 0){
+                $scope.flag.hotcode ={
+                    msg : "暂时没有数据。。您可以创建",
+                    show:true
+                };
+            }else{
+                $scope.hotcodedata = data.list;
+                $scope.flag.hotcode ={
+                    msg : "加载完成",
+                    show:false
+                };
+
+            }
+        }else{
+            $scope.flag.hotcode ={
+                msg : "加载失败",
+                show:true
+            };
         }
     });
 

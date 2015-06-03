@@ -2,9 +2,9 @@
  * Created by zpl on 15-2-10.
  */
 angular.module('Editor')
-    .controller('ShowCtrl', ['$timeout','$scope', '$cookieStore','$stateParams','$localStorage', 'MyCodeService','ngDialog', '$sce','Images','SessionService',ShowCtrl]);
+    .controller('ShowCtrl', ['$timeout','$scope', '$cookieStore','$stateParams','$localStorage', 'MyCodeService','ngDialog', '$sce','Images','SessionService','CodeAPIService',ShowCtrl]);
 
-function ShowCtrl($timeout,$scope,$cookieStore,$stateParams,$localStorage,MyCodeService,ngDialog,$sce,Images,SessionService){
+function ShowCtrl($timeout,$scope,$cookieStore,$stateParams,$localStorage,MyCodeService,ngDialog,$sce,Images,SessionService,CodeAPIService){
     $scope.codeid = $stateParams.codeid;
     $scope.stepid = $stateParams.stepid;
     $scope.flag = {};
@@ -22,6 +22,12 @@ function ShowCtrl($timeout,$scope,$cookieStore,$stateParams,$localStorage,MyCode
         index:-1,
         data:null,
     };
+
+    $scope.code_show = {}
+    $scope.code_show.show = false;
+    $scope.code_show.image = "";
+    $scope.code_show.msg = "正在准备中。。"
+
     console.log($scope.codeid);
     console.log($scope.stepid);
 
@@ -128,14 +134,40 @@ function ShowCtrl($timeout,$scope,$cookieStore,$stateParams,$localStorage,MyCode
                 Images.get({id: $scope.step.meta.image_id, action: 'name'}).$promise.then(function(data){
                     $scope.imageinfo =data
                     $scope.page.show = true;
+                    //准备容器
+                    $scope.code_show.image = data.ImageName+":"+data.Tag;
+                    $scope.prepareImage();
                 });
             }else{
                 $scope.page.show = true;
+                //准备容器
+                $scope.code_show.image = data.ImageName+":"+data.Tag;
+                $scope.prepareImage();
             }
 
         }
     })
 
+
+    $scope.prepareImage = function(){
+        if ($scope.code_show.show || $scope.code_show.image == ""){
+            return;
+        }else{
+            CodeAPIService.prepareImage($scope.code_show.image).
+                then(function(data){
+                    if(data.status == 3){
+                        $scope.code_show.show = true;
+                    }else if(data.status == 7){
+                        setTimeout($scope.prepareImage,6000);
+                    }else{
+                        $scope.code_show.msg = "准备失败。！"
+                    }
+                },function(err){
+                    $scope.code_show.msg = "准备失败。！";
+                })
+        }
+
+    }
 
     $scope.active = function(obj){
 

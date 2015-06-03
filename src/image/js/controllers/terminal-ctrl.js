@@ -24,7 +24,8 @@ function TerminalCtrl(SessionService,$scope,$cookies,$stateParams,$location,shar
         var image = sharedProperties.getImage();
         $scope.tag = image.Tag;
     } else if(sharedProperties.isCreate()) {
-        $scope.tag = 'latest';
+        console.log(sharedProperties.getDepTag());
+        $scope.tag = sharedProperties.getDepTag();
     } else {
         return;
     }

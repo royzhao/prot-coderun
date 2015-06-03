@@ -5,18 +5,18 @@
 </div>
 
 <div class="row">
-	<div class="col-lg-4 col-md-6 col-xs-12">
-		<rd-widget>
-			<rd-widget-body>
-				<div class="widget-icon green pull-left">
-					<i class="fa fa-users"></i>
-				</div>
-				<div class="title">80</div>
-				<div class="comment">有80个用户运行了你的代码</div>
-			</rd-widget-body>
-		</rd-widget>
-	</div>
-	<div class="col-lg-4 col-md-6 col-xs-12">
+	<!--<div class="col-lg-4 col-md-6 col-xs-12">-->
+		<!--<rd-widget>-->
+			<!--<rd-widget-body>-->
+				<!--<div class="widget-icon green pull-left">-->
+					<!--<i class="fa fa-users"></i>-->
+				<!--</div>-->
+				<!--<div class="title">80</div>-->
+				<!--<div class="comment">有80个用户运行了你的代码</div>-->
+			<!--</rd-widget-body>-->
+		<!--</rd-widget>-->
+	<!--</div>-->
+	<div class="col-lg-6 col-md-6 col-xs-12">
 		<rd-widget>
 			<rd-widget-body>
 				<div class="widget-icon red pull-left">
@@ -27,14 +27,14 @@
 			</rd-widget-body>
 		</rd-widget>
 	</div>
-	<div class="col-lg-4 col-md-6 col-xs-12">
+	<div class="col-lg-6 col-md-6 col-xs-12">
 		<rd-widget>
 			<rd-widget-body>
 				<div class="widget-icon orange pull-left">
 					<i class="fa fa-sitemap"></i>
 				</div>
-				<div class="title">225</div>
-				<div class="comment">总共有225个代码</div>
+				<div class="title">{{codenum}}</div>
+				<div class="comment">总共有{{codenum}}个代码</div>
 			</rd-widget-body>
 		</rd-widget>
 	</div>
@@ -94,7 +94,16 @@
                 <a href="/dashboard.html#/imagehub">更多</a>
             </rd-widget-header>
             <rd-widget-body classes="medium no-padding">
-                <div class="table-responsive">
+                <div ng-show="flag.hotimages.show">
+                    <legend >{{flag.hotimages.msg}}</legend>
+                    <div class="bubblingG" style="
+margin-left: 144px;">
+                        <span id="bubblingG_1"></span>
+                        <span id="bubblingG_2"></span>
+                        <span id="bubblingG_3"></span>
+                    </div>
+                </div>
+                <div class="table-responsive" ng-show="!flag.hotimages.show">
                     <table class="table">
                         <thead>
                         <tr><th class="text-center">镜像名称</th><th>解释</th><th>状态</th></tr>
@@ -128,16 +137,32 @@
                 <a href="#">更多</a>
             </rd-widget-header>
             <rd-widget-body classes="medium no-padding">
-                <div class="table-responsive">
+                <div ng-show="flag.hotcode.show">
+                    <legend >{{flag.hotcode.msg}}</legend>
+                    <div class="bubblingG" style="
+margin-left: 144px;">
+                        <span id="bubblingG_1"></span>
+                        <span id="bubblingG_2"></span>
+                        <span id="bubblingG_3"></span>
+                    </div>
+                </div>
+                <div class="table-responsive" ng-show="!flag.hotcode.show">
                     <table class="table">
                         <thead>
-                        <tr><th class="text-center">代码名称</th><th>类型</th><th>依赖镜像</th></tr>
+                        <tr><th class="text-center">代码名称</th><th>点赞数</th><th>创建时间</th></tr>
                         </thead>
                         <tbody>
-                        <tr><td class="text-center">hello world</td><td>本地程序</td><td>C运行环境</td></tr>
-                        <tr><td class="text-center">测试一下</td><td>本地程序</td><td>Go运行环境</td></tr>
-                        <tr><td class="text-center">wordpress</td><td>网络程序</td><td>LAMP</td></tr>
-                        </tbody>
+                        <tr ng-repeat="code in hotcodedata">
+                            <td class="text-center">
+                                <a href="#/code/{{code.id}}">{{code.name}}</a>
+                            </td>
+                            <td>
+                                {{code.star}}
+                            </td>
+                            <td>
+                                {{code.create_date}}
+                            </td>
+                        </tr>
                     </table>
                 </div>
             </rd-widget-body>
@@ -178,15 +203,32 @@
                 <a href="#">更多</a>
 			</rd-widget-header>
 			<rd-widget-body classes="medium no-padding">
-				<div class="table-responsive">
+                <div ng-show="flag.mycode.show">
+                    <legend >{{flag.mycode.msg}}</legend>
+                    <div class="bubblingG" style="
+margin-left: 144px;">
+                        <span id="bubblingG_1"></span>
+                        <span id="bubblingG_2"></span>
+                        <span id="bubblingG_3"></span>
+                    </div>
+                </div>
+				<div class="table-responsive" ng-show="!flag.mycode.show">
 					<table class="table">
 						<thead>
-							<tr><th class="text-center">代码名称</th><th>类型</th><th>依赖镜像</th></tr>
+							<tr><th class="text-center">代码名称</th><th>点赞数</th><th>创建时间</th></tr>
 						</thead>
 						<tbody>
-							<tr><td class="text-center">hello world</td><td>本地程序</td><td>C运行环境</td></tr>
-							<tr><td class="text-center">测试一下</td><td>本地程序</td><td>Go运行环境</td></tr>
-							<tr><td class="text-center">wordpress</td><td>网络程序</td><td>LAMP</td></tr>
+                        <tr ng-repeat="code in codedata">
+                            <td class="text-center">
+                                <a href="#/code/{{code.id}}">{{code.name}}</a>
+                            </td>
+                            <td>
+                                {{code.star}}
+                            </td>
+                            <td>
+                                {{code.create_date}}
+                            </td>
+                        </tr>
 						</tbody>
 					</table>
         		</div>

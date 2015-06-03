@@ -7,7 +7,7 @@ angular.module('Show').
         var isNeedAuth=function(uri,method){
             //check url is contain api
             if(uri.indexOf('api')){
-                if(uri.indexOf('coderun')){
+                if(uri.split('coderun')>1){
                     return false;
                 }
                 if(method == 'POST' || method== 'PUT' ||method=='DELETE'){

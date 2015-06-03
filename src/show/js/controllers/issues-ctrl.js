@@ -3,18 +3,18 @@
  */
 angular
     .module('Show')
-    .controller('IssuesCtrl', ['$sce','SessionService','$scope', '$stateParams','MyCodeService','CodeAPIService', IssuesCtrl]);
+    .controller('IssuesCtrl', ['PictureService','$sce','SessionService','$scope', '$stateParams','MyCodeService','CodeAPIService', IssuesCtrl]);
 
-function IssuesCtrl($sce,SessionService,$scope,$stateParams,MyCodeService,CodeAPIService) {
+function IssuesCtrl(PictureService,$sce,SessionService,$scope,$stateParams,MyCodeService,CodeAPIService) {
     var codeid = $stateParams.codeid;
     var issueid =parseInt($stateParams.issueid);
+    if(isNaN(issueid)){
+        return;
+    }
     if(SessionService.isLogin() == true){
         $scope.is_login = true;
     }else{
         $scope.is_login = false;
-    }
-    if(issueid == NaN){
-        return;
     }
     $scope.flag = {};
     $scope.is_author = true;
@@ -61,11 +61,11 @@ function IssuesCtrl($sce,SessionService,$scope,$stateParams,MyCodeService,CodeAP
         console.log($scope.newcomment);
         var user = SessionService.getUserinfo();
         var userid = parseInt(user.userid);
-        if(userid == NaN){
+        if(isNaN(userid)){
             return;
         }
         $scope.newcomment.author = userid;
-        $scope.newcomment.reply_to = $scope.flag.issue.issue.author;
+        $scope.newcomment.reply_to = $scope.flag.issue.issue.author.meta.id -0;
         CodeAPIService.addCodeIssueComment(user.userid,issueid,$scope.newcomment)
             .then(function(data){
                 console.log(data);
@@ -84,18 +84,18 @@ function IssuesCtrl($sce,SessionService,$scope,$stateParams,MyCodeService,CodeAP
     }
 
     $scope.replay_to_user = function(obj){
-        if(typeof(obj.author) == "string"){
-            $scope.newcomment.reply_to = parseInt(obj.author);
+        if(typeof(obj.author.meta.id) == "string"){
+            $scope.newcomment.reply_to = parseInt(obj.author.meta.id);
         }else{
-            $scope.newcomment.reply_to = obj.author;
+            $scope.newcomment.reply_to = obj.author.meta.id - 0;
         }
 
         $scope.newcomment.content += '<div id="quote"><blockquote><font size="2"><a href="">' +
         '<font color="#999999">' +'test'+
         '发表于' +obj.create_date+
-    '</font></a></font>' +
-    '<br> ' +obj.content+
-    '</blockquote></div><br/>&nbsp;&nbsp;';
+        '</font></a></font>' +
+        '<br> ' +obj.content+
+        '</blockquote></div><br/>&nbsp;&nbsp;';
         var user = SessionService.getUserinfo();
         if(typeof(user.userid) == "string"){
             $scope.newcomment.author = parseInt(user.userid);
@@ -123,12 +123,15 @@ function IssuesCtrl($sce,SessionService,$scope,$stateParams,MyCodeService,CodeAP
                 if(data.list != null){
                     for(var i=0;i<data.list.length;i++){
                         data.list[i].content = $sce.trustAsHtml(data.list[i].content);
-                        data.list[i].create_date = data.list[i].create_date.split('.')[0]
+                        data.list[i].create_date = data.list[i].create_date.split('.')[0];
+                        data.list[i].author = {};
+                        data.list[i].author.avatar = PictureService.ConvertKey2Src(data.list[i].Author.info.Avatar,120,120);
+                        data.list[i].author.meta = data.list[i].Author.meta
                     }
-
                 }
 
                 $scope.flag.issue.issue = data.issue;
+                $scope.flag.issue.issue.avatar = PictureService.ConvertKey2Src(data.issue.author.info.Avatar,120,120);
                 $scope.flag.issue.is_show = true;
                 $scope.pagination = [];
                 for(var i =1;i<=(data.total/data.num)+1;i++){

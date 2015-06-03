@@ -109,7 +109,12 @@ angular.module('Editor').
                     url:baseUrl+"/coderun/"+runid,
                     method:"GET"
                 });
-
+            },
+            prepareImage: function(image){
+                return RestfulService.restfulOp({
+                    url:baseUrl+"/prepare/"+image,
+                    method:"GET"
+                });
             }
 
         }

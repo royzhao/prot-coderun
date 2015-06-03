@@ -2,9 +2,9 @@
  * Created by zpl on 15-2-2.
  */
 angular.module('Editor')
-    .controller('EditorCtrl', ['$timeout','$scope', '$cookieStore','$stateParams','$localStorage', 'MyCodeService','ngDialog','Images','SessionService',EditorCtrl]);
+    .controller('EditorCtrl', ['$timeout','$scope', '$cookieStore','$stateParams','$localStorage', 'MyCodeService','ngDialog','Images','SessionService','CodeAPIService',EditorCtrl]);
 
-function EditorCtrl($timeout,$scope,$cookieStore,$stateParams,$localStorage,MyCodeService,ngDialog,Images,SessionService) {
+function EditorCtrl($timeout,$scope,$cookieStore,$stateParams,$localStorage,MyCodeService,ngDialog,Images,SessionService,CodeAPIService) {
     $scope.codeid = $stateParams.codeid;
     $scope.stepid = $stateParams.stepid;
     $scope.imageinfo = null;
@@ -16,6 +16,11 @@ function EditorCtrl($timeout,$scope,$cookieStore,$stateParams,$localStorage,MyCo
     console.log($scope.stepid);
     $scope.flag = {}
     $scope.flag.loged = false;
+    $scope.code_show = {}
+    $scope.code_show.show = false;
+    $scope.code_show.image = "";
+    $scope.code_show.msg = "正在准备中。。"
+
     if(SessionService.isLogin()== true) {
         $scope.flag.loged = true;
         $scope.user = SessionService.getUserinfo();
@@ -73,9 +78,15 @@ function EditorCtrl($timeout,$scope,$cookieStore,$stateParams,$localStorage,MyCo
                     Images.get({id: $scope.step.meta.image_id, action: 'name'}).$promise.then(function(data){
                         $scope.imageinfo =data
                         $scope.page.show = true;
+                        //准备容器
+                        $scope.code_show.image = data.ImageName+":"+data.Tag;
+                        $scope.prepareImage();
                     });
                 }else{
                             $scope.page.show = true;
+                            //准备容器
+                            $scope.code_show.image = data.ImageName+":"+data.Tag;
+                            $scope.prepareImage();
                 }
             }
         })
@@ -99,6 +110,27 @@ function EditorCtrl($timeout,$scope,$cookieStore,$stateParams,$localStorage,MyCo
     // Called when the editor is completely ready.
 
     //func
+    //prepareImage
+
+    $scope.prepareImage = function(){
+        if ($scope.code_show.show || $scope.code_show.image == ""){
+            return;
+        }else{
+            CodeAPIService.prepareImage($scope.code_show.image).
+                then(function(data){
+                    if(data.status == 3){
+                        $scope.code_show.show = true;
+                    }else if(data.status == 7){
+                        setTimeout($scope.prepareImage,6000);
+                    }else{
+                        $scope.code_show.msg = "准备失败。！"
+                    }
+                },function(err){
+                    $scope.code_show.msg = "准备失败。！";
+                })
+        }
+
+    }
     $scope.getImageNameByID = function(id){
         //for (var i = $localStorage.myImages.length - 1; i >= 0; i--) {
         //    if($localStorage.myImages[i].ImageId == id){
