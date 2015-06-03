@@ -56,7 +56,7 @@ angular.module('Show').config(['$httpProvider','$stateProvider', '$urlRouterProv
                 templateUrl: 'templates/imagehub_table.html'
             })
             .state('code', {
-                url: '/code/:codeid',
+                url: '/code/:codeid/user/:userid',
                 templateUrl: 'templates/single_code.html'
             })
             .state('issue',{

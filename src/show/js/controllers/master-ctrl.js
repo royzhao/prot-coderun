@@ -3,9 +3,9 @@
  */
 
 angular.module('Show')
-    .controller('MasterCtrl', ['$scope', '$cookieStore','SessionService', MasterCtrl]);
+    .controller('MasterCtrl', ['PictureService','$scope', '$cookieStore','SessionService', MasterCtrl]);
 
-function MasterCtrl($scope, $cookieStore,SessionService) {
+function MasterCtrl(PictureService,$scope, $cookieStore,SessionService) {
 
     //func
     $scope.logout = function(){
@@ -17,6 +17,7 @@ function MasterCtrl($scope, $cookieStore,SessionService) {
     if(SessionService.isLogin() == true){
         $scope.user = SessionService.getUserinfo();
         $scope.flag.loged = true;
+        $scope.user_avatar = PictureService.ConvertKey2Src($scope.user.avatar,40,40);
     }else{
         $scope.flag.loged = false;
     }

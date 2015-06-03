@@ -9,11 +9,16 @@ angular
 
 function MySingleCodeCtrl(CodeAPIService,$scope,$stateParams,MyCodeService,$localStorage,SessionService) {
     var codeid = $stateParams.codeid;
+    var code_userid = $stateParams.userid;
     $scope.flag = {};
-    $scope.is_author = false;
     $scope.flag.is_show = true;
+    $scope.is_author = false;
     if(SessionService.isLogin() == true){
         $scope.is_login = true;
+        var u = SessionService.getUserinfo();
+        if (u.userid == code_userid){
+            $scope.is_author = true;
+        }
     }else{
         $scope.is_login = false;
     }

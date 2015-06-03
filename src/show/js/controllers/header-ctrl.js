@@ -5,9 +5,9 @@ HeaderCtrl
 
 angular
     .module('Show')
-    .controller('HeaderCtrl', ['$scope','SessionService', HeaderCtrl]);
+    .controller('HeaderCtrl', ['PictureService','$scope','SessionService', HeaderCtrl]);
 
-function HeaderCtrl($scope,SessionService){
+function HeaderCtrl(PictureService,$scope,SessionService){
 
     $scope.flag = {}
     $scope.flag.loged = false;

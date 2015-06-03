@@ -2,9 +2,9 @@
  * Created by zpl on 15-2-2.
  */
 angular.module('Editor')
-    .controller('EditorCtrl', ['$timeout','$scope', '$cookieStore','$stateParams','$localStorage', 'MyCodeService','ngDialog','Images','SessionService','CodeAPIService',EditorCtrl]);
+    .controller('EditorCtrl', ['PictureService','$timeout','$scope', '$cookieStore','$stateParams','$localStorage', 'MyCodeService','ngDialog','Images','SessionService','CodeAPIService',EditorCtrl]);
 
-function EditorCtrl($timeout,$scope,$cookieStore,$stateParams,$localStorage,MyCodeService,ngDialog,Images,SessionService,CodeAPIService) {
+function EditorCtrl(PictureService,$timeout,$scope,$cookieStore,$stateParams,$localStorage,MyCodeService,ngDialog,Images,SessionService,CodeAPIService) {
     $scope.codeid = $stateParams.codeid;
     $scope.stepid = $stateParams.stepid;
     $scope.imageinfo = null;
@@ -24,6 +24,8 @@ function EditorCtrl($timeout,$scope,$cookieStore,$stateParams,$localStorage,MyCo
     if(SessionService.isLogin()== true) {
         $scope.flag.loged = true;
         $scope.user = SessionService.getUserinfo();
+                $scope.user_avatar = PictureService.ConvertKey2Src($scope.user.avatar,40,40);
+
     }
 
 

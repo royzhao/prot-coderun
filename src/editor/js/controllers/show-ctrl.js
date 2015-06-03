@@ -2,9 +2,9 @@
  * Created by zpl on 15-2-10.
  */
 angular.module('Editor')
-    .controller('ShowCtrl', ['$timeout','$scope', '$cookieStore','$stateParams','$localStorage', 'MyCodeService','ngDialog', '$sce','Images','SessionService','CodeAPIService',ShowCtrl]);
+    .controller('ShowCtrl', ['PictureService','$timeout','$scope', '$cookieStore','$stateParams','$localStorage', 'MyCodeService','ngDialog', '$sce','Images','SessionService','CodeAPIService',ShowCtrl]);
 
-function ShowCtrl($timeout,$scope,$cookieStore,$stateParams,$localStorage,MyCodeService,ngDialog,$sce,Images,SessionService,CodeAPIService){
+function ShowCtrl(PictureService,$timeout,$scope,$cookieStore,$stateParams,$localStorage,MyCodeService,ngDialog,$sce,Images,SessionService,CodeAPIService){
     $scope.codeid = $stateParams.codeid;
     $scope.stepid = $stateParams.stepid;
     $scope.flag = {};
@@ -34,6 +34,8 @@ function ShowCtrl($timeout,$scope,$cookieStore,$stateParams,$localStorage,MyCode
     if(SessionService.isLogin() == true){
         $scope.flag.loged = true;
         $scope.user = SessionService.getUserinfo();
+        $scope.user_avatar = PictureService.ConvertKey2Src($scope.user.avatar,40,40);
+
     }else{
         $scope.flag.loged = false;
     }
