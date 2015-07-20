@@ -9,7 +9,9 @@ var gulp = require('gulp'),
     less = require('gulp-less'),
     rename = require('gulp-rename'),
     fileinclude = require('gulp-file-include'),
-    minifyHTML = require('gulp-minify-html');
+    minifyHTML = require('gulp-minify-html'),
+    ngAnnotate = require('gulp-ng-annotate'),
+    RevAll = require('gulp-rev-all');
     //rev = require('gulp-rev'),
     //revCollector = require('gulp-rev-collector');
 
@@ -55,10 +57,20 @@ var paths = {
 };
 
 //var dist = "D:\\workspace\\go\\src\\code_run_server\\public";
-var dist = "/home/zpl/workspace/code_web/src/mashangpao_code_web/public"
+//var dist = "/home/zpl/workspace/code_web/src/mashangpao_code_web/public"
 //var dist = "/home/dylan/workspace/go/gopath/src/coderun/code_run_server/public"
+var dist = "/usr/share/nginx/html/dist";
+var dist_rev = "rev";
 
-var dist_rev= "/home/zpl/workspace/code_web/src/mashangpao_code_web/rev"
+/*
+revison all
+ */
+gulp.task('revison',function(){
+    var revAll = new RevAll();
+    gulp.src(dist+"/**")
+        .pipe(revAll.revision())
+        .pipe(gulp.dest(dist_rev));
+})
 /**
  * Handle bower components from index
  */
@@ -119,6 +131,7 @@ gulp.task('dash-usemin', function() {
     return gulp.src(paths.dash_index)
         .pipe(usemin({
             js: [minifyJs(), 'concat'],
+            js1: [minifyJs(), 'concat'],
             css: [minifyCss({keepSpecialComments: 0}), 'concat'],
         }))
         .pipe(gulp.dest(dist+'/'));
@@ -131,6 +144,7 @@ gulp.task('custom-dash-images', function() {
 
 gulp.task('custom-dash-js', function() {
     return gulp.src(paths.dash_scripts)
+        //.pipe(ngAnnotate)
         //.pipe(minifyJs())
         .pipe(concat('dashboard.min.js'))
         .pipe(gulp.dest(dist+'/js'));
@@ -406,7 +420,7 @@ var debug = false;
 /**
  * Gulp tasks
  */
-gulp.task('build', ['usemin', 'build-assets', 'build-custom','build-custom-editor','build-custom-image','build-custom-home','build-custom-show']);
+gulp.task('build', ['usemin', 'build-assets', 'build-custom','build-custom-editor','build-custom-home','build-custom-show','build-custom-image']);
 gulp.task('zpl',['build', 'webserver', 'livereload', 'watch'],function(){
    	dist ="/home/zpl/workspace/code_web/src/mashangpao_code_web/public";
 	 debug = debug || false;
