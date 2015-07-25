@@ -16,7 +16,7 @@ angular.module('Image')
                 elm.bind('blur',function(evt) {
                     $http({
                         method: 'GET',
-                        url: '/dockerapi/images/' + name + '/verify'
+                        url: '/api/images/' + name + '/verify'
                     }).success(function(data, status, headers, cfg) {
                         ctrl.$setValidity('unique', data.IsUnique);
                     }).error(function(data, status, headers, cfg) {

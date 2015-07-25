@@ -49,7 +49,7 @@ function ImageCtrl(SessionService,$scope,$cookies,$stateParams,Images,Image,$loc
         //$scope.bm = $scope.basics[0].ImageName;
         //alert( $scope.basics[0].ImageName);
     });
-    //var test = $resource('/dockerapi/images/:id/:action', {id: '@id',action:'list' }, {});
+    //var test = $resource('/api/images/:id/:action', {id: '@id',action:'list' }, {});
     //var params;
     //$scope.basics = test.query({id:1}, function() {
     //    params = $scope.basics;
@@ -60,7 +60,7 @@ function ImageCtrl(SessionService,$scope,$cookies,$stateParams,Images,Image,$loc
     //};
     $scope.processForm = function() {
         //alert($scope.basics[0].ImageName);
-        //var a = $resource('/dockerapi/images/star', {}, {'save': { isArray: false, method: 'POST' }});
+        //var a = $resource('/api/images/star', {}, {'save': { isArray: false, method: 'POST' }});
         //a.save({id: 1, uid: 1}, params).$promise.then(function(c){
         //}, function(err){
         //});
