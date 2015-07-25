@@ -8,7 +8,7 @@ angular
     .controller('MyImageCtrl', ['$scope','$resource','Images', '$cookies', MyImageCtrl]);
 
 function MyImageCtrl($scope,$resource,Images,$cookies) {
-    //var imagequery = $resource('/dockerapi/images/:id/:action', {id: '@id',action:'list' }, {});
+    //var imagequery = $resource('/api/images/:id/:action', {id: '@id',action:'list' }, {});
     //$scope.imagedata = imagequery.query({id:1}, function() {
     //});
     //$cookieStore.put("token","aa");
