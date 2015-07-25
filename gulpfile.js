@@ -57,7 +57,8 @@ var paths = {
 };
 
 //var dist = "D:\\workspace\\go\\src\\code_run_server\\public";
-var dist = "/home/zpl/workspace/code_web/src/mashangpao_code_web/public"
+//var dist = "/home/zpl/workspace/code_web/src/mashangpao_code_web/public"
+var dist = "/usr/share/nginx/html/public"
 //var dist = "/home/zpl/workspace/"
 //var dist = "/home/dylan/workspace/go/gopath/src/coderun/code_run_server/public"
 //var dist = "/usr/share/nginx/html/dist";

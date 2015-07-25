@@ -16,7 +16,7 @@ function MyImageHubCtrl($scope,$resource,$stateParams,ImagehubService,Info) {
     // Info.get({action:'get',uid:'1'},{},function(data){
 
     // })
-    //var myimagelist = $resource('/dockerapi/images/json?all=0', {}, {}).query();
+    //var myimagelist = $resource('/api/images/json?all=0', {}, {}).query();
     //var myimagelist = [
     //    {
     //        'imageid':2,

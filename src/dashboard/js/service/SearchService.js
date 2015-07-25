@@ -6,7 +6,7 @@ angular.module('RDash').
         return {
             getHotImages: function(page,num,key){
                 return RestfulService.restfulOp({
-                    url:imageUrl+"/images?page="+page+"&num="+num+"&key="+key,
+                    url:baseUrl+"/images?page="+page+"&num="+num+"&key="+key,
                     method:"GET"
                 });
             }
