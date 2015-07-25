@@ -1,6 +1,6 @@
 angular.module('Home')
     .factory('Image', ['$resource',function($resource) {
-        return $resource('/dockerapi/image/:action',{},{
+        return $resource('/api/image/:action',{},{
             'save': { isArray: false, method: 'POST' },
             'edit': { isArray: false, method: 'POST' },
             'delete': { isArray: false, method: 'DELETE' },

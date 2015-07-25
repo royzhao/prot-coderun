@@ -9,7 +9,7 @@ angular
     .controller('MyImageHubCtrl', ['$scope', '$resource','Images', MyImageHubCtrl]);
 
 function MyImageHubCtrl($scope,$resource,Images) {
-    //var myimagelist = $resource('/dockerapi/images/json?all=0', {}, {}).query();
+    //var myimagelist = $resource('/api/images/json?all=0', {}, {}).query();
     //var myimagelist = [
     //    {
     //        'imageid':2,
