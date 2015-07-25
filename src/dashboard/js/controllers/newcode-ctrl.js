@@ -17,7 +17,7 @@ function NewCodeCtrl($location,$scope,MyCodeService,AlertOnceService,$stateParam
         MyCodeService.getCodeInfoById(codeid,function(data){
             if(data == null){
                 AlertOnceService.addNotify('danger',"添加失败,请稍后重试");
-                $location.path('/code/'+data.id);
+                $location.path('/code/'+data.id+"/user/"+data.user_id);
                 return;
             }
             $scope.newcodes = data;
@@ -37,7 +37,7 @@ function NewCodeCtrl($location,$scope,MyCodeService,AlertOnceService,$stateParam
                 AlertOnceService.addNotify('danger',"添加失败,请稍后重试");
                 return;
             }
-            $location.path('/code/'+data.id);
+            $location.path('/code/'+data.id+"/user/"+data.user_id);
         });
     };
     $scope.reset2 = function(){

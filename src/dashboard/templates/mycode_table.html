@@ -50,7 +50,7 @@ margin-left: 144px;">
                             <!--<tr><td><a href="#">测试一下</a></td><td>本地程序</td><td>Go运行环境</td></tr>-->
                             <!--<tr><td><a href="#">wordpress</a></td><td>网络程序</td><td>LAMP</td></tr>-->
                             <tr ng-repeat="code in codedata">
-                                <td><a href="#/code/{{code.id}}">{{code.name}}</a></td>
+                                <td><a href="#/code/{{code.id}}/user/{{code.user_id}}">{{code.name}}</a></td>
                                 <td>{{code.description}}</td>
                                 <td>{{code.create_date}}</td>
                             </tr>

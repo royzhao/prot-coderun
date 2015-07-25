@@ -6,7 +6,7 @@ angular.module('Editor').
     factory('httpInterceptor',['$q','$cookies', function($q,$cookies){
         var isNeedAuth=function(uri,method){
             //check url is contain api
-            if(uri.indexOf('api')){
+            if(uri.indexOf('api')>0){
                 if(uri.split('coderun')>1){
                     return false;
                 }
@@ -18,6 +18,9 @@ angular.module('Editor').
         };
         var httpInterceptor = {
             request: function(config) {
+                if(config.url.indexOf('api')>0){
+                    config.url =apiService + config.url;
+                }
                 if (isNeedAuth(config.url,config.method)) {
                     if(($cookies.get("token"))==undefined) {
                         return $q.reject({status:401,error:'请登陆'});

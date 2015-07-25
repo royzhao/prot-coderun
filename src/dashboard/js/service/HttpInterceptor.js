@@ -16,11 +16,9 @@ angular.module('RDash').
         };
         var httpInterceptor = {
             request: function(config) {
-                console.log(config.url.indexOf('api'))
                 if(config.url.indexOf('api')>0){
                     config.url =apiService + config.url;
                 }
-                console.log(config.url);
                 if (isNeedAuth(config.url,config.method)) {
                     if(($cookies.get("token"))==undefined) {
                         return $q.reject({status:401,error:'请登陆'});
